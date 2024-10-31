@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>4 Pentetration Testing Process | Hacking Notes</title>
+  <meta name="description" content="4 Pentetration Testing Process | Hacking Notes" />
+  <meta name="generator" content="bookdown 0.41 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="4 Pentetration Testing Process | Hacking Notes" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="4 Pentetration Testing Process | Hacking Notes" />
+  
+  
+  
+
+<meta name="author" content="notluken" />
+
+
+<meta name="date" content="2024-10-30" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="laws-and-regulations.html"/>
+<link rel="next" href="enumeration.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">hacking</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Whoami</a></li>
+<li class="chapter" data-level="2" data-path="pentest-overview.html"><a href="pentest-overview.html"><i class="fa fa-check"></i><b>2</b> Pentest Overview</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="pentest-overview.html"><a href="pentest-overview.html#risk-management"><i class="fa fa-check"></i><b>2.1</b> Risk Management</a></li>
+<li class="chapter" data-level="2.2" data-path="pentest-overview.html"><a href="pentest-overview.html#vulnerability-assessments"><i class="fa fa-check"></i><b>2.2</b> Vulnerability Assessments</a></li>
+<li class="chapter" data-level="2.3" data-path="pentest-overview.html"><a href="pentest-overview.html#testing-methods"><i class="fa fa-check"></i><b>2.3</b> Testing Methods</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="pentest-overview.html"><a href="pentest-overview.html#external-penetration-test"><i class="fa fa-check"></i><b>2.3.1</b> External Penetration Test</a></li>
+<li class="chapter" data-level="2.3.2" data-path="pentest-overview.html"><a href="pentest-overview.html#internal-penetration-test"><i class="fa fa-check"></i><b>2.3.2</b> Internal Penetration Test</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="pentest-overview.html"><a href="pentest-overview.html#types-of-penetration-testing"><i class="fa fa-check"></i><b>2.4</b> Types of Penetration Testing</a></li>
+<li class="chapter" data-level="2.5" data-path="pentest-overview.html"><a href="pentest-overview.html#types-of-testing-environments"><i class="fa fa-check"></i><b>2.5</b> Types of Testing Environments</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="laws-and-regulations.html"><a href="laws-and-regulations.html"><i class="fa fa-check"></i><b>3</b> Laws and Regulations</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="laws-and-regulations.html"><a href="laws-and-regulations.html#usa"><i class="fa fa-check"></i><b>3.1</b> USA</a></li>
+<li class="chapter" data-level="3.2" data-path="laws-and-regulations.html"><a href="laws-and-regulations.html#europe"><i class="fa fa-check"></i><b>3.2</b> Europe</a></li>
+<li class="chapter" data-level="3.3" data-path="laws-and-regulations.html"><a href="laws-and-regulations.html#uk"><i class="fa fa-check"></i><b>3.3</b> UK</a></li>
+<li class="chapter" data-level="3.4" data-path="laws-and-regulations.html"><a href="laws-and-regulations.html#india"><i class="fa fa-check"></i><b>3.4</b> India</a></li>
+<li class="chapter" data-level="3.5" data-path="laws-and-regulations.html"><a href="laws-and-regulations.html#china"><i class="fa fa-check"></i><b>3.5</b> China</a></li>
+<li class="chapter" data-level="3.6" data-path="laws-and-regulations.html"><a href="laws-and-regulations.html#precautionary-measures-during-penetration-tests"><i class="fa fa-check"></i><b>3.6</b> Precautionary Measures during Penetration Tests</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="pentetration-testing-process.html"><a href="pentetration-testing-process.html"><i class="fa fa-check"></i><b>4</b> Pentetration Testing Process</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="pentetration-testing-process.html"><a href="pentetration-testing-process.html#testing-methods-1"><i class="fa fa-check"></i><b>4.1</b> Testing Methods</a></li>
+<li class="chapter" data-level="4.2" data-path="pentetration-testing-process.html"><a href="pentetration-testing-process.html#types-of-penetration-testing-1"><i class="fa fa-check"></i><b>4.2</b> Types of Penetration Testing</a></li>
+<li class="chapter" data-level="4.3" data-path="pentetration-testing-process.html"><a href="pentetration-testing-process.html#types-of-testing-environments-1"><i class="fa fa-check"></i><b>4.3</b> Types of Testing Environments</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="enumeration.html"><a href="enumeration.html"><i class="fa fa-check"></i><b>5</b> Enumeration</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Hacking Notes</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="pentetration-testing-process" class="section level1 hasAnchor" number="4">
+<h1><span class="header-section-number">4</span> Pentetration Testing Process<a href="pentetration-testing-process.html#pentetration-testing-process" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>IT is an integral part of nearly every company. The amount of critical and confidential data stored in IT systems is constantly growing, as is dependence on the uninterrupted functioning of the IT systems in use. Therefore, attacks against corporate networks, disruption of system availability, and other ways of causing significant damage to a company (such as ransomware attacks) are becoming increasingly common. Important company information obtained through security breaches and cyber-attacks may be sold to competitors, leaked on public forums, or used for other nefarious purposes. System failures are deliberately triggered because they are increasingly difficult to counteract.</p>
+<p>A <code>Penetration Test</code> (<code>Pentest</code>) is an organized, targeted, and authorized attack attempt to test IT infrastructure and its defenders to determine their susceptibility to IT security vulnerabilities. A pentest uses methods and techniques that real attackers use. As penetration testers, we apply various techniques and analyses to gauge the impact that a particular vulnerability or chain of vulnerabilities may have on the confidentiality, integrity, and availability of an organization’s IT systems and data.</p>
+<ul>
+<li><code>A pentest aims to uncover and identify ALL vulnerabilities in the systems under investigation and improve the security for the tested systems.</code></li>
+</ul>
+<p>Other assessments, such as a <code>red team assessment</code>, may be scenario-based and focus on only the vulnerabilities leveraged to reach a specific end goal (i.e., accessing the CEO’s email inbox or obtaining a flag planted on a critical server).</p>
+<div id="risk-management-1" class="section level4 hasAnchor" number="4.0.0.1">
+<h4><span class="header-section-number">4.0.0.1</span> Risk Management<a href="pentetration-testing-process.html#risk-management-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>In general, it is also a part of <code>risk management</code> for a company. The main goal of IT security risk management is to identify, evaluate, and mitigate any potential risks that could damage the confidentiality, integrity, and availability of an organization’s information systems and data and reduce the overall risk to an acceptable level. This includes identifying potential threats, evaluating their risks, and taking the necessary steps to reduce or eliminate them. This is done by implementing the appropriate security controls and policies, including access control, encryption, and other security measures. By taking the time to properly manage the security risks of an organization’s IT systems, it is possible to ensure that the data is kept safe and secure.</p>
+<p>However, we cannot eliminate every risk. There’s still the nature of the inherent risk of a security breach that is present even when the organization has taken all reasonable steps to manage the risk. Therefore, some risks will remain. Inherent risk is the level of risk that is present even when the appropriate security controls are in place. Companies can accept, transfer, avoid and mitigate risks in various ways. For example, they can purchase insurance to cover certain risks, such as natural disasters or accidents. By entering into a contract, they can also transfer their risks to another party, such as a third-party service provider. Additionally, they can implement preventive measures to reduce the likelihood of certain risks occurring, and if certain risks do occur, they can put in place processes to minimize their impact. Finally, they can use financial instruments, such as derivatives, to reduce the economic consequences of specific risks. All of these strategies can help companies effectively manage their risks.</p>
+<p>During a pentest, we prepare detailed documentation on the steps taken and the results achieved. However, it is the client’s responsibility or the operator of their systems under investigation to rectify the vulnerabilities found. Our role is as trusted advisors to report vulnerabilities, detailed reproduction steps, and provide appropriate remediation recommendations, but we do not go in and apply patches or make code changes, etc. It is important to note that a pentest is not monitoring the IT infrastructure or systems but a momentary snapshot of the security status. A statement to this regard should be reflected in our penetration test report deliverable.</p>
+</div>
+<div id="vulnerability-assessments-1" class="section level4 hasAnchor" number="4.0.0.2">
+<h4><span class="header-section-number">4.0.0.2</span> Vulnerability Assessments<a href="pentetration-testing-process.html#vulnerability-assessments-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p><code>Vulnerability analysis</code> is a generic term that can include vulnerability or security assessments and penetration tests. In contrast to a penetration test, vulnerability or security assessments are performed using purely automated tools. Systems are checked against known issues and security vulnerabilities by running scanning tools like <a href="https://www.tenable.com/products/nessus">Nessus</a>, <a href="https://www.qualys.com/apps/vulnerability-management/">Qualys</a>, <a href="https://www.openvas.org/">OpenVAS</a>, and similar. In most cases, these automated checks cannot adapt the attacks to the configurations of the target system. This is why manual testing conducted by an experienced human tester is essential.</p>
+<p>On the other hand, a pentest is a mix of automated and manual testing/validation and is performed after extensive, in most cases, manual information gathering. It is individually tailored and adjusted to the system being tested. Planning, execution, and selection of the tools used are much more complex in a pentest. Both penetration tests and other security assessments may only be carried out after mutual agreement between the contracting company and the organization that employs the penetration tester. This is because individual tests and activities performed during the pentest could be treated as criminal offenses if the tester does not have explicit written authorization to attack the customer’s systems. The organization commissioning the penetration test may only request testing against its’ own assets. If they are using any third parties to host websites or other infrastructure, they need to gain explicit written approval from these entities in most cases. Companies like Amazon no longer require prior authorization for testing certain services per this <a href="https://aws.amazon.com/security/penetration-testing/">policy</a>, if a company is using AWS to host some or all of their infrastructure. This varies from provider to provider, so it is always best to confirm asset ownership with the client during the scoping phase and check to see if any third parties they use require a written request process before any testing is performed.</p>
+<p>A successful pentest requires a considerable amount of organization and preparation. There must be a straightforward process model that we can follow and, at the same time, adapt to the needs of our clients, as every environment we encounter will be different and have its own nuances. In some cases, we may work with clients who have never experienced a pentest before, and we have to be able to explain this process in detail to make sure they have a clear understanding of our planned activities, and we help them scope the assessment accurately.</p>
+<p>In principle, employees are not informed about the upcoming penetration tests. However, managers may decide to inform their employees about the tests. This is because employees have a right to know when they have no expectation of privacy.</p>
+<p>Because we, as penetration testers, can find personal data, such as names, addresses, salaries, and much more. The best thing we can do to uphold the <a href="https://www.gov.uk/data-protection">Data Protection Act</a> is to keep this information private. Another example would be that we get access to a database with credit card numbers, names, and CVV codes. Accordingly, we recommend that our customers improve and change the passwords as soon as possible and encrypt the data on the database.</p>
+<hr />
+</div>
+<div id="testing-methods-1" class="section level2 hasAnchor" number="4.1">
+<h2><span class="header-section-number">4.1</span> Testing Methods<a href="pentetration-testing-process.html#testing-methods-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>An essential part of the process is the starting point from which we should perform our pentest. Each pentest can be performed from two different perspectives:</p>
+<ul>
+<li><code>External</code> or <code>Internal</code></li>
+</ul>
+<div id="external-penetration-test-1" class="section level4 hasAnchor" number="4.1.0.1">
+<h4><span class="header-section-number">4.1.0.1</span> External Penetration Test<a href="pentetration-testing-process.html#external-penetration-test-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Many pentests are performed from an external perspective or as an anonymous user on the Internet. Most customers want to ensure that they are as protected as possible against attacks on their external network perimeter. We can perform testing from our own host (hopefully using a VPN connection to avoid our ISP blocking us) or from a VPS. Some clients will not care about stealth, while others will request that we proceed as quietly as possible and approach the target systems to avoid being banned by the firewalls and IDS/IPS systems and avoid triggering an alarm. They may ask for a stealthy or “hybrid” approach where we gradually become “noisier” to test their detection capabilities. Ultimately our goal here is to access external-facing hosts, obtain sensitive data, or gain access to the internal network.</p>
+</div>
+<div id="internal-penetration-test-1" class="section level4 hasAnchor" number="4.1.0.2">
+<h4><span class="header-section-number">4.1.0.2</span> Internal Penetration Test<a href="pentetration-testing-process.html#internal-penetration-test-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>In contrast to an external pentest, an internal pentest is when we perform testing from within the corporate network. This stage may be executed after successfully penetrating the corporate network via the external pentest or starting from an assumed breach scenario. Internal pentests may also access isolated systems with no internet access whatsoever, which usually requires our physical presence at the client’s facility.</p>
+<hr />
+</div>
+</div>
+<div id="types-of-penetration-testing-1" class="section level2 hasAnchor" number="4.2">
+<h2><span class="header-section-number">4.2</span> Types of Penetration Testing<a href="pentetration-testing-process.html#types-of-penetration-testing-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>No matter how we begin the pentest, the type of pentest plays an important role. This type determines how much information is made available to us. We can narrow down these types to the following:</p>
+<table>
+<colgroup>
+<col width="5%" />
+<col width="94%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Type</strong></th>
+<th><strong>Information Provided</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>Blackbox</code></td>
+<td><code>Minimal</code>. Only the essential information, such as IP addresses and domains, is provided.</td>
+</tr>
+<tr class="even">
+<td><code>Greybox</code></td>
+<td><code>Extended</code>. In this case, we are provided with additional information, such as specific URLs, hostnames, subnets, and similar.</td>
+</tr>
+<tr class="odd">
+<td><code>Whitebox</code></td>
+<td><code>Maximum</code>. Here everything is disclosed to us. This gives us an internal view of the entire structure, which allows us to prepare an attack using internal information. We may be given detailed configurations, admin credentials, web application source code, etc.</td>
+</tr>
+<tr class="even">
+<td><code>Red-Teaming</code></td>
+<td>May include physical testing and social engineering, among other things. Can be combined with any of the above types.</td>
+</tr>
+<tr class="odd">
+<td><code>Purple-Teaming</code></td>
+<td>It can be combined with any of the above types. However, it focuses on working closely with the defenders.</td>
+</tr>
+</tbody>
+</table>
+<p>The less information we are provided with, the longer and more complex the approach will take. For example, for a blackbox penetration test, we must first get an overview of which servers, hosts, and services are present in the infrastructure, especially if entire networks are tested. This type of recon can take a considerable amount of time, especially if the client has requested a more stealthy approach to testing.</p>
+<hr />
+</div>
+<div id="types-of-testing-environments-1" class="section level2 hasAnchor" number="4.3">
+<h2><span class="header-section-number">4.3</span> Types of Testing Environments<a href="pentetration-testing-process.html#types-of-testing-environments-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Apart from the test method and the type of test, another consideration is what is to be tested, which can be summarized in the following categories:</p>
+<table>
+<colgroup>
+<col width="11%" />
+<col width="11%" />
+<col width="27%" />
+<col width="27%" />
+<col width="21%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>Network</td>
+<td>Web App</td>
+<td>Mobile</td>
+<td>API</td>
+<td>Thick Clients</td>
+</tr>
+<tr class="even">
+<td>IoT</td>
+<td>Cloud</td>
+<td>Source Code</td>
+<td>Physical Security</td>
+<td>Employees</td>
+</tr>
+<tr class="odd">
+<td>Hosts</td>
+<td>Server</td>
+<td>Security Policies</td>
+<td>Firewalls</td>
+<td>IDS/IPS</td>
+</tr>
+</tbody>
+</table>
+<p>It is important to note that these categories can often be mixed. All listed test components may be included depending on the type of test to be performed. Now we’ll shift gears and cover the Penetration Process in-depth to see how each phase is broken down and depends on the previous one.</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="laws-and-regulations.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="enumeration.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/lukencito/hacking-notes/edit/main/02-penprocess.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": "https://github.com/lukencito/hacking-notes/blob/main/02-penprocess.Rmd",
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

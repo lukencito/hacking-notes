@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Hacking Notes</title>
-  <meta name="description" content="Hacking Notes" />
+  <title>3 Enumeration | Hacking Notes</title>
+  <meta name="description" content="3 Enumeration | Hacking Notes" />
   <meta name="generator" content="bookdown 0.41 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Hacking Notes" />
+  <meta property="og:title" content="3 Enumeration | Hacking Notes" />
   <meta property="og:type" content="book" />
   
   
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Hacking Notes" />
+  <meta name="twitter:title" content="3 Enumeration | Hacking Notes" />
   
   
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
+<link rel="prev" href="pentest-overview.html"/>
 
-<link rel="next" href="pentest-overview.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -126,13 +126,25 @@
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">Hacking Notes</h1>
-<p class="author"><em>notluken</em></p>
-<p class="date"><em>2024-10-30</em></p>
-</div>
-<div id="whoami" class="section level1 hasAnchor" number="1">
-<h1><span class="header-section-number">1</span> Whoami<a href="index.html#whoami" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="enumeration" class="section level1 hasAnchor" number="3">
+<h1><span class="header-section-number">3</span> Enumeration<a href="enumeration.html#enumeration" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p><code>Enumeration</code> is the most critical part of all. The art, the difficulty, and the goal are not to gain access to our target computer. Instead, it is identifying all of the ways we could attack a target we must find.</p>
+<p>It is not just based on the tools we use. They will only do much good if we know what to do with the information we get from them. The tools are just tools, and tools alone should never replace our knowledge and our attention to detail. Here it is much more about actively interacting with the individual services to see what information they provide us and what possibilities they offer us.</p>
+<p>It is essential to understand how these services work and what syntax they use for effective communication and interaction with the different services.</p>
+<p>This phase aims to improve our knowledge and understanding of the technologies, protocols, and how they work and learn to deal with new information and adapt to our already acquired knowledge. Enumeration is collecting as much information as possible. The more information we have, the easier it will be for us to find vectors of attack.</p>
+<p>Imagine the following situation:</p>
+<p>Our partner is not at home and has misplaced our car keys. We call our partner and ask where the keys are. If we get an answer like “in the living room,” it is entirely unclear and can take much time to find them there. However, what if our partner tells us something like “in the living room on the white shelf, next to the TV, in the third drawer”? As a result, it will be much easier to find them.</p>
+<p>It’s not hard to get access to the target system once we know how to do it. Most of the ways we can get access we can narrow down to the following two points:</p>
+<ul>
+<li><p><code>Functions and/or resources that allow us to interact with the target and/or provide additional information.</code></p></li>
+<li><p><code>Information that provides us with even more important information to access our target.</code></p></li>
+</ul>
+<p>When scanning and inspecting, we look exactly for these two possibilities. Most of the information we get comes from misconfigurations or neglect of security for the respective services. Misconfigurations are either the result of ignorance or a wrong security mindset. For example, if the administrator only relies on the firewall, Group Policy Objects (GPOs), and continuous updates, it is often not enough to secure the network.</p>
+<p><code>Enumeration is the key</code>.</p>
+<p>That’s what most people say, and they are right. However, it is too often misunderstood. Most people understand that they haven’t tried all the tools to get the information they need. Most of the time, however, it’s not the tools we haven’t tried, but rather the fact that we don’t know how to interact with the service and what’s relevant.</p>
+<p>That’s precisely the reason why so many people stay stuck in one spot and don’t get ahead. Had these people invested a couple of hours learning more about the service, how it works, and what it is meant for, they would save a few hours or even days from reaching their goal and get access to the system.</p>
+<p><code>Manual enumeration</code> is a <code>critical</code> component. Many scanning tools simplify and accelerate the process. However, these cannot always bypass the security measures of the services. The easiest way to illustrate this is to use the following example:</p>
+<p>Most scanning tools have a timeout set until they receive a response from the service. If this tool does not respond within a specific time, this service/port will be marked as closed, filtered, or unknown. In the last two cases, we will still be able to work with it. However, if a port is marked as closed and Nmap doesn’t show it to us, we will be in a bad situation. This service/port may provide us with the opportunity to find a way to access the system. Therefore, this result can take much unnecessary time until we find it.</p>
 
 </div>
             </section>
@@ -140,8 +152,8 @@
           </div>
         </div>
       </div>
+<a href="pentest-overview.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 
-<a href="pentest-overview.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -172,7 +184,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/lukencito/hacking-notes/edit/main/index.Rmd",
+"link": "https://github.com/lukencito/hacking-notes/edit/main/03-nmap.Rmd",
 "text": "Edit"
 },
 "history": {
@@ -180,7 +192,7 @@ gitbook.start({
 "text": null
 },
 "view": {
-"link": "https://github.com/lukencito/hacking-notes/blob/main/index.Rmd",
+"link": "https://github.com/lukencito/hacking-notes/blob/main/03-nmap.Rmd",
 "text": null
 },
 "download": null,
