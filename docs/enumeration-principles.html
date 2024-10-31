@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>4 Enumeration Principles | Hacking Notes</title>
+  <meta name="description" content="4 Enumeration Principles | Hacking Notes" />
+  <meta name="generator" content="bookdown 0.41 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="4 Enumeration Principles | Hacking Notes" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="4 Enumeration Principles | Hacking Notes" />
+  
+  
+  
+
+<meta name="author" content="notluken" />
+
+
+<meta name="date" content="2024-10-30" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="network-enumeration.html"/>
+
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">hacking</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Whoami</a></li>
+<li class="chapter" data-level="2" data-path="pentest-overview.html"><a href="pentest-overview.html"><i class="fa fa-check"></i><b>2</b> Pentest Overview</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="pentest-overview.html"><a href="pentest-overview.html#penetration-testing-overview"><i class="fa fa-check"></i><b>2.1</b> Penetration Testing Overview</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="pentest-overview.html"><a href="pentest-overview.html#risk-management"><i class="fa fa-check"></i><b>2.1.1</b> Risk Management</a></li>
+<li class="chapter" data-level="2.1.2" data-path="pentest-overview.html"><a href="pentest-overview.html#vulnerability-assessments"><i class="fa fa-check"></i><b>2.1.2</b> Vulnerability Assessments</a></li>
+<li class="chapter" data-level="2.1.3" data-path="pentest-overview.html"><a href="pentest-overview.html#testing-methods"><i class="fa fa-check"></i><b>2.1.3</b> Testing Methods</a></li>
+<li class="chapter" data-level="2.1.4" data-path="pentest-overview.html"><a href="pentest-overview.html#types-of-penetration-testing"><i class="fa fa-check"></i><b>2.1.4</b> Types of Penetration Testing</a></li>
+<li class="chapter" data-level="2.1.5" data-path="pentest-overview.html"><a href="pentest-overview.html#types-of-testing-environments"><i class="fa fa-check"></i><b>2.1.5</b> Types of Testing Environments</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="pentest-overview.html"><a href="pentest-overview.html#laws-and-regulations"><i class="fa fa-check"></i><b>2.2</b> Laws and Regulations</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="pentest-overview.html"><a href="pentest-overview.html#usa"><i class="fa fa-check"></i><b>2.2.1</b> USA</a></li>
+<li class="chapter" data-level="2.2.2" data-path="pentest-overview.html"><a href="pentest-overview.html#europe"><i class="fa fa-check"></i><b>2.2.2</b> Europe</a></li>
+<li class="chapter" data-level="2.2.3" data-path="pentest-overview.html"><a href="pentest-overview.html#uk"><i class="fa fa-check"></i><b>2.2.3</b> UK</a></li>
+<li class="chapter" data-level="2.2.4" data-path="pentest-overview.html"><a href="pentest-overview.html#india"><i class="fa fa-check"></i><b>2.2.4</b> India</a></li>
+<li class="chapter" data-level="2.2.5" data-path="pentest-overview.html"><a href="pentest-overview.html#china"><i class="fa fa-check"></i><b>2.2.5</b> China</a></li>
+<li class="chapter" data-level="2.2.6" data-path="pentest-overview.html"><a href="pentest-overview.html#precautionary-measures-during-penetration-tests"><i class="fa fa-check"></i><b>2.2.6</b> Precautionary Measures during Penetration Tests</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="pentest-overview.html"><a href="pentest-overview.html#pre-engagement"><i class="fa fa-check"></i><b>2.3</b> Pre-Engagement</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="pentest-overview.html"><a href="pentest-overview.html#scoping-questionnaire"><i class="fa fa-check"></i><b>2.3.1</b> Scoping Questionnaire</a></li>
+<li class="chapter" data-level="2.3.2" data-path="pentest-overview.html"><a href="pentest-overview.html#pre-engagement-meeting"><i class="fa fa-check"></i><b>2.3.2</b> Pre-Engagement Meeting</a></li>
+<li class="chapter" data-level="2.3.3" data-path="pentest-overview.html"><a href="pentest-overview.html#kick-off-meeting"><i class="fa fa-check"></i><b>2.3.3</b> Kick-Off Meeting</a></li>
+<li class="chapter" data-level="2.3.4" data-path="pentest-overview.html"><a href="pentest-overview.html#contractors-agreement"><i class="fa fa-check"></i><b>2.3.4</b> Contractors Agreement</a></li>
+<li class="chapter" data-level="2.3.5" data-path="pentest-overview.html"><a href="pentest-overview.html#setting-up"><i class="fa fa-check"></i><b>2.3.5</b> Setting Up</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="pentest-overview.html"><a href="pentest-overview.html#information-gathering"><i class="fa fa-check"></i><b>2.4</b> Information Gathering</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="pentest-overview.html"><a href="pentest-overview.html#open-source-intelligence"><i class="fa fa-check"></i><b>2.4.1</b> Open-Source Intelligence</a></li>
+<li class="chapter" data-level="2.4.2" data-path="pentest-overview.html"><a href="pentest-overview.html#infrastructure-enumeration"><i class="fa fa-check"></i><b>2.4.2</b> Infrastructure Enumeration</a></li>
+<li class="chapter" data-level="2.4.3" data-path="pentest-overview.html"><a href="pentest-overview.html#service-enumeration"><i class="fa fa-check"></i><b>2.4.3</b> Service Enumeration</a></li>
+<li class="chapter" data-level="2.4.4" data-path="pentest-overview.html"><a href="pentest-overview.html#host-enumeration"><i class="fa fa-check"></i><b>2.4.4</b> Host Enumeration</a></li>
+<li class="chapter" data-level="2.4.5" data-path="pentest-overview.html"><a href="pentest-overview.html#pillaging"><i class="fa fa-check"></i><b>2.4.5</b> Pillaging</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="pentest-overview.html"><a href="pentest-overview.html#vulnerability-assessment"><i class="fa fa-check"></i><b>2.5</b> Vulnerability Assessment</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="pentest-overview.html"><a href="pentest-overview.html#vulnerability-research-and-analysis"><i class="fa fa-check"></i><b>2.5.1</b> Vulnerability Research and Analysis</a></li>
+<li class="chapter" data-level="2.5.2" data-path="pentest-overview.html"><a href="pentest-overview.html#assessment-of-possible-attack-vectors"><i class="fa fa-check"></i><b>2.5.2</b> Assessment of Possible Attack Vectors</a></li>
+<li class="chapter" data-level="2.5.3" data-path="pentest-overview.html"><a href="pentest-overview.html#the-return"><i class="fa fa-check"></i><b>2.5.3</b> The Return</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="pentest-overview.html"><a href="pentest-overview.html#explotation"><i class="fa fa-check"></i><b>2.6</b> Explotation</a>
+<ul>
+<li class="chapter" data-level="2.6.1" data-path="pentest-overview.html"><a href="pentest-overview.html#prioritization-of-possible-attacks"><i class="fa fa-check"></i><b>2.6.1</b> Prioritization of Possible Attacks</a></li>
+<li class="chapter" data-level="2.6.2" data-path="pentest-overview.html"><a href="pentest-overview.html#preparation-for-the-attack"><i class="fa fa-check"></i><b>2.6.2</b> Preparation for the Attack</a></li>
+</ul></li>
+<li class="chapter" data-level="2.7" data-path="pentest-overview.html"><a href="pentest-overview.html#post-explotation"><i class="fa fa-check"></i><b>2.7</b> Post-Explotation</a>
+<ul>
+<li class="chapter" data-level="2.7.1" data-path="pentest-overview.html"><a href="pentest-overview.html#evasive-testing"><i class="fa fa-check"></i><b>2.7.1</b> Evasive Testing</a></li>
+<li class="chapter" data-level="2.7.2" data-path="pentest-overview.html"><a href="pentest-overview.html#information-gathering-1"><i class="fa fa-check"></i><b>2.7.2</b> Information Gathering</a></li>
+<li class="chapter" data-level="2.7.3" data-path="pentest-overview.html"><a href="pentest-overview.html#pillaging-1"><i class="fa fa-check"></i><b>2.7.3</b> Pillaging</a></li>
+<li class="chapter" data-level="2.7.4" data-path="pentest-overview.html"><a href="pentest-overview.html#persistence"><i class="fa fa-check"></i><b>2.7.4</b> Persistence</a></li>
+<li class="chapter" data-level="2.7.5" data-path="pentest-overview.html"><a href="pentest-overview.html#vulnerability-assessment-1"><i class="fa fa-check"></i><b>2.7.5</b> Vulnerability Assessment</a></li>
+<li class="chapter" data-level="2.7.6" data-path="pentest-overview.html"><a href="pentest-overview.html#privilege-escalation"><i class="fa fa-check"></i><b>2.7.6</b> Privilege Escalation</a></li>
+<li class="chapter" data-level="2.7.7" data-path="pentest-overview.html"><a href="pentest-overview.html#data-exfiltration"><i class="fa fa-check"></i><b>2.7.7</b> Data Exfiltration</a></li>
+</ul></li>
+<li class="chapter" data-level="2.8" data-path="pentest-overview.html"><a href="pentest-overview.html#lateral-movement"><i class="fa fa-check"></i><b>2.8</b> Lateral Movement</a>
+<ul>
+<li class="chapter" data-level="2.8.1" data-path="pentest-overview.html"><a href="pentest-overview.html#pivoting"><i class="fa fa-check"></i><b>2.8.1</b> Pivoting</a></li>
+<li class="chapter" data-level="2.8.2" data-path="pentest-overview.html"><a href="pentest-overview.html#evasive-testing-1"><i class="fa fa-check"></i><b>2.8.2</b> Evasive Testing</a></li>
+<li class="chapter" data-level="2.8.3" data-path="pentest-overview.html"><a href="pentest-overview.html#information-gathering-2"><i class="fa fa-check"></i><b>2.8.3</b> Information Gathering</a></li>
+<li class="chapter" data-level="2.8.4" data-path="pentest-overview.html"><a href="pentest-overview.html#vulnerability-assessment-2"><i class="fa fa-check"></i><b>2.8.4</b> Vulnerability Assessment</a></li>
+<li class="chapter" data-level="2.8.5" data-path="pentest-overview.html"><a href="pentest-overview.html#privilege-exploitation"><i class="fa fa-check"></i><b>2.8.5</b> (Privilege) Exploitation</a></li>
+<li class="chapter" data-level="2.8.6" data-path="pentest-overview.html"><a href="pentest-overview.html#post-exploitation"><i class="fa fa-check"></i><b>2.8.6</b> Post-Exploitation</a></li>
+</ul></li>
+<li class="chapter" data-level="2.9" data-path="pentest-overview.html"><a href="pentest-overview.html#proof-of-concept"><i class="fa fa-check"></i><b>2.9</b> Proof-of-Concept</a></li>
+<li class="chapter" data-level="2.10" data-path="pentest-overview.html"><a href="pentest-overview.html#post-engagement"><i class="fa fa-check"></i><b>2.10</b> Post-Engagement</a>
+<ul>
+<li class="chapter" data-level="2.10.1" data-path="pentest-overview.html"><a href="pentest-overview.html#cleanup"><i class="fa fa-check"></i><b>2.10.1</b> Cleanup</a></li>
+<li class="chapter" data-level="2.10.2" data-path="pentest-overview.html"><a href="pentest-overview.html#documentation-and-reporting"><i class="fa fa-check"></i><b>2.10.2</b> Documentation and Reporting</a></li>
+<li class="chapter" data-level="2.10.3" data-path="pentest-overview.html"><a href="pentest-overview.html#report-review-meeting"><i class="fa fa-check"></i><b>2.10.3</b> Report Review Meeting</a></li>
+<li class="chapter" data-level="2.10.4" data-path="pentest-overview.html"><a href="pentest-overview.html#deliverable-acceptance"><i class="fa fa-check"></i><b>2.10.4</b> Deliverable Acceptance</a></li>
+<li class="chapter" data-level="2.10.5" data-path="pentest-overview.html"><a href="pentest-overview.html#post-remediation-testing"><i class="fa fa-check"></i><b>2.10.5</b> Post-Remediation Testing</a></li>
+<li class="chapter" data-level="2.10.6" data-path="pentest-overview.html"><a href="pentest-overview.html#role-of-the-pentester-in-remediation"><i class="fa fa-check"></i><b>2.10.6</b> Role of the Pentester in Remediation</a></li>
+<li class="chapter" data-level="2.10.7" data-path="pentest-overview.html"><a href="pentest-overview.html#data-retention"><i class="fa fa-check"></i><b>2.10.7</b> Data Retention</a></li>
+<li class="chapter" data-level="2.10.8" data-path="pentest-overview.html"><a href="pentest-overview.html#close-out"><i class="fa fa-check"></i><b>2.10.8</b> Close Out</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="network-enumeration.html"><a href="network-enumeration.html"><i class="fa fa-check"></i><b>3</b> Network Enumeration</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="network-enumeration.html"><a href="network-enumeration.html#enumeration"><i class="fa fa-check"></i><b>3.1</b> Enumeration</a></li>
+<li class="chapter" data-level="3.2" data-path="network-enumeration.html"><a href="network-enumeration.html#introduction-to-nmap"><i class="fa fa-check"></i><b>3.2</b> Introduction to Nmap</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="network-enumeration.html"><a href="network-enumeration.html#use-cases"><i class="fa fa-check"></i><b>3.2.1</b> Use Cases</a></li>
+<li class="chapter" data-level="3.2.2" data-path="network-enumeration.html"><a href="network-enumeration.html#nmap-architecture"><i class="fa fa-check"></i><b>3.2.2</b> Nmap Architecture</a></li>
+<li class="chapter" data-level="3.2.3" data-path="network-enumeration.html"><a href="network-enumeration.html#syntax"><i class="fa fa-check"></i><b>3.2.3</b> Syntax</a></li>
+<li class="chapter" data-level="3.2.4" data-path="network-enumeration.html"><a href="network-enumeration.html#scan-techniques"><i class="fa fa-check"></i><b>3.2.4</b> Scan Techniques</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="network-enumeration.html"><a href="network-enumeration.html#host-discovery"><i class="fa fa-check"></i><b>3.3</b> Host Discovery</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="network-enumeration.html"><a href="network-enumeration.html#scan-network-range"><i class="fa fa-check"></i><b>3.3.1</b> Scan Network Range</a></li>
+<li class="chapter" data-level="3.3.2" data-path="network-enumeration.html"><a href="network-enumeration.html#scan-ip-list"><i class="fa fa-check"></i><b>3.3.2</b> Scan IP List</a></li>
+<li class="chapter" data-level="3.3.3" data-path="network-enumeration.html"><a href="network-enumeration.html#scan-multiple-ips"><i class="fa fa-check"></i><b>3.3.3</b> Scan Multiple IPs</a></li>
+<li class="chapter" data-level="3.3.4" data-path="network-enumeration.html"><a href="network-enumeration.html#scan-single-ip"><i class="fa fa-check"></i><b>3.3.4</b> Scan Single IP</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="network-enumeration.html"><a href="network-enumeration.html#host-and-port-scanning"><i class="fa fa-check"></i><b>3.4</b> Host and Port Scanning</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="network-enumeration.html"><a href="network-enumeration.html#discovering-open-tcp-ports"><i class="fa fa-check"></i><b>3.4.1</b> Discovering Open TCP Ports</a></li>
+<li class="chapter" data-level="3.4.2" data-path="network-enumeration.html"><a href="network-enumeration.html#filtered-ports"><i class="fa fa-check"></i><b>3.4.2</b> Filtered Ports</a></li>
+<li class="chapter" data-level="3.4.3" data-path="network-enumeration.html"><a href="network-enumeration.html#discovering-open-udp-ports"><i class="fa fa-check"></i><b>3.4.3</b> Discovering Open UDP Ports</a></li>
+<li class="chapter" data-level="3.4.4" data-path="network-enumeration.html"><a href="network-enumeration.html#version-scan"><i class="fa fa-check"></i><b>3.4.4</b> Version Scan</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="network-enumeration.html"><a href="network-enumeration.html#saving-the-results"><i class="fa fa-check"></i><b>3.5</b> Saving the Results</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="network-enumeration.html"><a href="network-enumeration.html#different-formats"><i class="fa fa-check"></i><b>3.5.1</b> Different Formats</a></li>
+<li class="chapter" data-level="3.5.2" data-path="network-enumeration.html"><a href="network-enumeration.html#style-sheets"><i class="fa fa-check"></i><b>3.5.2</b> Style sheets</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="network-enumeration.html"><a href="network-enumeration.html#service-enumeration-1"><i class="fa fa-check"></i><b>3.6</b> Service Enumeration</a>
+<ul>
+<li class="chapter" data-level="3.6.1" data-path="network-enumeration.html"><a href="network-enumeration.html#service-version-detection"><i class="fa fa-check"></i><b>3.6.1</b> Service Version Detection</a></li>
+<li class="chapter" data-level="3.6.2" data-path="network-enumeration.html"><a href="network-enumeration.html#banner-grabbing"><i class="fa fa-check"></i><b>3.6.2</b> Banner Grabbing</a></li>
+<li class="chapter" data-level="3.6.3" data-path="network-enumeration.html"><a href="network-enumeration.html#tcpdump"><i class="fa fa-check"></i><b>3.6.3</b> Tcpdump</a></li>
+<li class="chapter" data-level="3.6.4" data-path="network-enumeration.html"><a href="network-enumeration.html#nc"><i class="fa fa-check"></i><b>3.6.4</b> Nc</a></li>
+<li class="chapter" data-level="3.6.5" data-path="network-enumeration.html"><a href="network-enumeration.html#tcpdump---intercepted-traffic"><i class="fa fa-check"></i><b>3.6.5</b> Tcpdump - Intercepted Traffic</a></li>
+</ul></li>
+<li class="chapter" data-level="3.7" data-path="network-enumeration.html"><a href="network-enumeration.html#nmap-scription-engine"><i class="fa fa-check"></i><b>3.7</b> Nmap Scription Engine</a>
+<ul>
+<li class="chapter" data-level="3.7.1" data-path="network-enumeration.html"><a href="network-enumeration.html#default-scripts"><i class="fa fa-check"></i><b>3.7.1</b> Default Scripts</a></li>
+<li class="chapter" data-level="3.7.2" data-path="network-enumeration.html"><a href="network-enumeration.html#specific-scripts-category"><i class="fa fa-check"></i><b>3.7.2</b> Specific Scripts Category</a></li>
+<li class="chapter" data-level="3.7.3" data-path="network-enumeration.html"><a href="network-enumeration.html#defined-scripts"><i class="fa fa-check"></i><b>3.7.3</b> Defined Scripts</a></li>
+<li class="chapter" data-level="3.7.4" data-path="network-enumeration.html"><a href="network-enumeration.html#nmap---specifying-scripts"><i class="fa fa-check"></i><b>3.7.4</b> Nmap - Specifying Scripts</a></li>
+<li class="chapter" data-level="3.7.5" data-path="network-enumeration.html"><a href="network-enumeration.html#nmap---aggressive-scan"><i class="fa fa-check"></i><b>3.7.5</b> Nmap - Aggressive Scan</a></li>
+<li class="chapter" data-level="3.7.6" data-path="network-enumeration.html"><a href="network-enumeration.html#vulnerability-assessment-3"><i class="fa fa-check"></i><b>3.7.6</b> Vulnerability Assessment</a></li>
+</ul></li>
+<li class="chapter" data-level="3.8" data-path="network-enumeration.html"><a href="network-enumeration.html#performance"><i class="fa fa-check"></i><b>3.8</b> Performance</a>
+<ul>
+<li class="chapter" data-level="3.8.1" data-path="network-enumeration.html"><a href="network-enumeration.html#timeouts"><i class="fa fa-check"></i><b>3.8.1</b> Timeouts</a></li>
+<li class="chapter" data-level="3.8.2" data-path="network-enumeration.html"><a href="network-enumeration.html#default-scan"><i class="fa fa-check"></i><b>3.8.2</b> Default Scan</a></li>
+<li class="chapter" data-level="3.8.3" data-path="network-enumeration.html"><a href="network-enumeration.html#optimized-rtt"><i class="fa fa-check"></i><b>3.8.3</b> Optimized RTT</a></li>
+<li class="chapter" data-level="3.8.4" data-path="network-enumeration.html"><a href="network-enumeration.html#max-retries"><i class="fa fa-check"></i><b>3.8.4</b> Max Retries</a></li>
+<li class="chapter" data-level="3.8.5" data-path="network-enumeration.html"><a href="network-enumeration.html#default-scan-1"><i class="fa fa-check"></i><b>3.8.5</b> Default Scan</a></li>
+<li class="chapter" data-level="3.8.6" data-path="network-enumeration.html"><a href="network-enumeration.html#reduced-retries"><i class="fa fa-check"></i><b>3.8.6</b> Reduced Retries</a></li>
+<li class="chapter" data-level="3.8.7" data-path="network-enumeration.html"><a href="network-enumeration.html#rates"><i class="fa fa-check"></i><b>3.8.7</b> Rates</a></li>
+<li class="chapter" data-level="3.8.8" data-path="network-enumeration.html"><a href="network-enumeration.html#default-scan-2"><i class="fa fa-check"></i><b>3.8.8</b> Default Scan</a></li>
+<li class="chapter" data-level="3.8.9" data-path="network-enumeration.html"><a href="network-enumeration.html#optimized-scan"><i class="fa fa-check"></i><b>3.8.9</b> Optimized Scan</a></li>
+<li class="chapter" data-level="3.8.10" data-path="network-enumeration.html"><a href="network-enumeration.html#default-scan---found-open-ports"><i class="fa fa-check"></i><b>3.8.10</b> Default Scan - Found Open Ports</a></li>
+<li class="chapter" data-level="3.8.11" data-path="network-enumeration.html"><a href="network-enumeration.html#optimized-scan---found-open-ports"><i class="fa fa-check"></i><b>3.8.11</b> Optimized Scan - Found Open Ports</a></li>
+<li class="chapter" data-level="3.8.12" data-path="network-enumeration.html"><a href="network-enumeration.html#timing"><i class="fa fa-check"></i><b>3.8.12</b> Timing</a></li>
+</ul></li>
+<li class="chapter" data-level="3.9" data-path="network-enumeration.html"><a href="network-enumeration.html#firewall-and-ids-ips-evasion"><i class="fa fa-check"></i><b>3.9</b> Firewall and IDS-IPS Evasion</a>
+<ul>
+<li class="chapter" data-level="3.9.1" data-path="network-enumeration.html"><a href="network-enumeration.html#firewalls"><i class="fa fa-check"></i><b>3.9.1</b> Firewalls</a></li>
+<li class="chapter" data-level="3.9.2" data-path="network-enumeration.html"><a href="network-enumeration.html#idsips"><i class="fa fa-check"></i><b>3.9.2</b> IDS/IPS</a></li>
+<li class="chapter" data-level="3.9.3" data-path="network-enumeration.html"><a href="network-enumeration.html#determine-firewalls-and-their-rules"><i class="fa fa-check"></i><b>3.9.3</b> Determine Firewalls and Their Rules</a></li>
+<li class="chapter" data-level="3.9.4" data-path="network-enumeration.html"><a href="network-enumeration.html#detect-idsips"><i class="fa fa-check"></i><b>3.9.4</b> Detect IDS/IPS</a></li>
+<li class="chapter" data-level="3.9.5" data-path="network-enumeration.html"><a href="network-enumeration.html#decoys"><i class="fa fa-check"></i><b>3.9.5</b> Decoys</a></li>
+<li class="chapter" data-level="3.9.6" data-path="network-enumeration.html"><a href="network-enumeration.html#dns-proxying"><i class="fa fa-check"></i><b>3.9.6</b> DNS Proxying</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="enumeration-principles.html"><a href="enumeration-principles.html"><i class="fa fa-check"></i><b>4</b> Enumeration Principles</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="enumeration-principles.html"><a href="enumeration-principles.html#enumeration-principles-1"><i class="fa fa-check"></i><b>4.1</b> Enumeration Principles</a></li>
+<li class="chapter" data-level="4.2" data-path="enumeration-principles.html"><a href="enumeration-principles.html#enumeration-metodology"><i class="fa fa-check"></i><b>4.2</b> Enumeration Metodology</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="enumeration-principles.html"><a href="enumeration-principles.html#layer-no.1-internet-presence"><i class="fa fa-check"></i><b>4.2.1</b> Layer No.1: Internet Presence</a></li>
+<li class="chapter" data-level="4.2.2" data-path="enumeration-principles.html"><a href="enumeration-principles.html#layer-no.2-gateway"><i class="fa fa-check"></i><b>4.2.2</b> Layer No.2: Gateway</a></li>
+<li class="chapter" data-level="4.2.3" data-path="enumeration-principles.html"><a href="enumeration-principles.html#layer-no.3-accessible-services"><i class="fa fa-check"></i><b>4.2.3</b> Layer No.3: Accessible Services</a></li>
+<li class="chapter" data-level="4.2.4" data-path="enumeration-principles.html"><a href="enumeration-principles.html#layer-no.4-processes"><i class="fa fa-check"></i><b>4.2.4</b> Layer No.4: Processes</a></li>
+<li class="chapter" data-level="4.2.5" data-path="enumeration-principles.html"><a href="enumeration-principles.html#layer-no.5-privileges"><i class="fa fa-check"></i><b>4.2.5</b> Layer No.5: Privileges</a></li>
+<li class="chapter" data-level="4.2.6" data-path="enumeration-principles.html"><a href="enumeration-principles.html#layer-no.6-os-setup"><i class="fa fa-check"></i><b>4.2.6</b> Layer No.6: OS Setup</a></li>
+<li class="chapter" data-level="4.2.7" data-path="enumeration-principles.html"><a href="enumeration-principles.html#enumeration-methodology-in-practice"><i class="fa fa-check"></i><b>4.2.7</b> Enumeration Methodology in Practice</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="enumeration-principles.html"><a href="enumeration-principles.html#domain-information"><i class="fa fa-check"></i><b>4.3</b> Domain Information</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="enumeration-principles.html"><a href="enumeration-principles.html#online-presence"><i class="fa fa-check"></i><b>4.3.1</b> Online Presence</a></li>
+<li class="chapter" data-level="4.3.2" data-path="enumeration-principles.html"><a href="enumeration-principles.html#certificate-transparency"><i class="fa fa-check"></i><b>4.3.2</b> Certificate Transparency</a></li>
+<li class="chapter" data-level="4.3.3" data-path="enumeration-principles.html"><a href="enumeration-principles.html#company-hosted-servers"><i class="fa fa-check"></i><b>4.3.3</b> Company Hosted Servers</a></li>
+<li class="chapter" data-level="4.3.4" data-path="enumeration-principles.html"><a href="enumeration-principles.html#shodan---ip-list"><i class="fa fa-check"></i><b>4.3.4</b> Shodan - IP List</a></li>
+<li class="chapter" data-level="4.3.5" data-path="enumeration-principles.html"><a href="enumeration-principles.html#dns-records"><i class="fa fa-check"></i><b>4.3.5</b> DNS Records</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="enumeration-principles.html"><a href="enumeration-principles.html#cloud-resources"><i class="fa fa-check"></i><b>4.4</b> Cloud Resources</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="enumeration-principles.html"><a href="enumeration-principles.html#company-hosted-servers-1"><i class="fa fa-check"></i><b>4.4.1</b> Company Hosted Servers</a></li>
+<li class="chapter" data-level="4.4.2" data-path="enumeration-principles.html"><a href="enumeration-principles.html#google-search-for-aws"><i class="fa fa-check"></i><b>4.4.2</b> Google Search for AWS</a></li>
+<li class="chapter" data-level="4.4.3" data-path="enumeration-principles.html"><a href="enumeration-principles.html#google-search-for-azure"><i class="fa fa-check"></i><b>4.4.3</b> Google Search for Azure</a></li>
+<li class="chapter" data-level="4.4.4" data-path="enumeration-principles.html"><a href="enumeration-principles.html#target-website---source-code"><i class="fa fa-check"></i><b>4.4.4</b> Target Website - Source Code</a></li>
+<li class="chapter" data-level="4.4.5" data-path="enumeration-principles.html"><a href="enumeration-principles.html#domain.glass-results"><i class="fa fa-check"></i><b>4.4.5</b> Domain.Glass Results</a></li>
+<li class="chapter" data-level="4.4.6" data-path="enumeration-principles.html"><a href="enumeration-principles.html#grayhatwarfare-results"><i class="fa fa-check"></i><b>4.4.6</b> GrayHatWarfare Results</a></li>
+<li class="chapter" data-level="4.4.7" data-path="enumeration-principles.html"><a href="enumeration-principles.html#private-and-public-ssh-keys-leaked"><i class="fa fa-check"></i><b>4.4.7</b> Private and Public SSH Keys Leaked</a></li>
+<li class="chapter" data-level="4.4.8" data-path="enumeration-principles.html"><a href="enumeration-principles.html#ssh-private-key"><i class="fa fa-check"></i><b>4.4.8</b> SSH Private Key</a></li>
+</ul></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Knowledge is Power</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Hacking Notes</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="enumeration-principles" class="section level1 hasAnchor" number="4">
+<h1><span class="header-section-number">4</span> Enumeration Principles<a href="enumeration-principles.html#enumeration-principles" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="enumeration-principles-1" class="section level2 hasAnchor" number="4.1">
+<h2><span class="header-section-number">4.1</span> Enumeration Principles<a href="enumeration-principles.html#enumeration-principles-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Enumeration is a widely used term in cyber security. It stands for information gathering using active (scans) and passive (use of third-party providers) methods. It is important to note that OSINT is an independent procedure and should be performed separately from enumeration because <code>OSINT is based exclusively on passive information gathering</code> and does not involve active enumeration of the given target. Enumeration is a loop in which we repeatedly gather information based on what data we have or have already discovered.</p>
+<p>Information can be gathered from domains, IP addresses, accessible services, and many other sources.</p>
+<p>Once we have identified targets in our client’s infrastructure, we need to examine the individual services and protocols. In most cases, these are services that enable communication between customers, the infrastructure, the administration, and the employees.</p>
+<p>If we imagine that we have been hired to investigate the IT security of a company, we will start to develop a general understanding of the company’s functionality. For example, we need to understand how the company is structured, what services and third-party vendors it uses, what security measures may be in place, and more. This is where this stage can be a bit misunderstood because most people focus on the obvious and try to force their way into the company’s systems instead of understanding how the infrastructure is set up and what technical aspects and services are necessary to be able to offer a specific service.</p>
+<p>An example of such a wrong approach could be that after finding authentication services like SSH, RDP, WinRM, and the like, we try to brute-force with common/weak passwords and usernames. Unfortunately, brute-forcing is a noisy method and can easily lead to blacklisting, making further testing impossible. Primarily, this can happen if we do not know about the company’s defensive security measures and its infrastructure. Some may smile at this approach, but experience has shown that far too many testers take this type of approach.</p>
+<p><code>Our goal is not to get at the systems but to find all the ways to get there.</code></p>
+<p>We can think of this as an analogy of a treasure hunter preparing for his expedition. He would not just grab a shovel and start digging in some random spot, but he would plan and gather his gear and study maps and learn about the terrain he has to cover and where the treasure may be so he can bring the proper tools. If he goes around digging holes everywhere, he will cause damage, waste time and energy, and likely never achieve his goal. The same can be said for understanding a company’s internal and external infrastructure, mapping it out, and carefully formulating our plan of attack.</p>
+<p>The enumeration principles are based on some questions that will facilitate all our investigations in any conceivable situation. In most cases, the main focus of many penetration testers is on what they can see and not on what they cannot see. However, even what we cannot see is relevant to us and may well be of great importance. The difference here is that we start to see the components and aspects that are not visible at first glance with our experience.</p>
+<ul>
+<li>What can we see?</li>
+<li>What reasons can we have for seeing it?</li>
+<li>What image does what we see create for us?</li>
+<li>What do we gain from it?</li>
+<li>How can we use it?</li>
+<li>What can we not see?</li>
+<li>What reasons can there be that we do not see?</li>
+<li>What image results for us from what we do not see?</li>
+</ul>
+<p>An important aspect that must not be confused here is that there are always exceptions to the rules. The principles, however, do not change. Another advantage of these principles is that we can see from the practical tasks that we do not lack penetration testing abilities but technical understanding when we suddenly do not know how to proceed because our core task is not to exploit the machines but to find how they can be exploited.</p>
+<table>
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong><code>No.</code></strong></th>
+<th><strong><code>Principle</code></strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1.</td>
+<td>There is more than meets the eye. Consider all points of view.</td>
+</tr>
+<tr class="even">
+<td>2.</td>
+<td>Distinguish between what we see and what we do not see.</td>
+</tr>
+<tr class="odd">
+<td>3.</td>
+<td>There are always ways to gain more information. Understand the target.</td>
+</tr>
+</tbody>
+</table>
+<p>To familiarize ourselves with these principles, we should write down these questions and principles where we can always see them and refer back to them with ease.</p>
+</div>
+<div id="enumeration-metodology" class="section level2 hasAnchor" number="4.2">
+<h2><span class="header-section-number">4.2</span> Enumeration Metodology<a href="enumeration-principles.html#enumeration-metodology" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Complex processes must have a standardized methodology that helps us keep our bearings and avoid omitting any aspects by mistake. Especially with the variety of cases that the target systems can offer us, it is almost unpredictable how our approach should be designed. Therefore, most penetration testers follow their habits and the steps they feel most comfortable and familiar with. However, this is not a standardized methodology but rather an experience-based approach.</p>
+<p>We know that penetration testing, and therefore enumeration, is a dynamic process. Consequently, we have developed a static enumeration methodology for external and internal penetration tests that includes free dynamics and allows for a wide range of changes and adaptations to the given environment. This methodology is nested in 6 layers and represents, metaphorically speaking, boundaries that we try to pass with the enumeration process. The whole enumeration process is divided into three different levels:</p>
+<table>
+<colgroup>
+<col width="33%" />
+<col width="33%" />
+<col width="33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><code>Infrastructure-based enumeration</code></th>
+<th><code>Host-based enumeration</code></th>
+<th><code>OS-based enumeration</code></th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+<div class="float">
+<img src="https://academy.hackthebox.com/storage/modules/112/enum-method3.png" alt="image" />
+<div class="figcaption">image</div>
+</div>
+<p>Note: The components of each layer shown represent the main categories and not a full list of all the components to search for. Additionally, it must be mentioned here that the first and second layer (Internet Presence, Gateway) does not quite apply to the intranet, such as an Active Directory infrastructure. The layers for internal infrastructure will be covered in other modules.</p>
+<p>Consider these lines as some kind of obstacle, like a wall, for example. What we do here is look around to find out where the entrance is, or the gap we can fit through, or climb over to get closer to our goal. Theoretically, it is also possible to go through the wall headfirst, but very often, it happens that the spot we have smashed the gap with a lot of effort and time with force does not bring us much because there is no entry at this point of the wall to pass on to the next wall.</p>
+<p>These layers are designed as follows:</p>
+<table>
+<colgroup>
+<col width="33%" />
+<col width="33%" />
+<col width="33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Layer</strong></th>
+<th><strong>Description</strong></th>
+<th><strong>Information Categories</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>1. Internet Presence</code></td>
+<td>Identification of internet presence and externally accessible infrastructure.</td>
+<td>Domains, Subdomains, vHosts, ASN, Netblocks, IP Addresses, Cloud Instances, Security Measures</td>
+</tr>
+<tr class="even">
+<td><code>2. Gateway</code></td>
+<td>Identify the possible security measures to protect the company’s external and internal infrastructure.</td>
+<td>Firewalls, DMZ, IPS/IDS, EDR, Proxies, NAC, Network Segmentation, VPN, Cloudflare</td>
+</tr>
+<tr class="odd">
+<td><code>3. Accessible Services</code></td>
+<td>Identify accessible interfaces and services that are hosted externally or internally.</td>
+<td>Service Type, Functionality, Configuration, Port, Version, Interface</td>
+</tr>
+<tr class="even">
+<td><code>4. Processes</code></td>
+<td>Identify the internal processes, sources, and destinations associated with the services.</td>
+<td>PID, Processed Data, Tasks, Source, Destination</td>
+</tr>
+<tr class="odd">
+<td><code>5. Privileges</code></td>
+<td>Identification of the internal permissions and privileges to the accessible services.</td>
+<td>Groups, Users, Permissions, Restrictions, Environment</td>
+</tr>
+<tr class="even">
+<td><code>6. OS Setup</code></td>
+<td>Identification of the internal components and systems setup.</td>
+<td>OS Type, Patch Level, Network config, OS Environment, Configuration files, sensitive private files</td>
+</tr>
+</tbody>
+</table>
+<p>Important note: The human aspect and the information that can be obtained by employees using OSINT have been removed from the “Internet Presence” layer for simplicity.</p>
+<p>We can finally imagine the entire penetration test in the form of a labyrinth where we have to identify the gaps and find the way to get us inside as quickly and effectively as possible. This type of labyrinth may look something like this:</p>
+<div class="float">
+<img src="https://academy.hackthebox.com/storage/modules/112/pentest-labyrinth.png" alt="image" />
+<div class="figcaption">image</div>
+</div>
+<p>The squares represent the gaps/vulnerabilities.</p>
+<p>As we have probably already noticed, we can see that we will encounter one gap and very likely several. The interesting and very common fact is that not all the gaps we find can lead us inside. All penetration tests are limited in time, but we should always keep in mind that one belief that there is nearly always a way in. Even after a four-week penetration test, we cannot say 100% that there are no more vulnerabilities. Someone who has been studying the company for months and analyzing them will most likely have a much greater understanding of the applications and structure than we were able to gain within the few weeks we spent on the assessment. An excellent and recent example of this is the <a href="https://www.rpc.senate.gov/policy-papers/the-solarwinds-cyberattack">cyber attack on SolarWinds</a>, which happened not too long ago. This is another excellent reason for a methodology that must exclude such cases.</p>
+<p>Let us assume that we have been asked to perform an external “black box” penetration test. Once all the necessary contract items have been completely fulfilled, our penetration test will begin at the specified time.</p>
+<hr />
+<div id="layer-no.1-internet-presence" class="section level3 hasAnchor" number="4.2.1">
+<h3><span class="header-section-number">4.2.1</span> Layer No.1: Internet Presence<a href="enumeration-principles.html#layer-no.1-internet-presence" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The first layer we have to pass is the “Internet Presence” layer, where we focus on finding the targets we can investigate. If the scope in the contract allows us to look for additional hosts, this layer is even more critical than for fixed targets only. In this layer, we use different techniques to find domains, subdomains, netblocks, and many other components and information that present the presence of the company and its infrastructure on the Internet.</p>
+<p><code>The goal of this layer is to identify all possible target systems and interfaces that can be tested.</code> </p>
+<hr />
+</div>
+<div id="layer-no.2-gateway" class="section level3 hasAnchor" number="4.2.2">
+<h3><span class="header-section-number">4.2.2</span> Layer No.2: Gateway<a href="enumeration-principles.html#layer-no.2-gateway" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Here we try to understand the interface of the reachable target, how it is protected, and where it is located in the network. Due to the diversity, different functionalities, and some particular procedures, we will go into more detail about this layer in other modules.</p>
+<p><code>The goal is to understand what we are dealing with and what we have to watch out for.</code></p>
+<hr />
+</div>
+<div id="layer-no.3-accessible-services" class="section level3 hasAnchor" number="4.2.3">
+<h3><span class="header-section-number">4.2.3</span> Layer No.3: Accessible Services<a href="enumeration-principles.html#layer-no.3-accessible-services" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>In the case of accessible services, we examine each destination for all the services it offers. Each of these services has a specific purpose that has been installed for a particular reason by the administrator. Each service has certain functions, which therefore also lead to specific results. To work effectively with them, we need to know how they work. Otherwise, we need to learn to understand them.</p>
+<p><code>This layer aims to understand the reason and functionality of the target system and gain the necessary knowledge to communicate with it and exploit it for our purposes effectively.</code></p>
+<p>This is the part of enumeration we will mainly deal with in this module.</p>
+<hr />
+</div>
+<div id="layer-no.4-processes" class="section level3 hasAnchor" number="4.2.4">
+<h3><span class="header-section-number">4.2.4</span> Layer No.4: Processes<a href="enumeration-principles.html#layer-no.4-processes" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Every time a command or function is executed, data is processed, whether entered by the user or generated by the system. This starts a process that has to perform specific tasks, and such tasks have at least one source and one target.</p>
+<p><code>The goal here is to understand these factors and identify the dependencies between them.</code></p>
+<hr />
+</div>
+<div id="layer-no.5-privileges" class="section level3 hasAnchor" number="4.2.5">
+<h3><span class="header-section-number">4.2.5</span> Layer No.5: Privileges<a href="enumeration-principles.html#layer-no.5-privileges" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Each service runs through a specific user in a particular group with permissions and privileges defined by the administrator or the system. These privileges often provide us with functions that administrators overlook. This often happens in Active Directory infrastructures and many other case-specific administration environments and servers where users are responsible for multiple administration areas.</p>
+<p><code>It is crucial to identify these and understand what is and is not possible with these privileges.</code></p>
+<hr />
+</div>
+<div id="layer-no.6-os-setup" class="section level3 hasAnchor" number="4.2.6">
+<h3><span class="header-section-number">4.2.6</span> Layer No.6: OS Setup<a href="enumeration-principles.html#layer-no.6-os-setup" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Here we collect information about the actual operating system and its setup using internal access. This gives us a good overview of the internal security of the systems and reflects the skills and capabilities of the company’s administrative teams.</p>
+<p><code>The goal here is to see how the administrators manage the systems and what sensitive internal information we can glean from them.</code></p>
+<hr />
+</div>
+<div id="enumeration-methodology-in-practice" class="section level3 hasAnchor" number="4.2.7">
+<h3><span class="header-section-number">4.2.7</span> Enumeration Methodology in Practice<a href="enumeration-principles.html#enumeration-methodology-in-practice" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>A methodology summarizes all systematic procedures in obtaining knowledge within the bounds of a given objective. It is important to note that a methodology is not a step-by-step guide but, as the definition implies, a summary of systematic procedures. In our case, the enumeration methodology is the systematic approach to explore a given target.</p>
+<p>How the individual components are identified and information obtained in this methodology is a dynamic and growing aspect that is constantly changing and can therefore differ. An excellent example of this is using information-gathering tools from web servers. There are countless different tools for this, and each of them has a specific focus and therefore delivers individual results that differ from other applications. The goal, however, is the same. Thus, the collection of tools and commands is not part of the actual methodology but rather a cheat sheet that we can refer to using the commands and tools listed in given cases.</p>
+</div>
+</div>
+<div id="domain-information" class="section level2 hasAnchor" number="4.3">
+<h2><span class="header-section-number">4.3</span> Domain Information<a href="enumeration-principles.html#domain-information" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Domain information is a core component of any penetration test, and it is not just about the subdomains but about the entire presence on the Internet. Therefore, we gather information and try to understand the company’s functionality and which technologies and structures are necessary for services to be offered successfully and efficiently.</p>
+<p>This type of information is gathered passively without direct and active scans. In other words, we remain hidden and navigate as “customers” or “visitors” to avoid direct connections to the company that could expose us. The OSINT relevant sections are only a tiny part of how in-depth OSINT goes and describe only a few of the many ways to obtain information in this way. More approaches and strategies for this can be found in the module <a href="https://academy.hackthebox.com/course/preview/osint-corporate-recon">OSINT: Corporate Recon</a>.</p>
+<p>However, when <code>passively</code> gathering information, we can use third-party services to understand the company better. However, the first thing we should do is scrutinize the company’s <code>main website</code>. Then, we should read through the texts, keeping in mind what technologies and structures are needed for these services.</p>
+<p>For example, many IT companies offer app development, IoT, hosting, data science, and IT security services, depending on their industry. If we encounter a service that we have had little to do with before, it makes sense and is necessary to get to grips with it and find out what activities it consists of and what opportunities are available. Those services also give us a good overview of how the company can be structured.</p>
+<p>For example, this part is the combination between the <code>first principle</code> and the <code>second principle</code> of enumeration. We pay attention to what <code>we see</code> and <code>we do not see</code>. We see the services but not their functionality. However, services are bound to certain technical aspects necessary to provide a service. Therefore, we take the developer’s view and look at the whole thing from their point of view. This point of view allows us to gain many technical insights into the functionality.</p>
+<hr />
+<div id="online-presence" class="section level3 hasAnchor" number="4.3.1">
+<h3><span class="header-section-number">4.3.1</span> Online Presence<a href="enumeration-principles.html#online-presence" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Once we have a basic understanding of the company and its services, we can get a first impression of its presence on the Internet. Let us assume that a medium-sized company has hired us to test their entire infrastructure from a black-box perspective. This means we have only received a scope of targets and must obtain all further information ourselves.</p>
+<p>Note: Please remember that the examples below will differ from the practical exercises and will not give the same results. However, the examples are based on real penetration tests and illustrate how and what information can be obtained.</p>
+<p>The first point of presence on the Internet may be the <code>SSL certificate</code> from the company’s main website that we can examine. Often, such a certificate includes more than just a subdomain, and this means that the certificate is used for several domains, and these are most likely still active.</p>
+<p><img src="https://academy.hackthebox.com/storage/modules/112/DomInfo-1.png" /></p>
+<p>Another source to find more subdomains is <a href="https://crt.sh/">crt.sh</a>. This source is <a href="https://en.wikipedia.org/wiki/Certificate_Transparency">Certificate Transparency</a> logs. Certificate Transparency is a process that is intended to enable the verification of issued digital certificates for encrypted Internet connections. The standard (<a href="https://tools.ietf.org/html/rfc6962">RFC 6962</a>) provides for the logging of all digital certificates issued by a certificate authority in audit-proof logs. This is intended to enable the detection of false or maliciously issued certificates for a domain. SSL certificate providers like <a href="https://letsencrypt.org/">Let’s Encrypt</a> share this with the web interface <a href="https://crt.sh/">crt.sh</a>, which stores the new entries in the database to be accessed later.</p>
+<p>   </p>
+<p><img src="https://academy.hackthebox.com/storage/modules/112/DomInfo-2.png" /></p>
+<p>We can also output the results in JSON format.</p>
+</div>
+<div id="certificate-transparency" class="section level3 hasAnchor" number="4.3.2">
+<h3><span class="header-section-number">4.3.2</span> Certificate Transparency<a href="enumeration-principles.html#certificate-transparency" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>  Domain Information</p>
+<pre class="shell-session"><code>notluken@htb[/htb]$ curl -s https://crt.sh/\?q\=inlanefreight.com\&amp;output\=json | jq .
+
+[
+  {
+    &quot;issuer_ca_id&quot;: 23451835427,
+    &quot;issuer_name&quot;: &quot;C=US, O=Let&#39;s Encrypt, CN=R3&quot;,
+    &quot;common_name&quot;: &quot;matomo.inlanefreight.com&quot;,
+    &quot;name_value&quot;: &quot;matomo.inlanefreight.com&quot;,
+    &quot;id&quot;: 50815783237226155,
+    &quot;entry_timestamp&quot;: &quot;2021-08-21T06:00:17.173&quot;,
+    &quot;not_before&quot;: &quot;2021-08-21T05:00:16&quot;,
+    &quot;not_after&quot;: &quot;2021-11-19T05:00:15&quot;,
+    &quot;serial_number&quot;: &quot;03abe9017d6de5eda90&quot;
+  },
+  {
+    &quot;issuer_ca_id&quot;: 6864563267,
+    &quot;issuer_name&quot;: &quot;C=US, O=Let&#39;s Encrypt, CN=R3&quot;,
+    &quot;common_name&quot;: &quot;matomo.inlanefreight.com&quot;,
+    &quot;name_value&quot;: &quot;matomo.inlanefreight.com&quot;,
+    &quot;id&quot;: 5081529377,
+    &quot;entry_timestamp&quot;: &quot;2021-08-21T06:00:16.932&quot;,
+    &quot;not_before&quot;: &quot;2021-08-21T05:00:16&quot;,
+    &quot;not_after&quot;: &quot;2021-11-19T05:00:15&quot;,
+    &quot;serial_number&quot;: &quot;03abe90104e271c98a90&quot;
+  },
+  {
+    &quot;issuer_ca_id&quot;: 113123452,
+    &quot;issuer_name&quot;: &quot;C=US, O=Let&#39;s Encrypt, CN=R3&quot;,
+    &quot;common_name&quot;: &quot;smartfactory.inlanefreight.com&quot;,
+    &quot;name_value&quot;: &quot;smartfactory.inlanefreight.com&quot;,
+    &quot;id&quot;: 4941235512141012357,
+    &quot;entry_timestamp&quot;: &quot;2021-07-27T00:32:48.071&quot;,
+    &quot;not_before&quot;: &quot;2021-07-26T23:32:47&quot;,
+    &quot;not_after&quot;: &quot;2021-10-24T23:32:45&quot;,
+    &quot;serial_number&quot;: &quot;044bac5fcc4d59329ecbbe9043dd9d5d0878&quot;
+  },
+  { ... SNIP ...</code></pre>
+<p>If needed, we can also have them filtered by the unique subdomains.</p>
+<p>  Domain Information</p>
+<pre class="shell-session"><code>notluken@htb[/htb]$ curl -s https://crt.sh/\?q\=inlanefreight.com\&amp;output\=json | jq . | grep name | cut -d&quot;:&quot; -f2 | grep -v &quot;CN=&quot; | cut -d&#39;&quot;&#39; -f2 | awk &#39;{gsub(/\\n/,&quot;\n&quot;);}1;&#39; | sort -u
+
+account.ttn.inlanefreight.com
+blog.inlanefreight.com
+bots.inlanefreight.com
+console.ttn.inlanefreight.com
+ct.inlanefreight.com
+data.ttn.inlanefreight.com
+*.inlanefreight.com
+inlanefreight.com
+integrations.ttn.inlanefreight.com
+iot.inlanefreight.com
+mails.inlanefreight.com
+marina.inlanefreight.com
+marina-live.inlanefreight.com
+matomo.inlanefreight.com
+next.inlanefreight.com
+noc.ttn.inlanefreight.com
+preview.inlanefreight.com
+shop.inlanefreight.com
+smartfactory.inlanefreight.com
+ttn.inlanefreight.com
+vx.inlanefreight.com
+www.inlanefreight.com</code></pre>
+<p>Next, we can identify the hosts directly accessible from the Internet and not hosted by third-party providers. This is because we are not allowed to test the hosts without the permission of third-party providers.</p>
+</div>
+<div id="company-hosted-servers" class="section level3 hasAnchor" number="4.3.3">
+<h3><span class="header-section-number">4.3.3</span> Company Hosted Servers<a href="enumeration-principles.html#company-hosted-servers" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>  Domain Information</p>
+<pre class="shell-session"><code>notluken@htb[/htb]$ for i in $(cat subdomainlist);do host $i | grep &quot;has address&quot; | grep inlanefreight.com | cut -d&quot; &quot; -f1,4;done
+
+blog.inlanefreight.com 10.129.24.93
+inlanefreight.com 10.129.27.33
+matomo.inlanefreight.com 10.129.127.22
+www.inlanefreight.com 10.129.127.33
+s3-website-us-west-2.amazonaws.com 10.129.95.250</code></pre>
+<p>Once we see which hosts can be investigated further, we can generate a list of IP addresses with a minor adjustment to the <code>cut</code> command and run them through <code>Shodan</code>.</p>
+<p><a href="https://www.shodan.io/">Shodan</a> can be used to find devices and systems permanently connected to the Internet like <code>Internet of Things</code> (<code>IoT</code>). It searches the Internet for open TCP/IP ports and filters the systems according to specific terms and criteria. For example, open HTTP or HTTPS ports and other server ports for <code>FTP</code>, <code>SSH</code>, <code>SNMP</code>, <code>Telnet</code>, <code>RTSP</code>, or <code>SIP</code> are searched. As a result, we can find devices and systems, such as <code>surveillance cameras</code>, <code>servers</code>, <code>smart home systems</code>, <code>industrial controllers</code>, <code>traffic lights</code> and <code>traffic controllers</code>, and various network components.</p>
+</div>
+<div id="shodan---ip-list" class="section level3 hasAnchor" number="4.3.4">
+<h3><span class="header-section-number">4.3.4</span> Shodan - IP List<a href="enumeration-principles.html#shodan---ip-list" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>  Domain Information</p>
+<pre class="shell-session"><code>notluken@htb[/htb]$ for i in $(cat subdomainlist);do host $i | grep &quot;has address&quot; | grep inlanefreight.com | cut -d&quot; &quot; -f4 &gt;&gt; ip-addresses.txt;done
+notluken@htb[/htb]$ for i in $(cat ip-addresses.txt);do shodan host $i;done
+
+10.129.24.93
+City:                    Berlin
+Country:                 Germany
+Organization:            InlaneFreight
+Updated:                 2021-09-01T09:02:11.370085
+Number of open ports:    2
+
+Ports:
+     80/tcp nginx 
+    443/tcp nginx 
+    
+10.129.27.33
+City:                    Berlin
+Country:                 Germany
+Organization:            InlaneFreight
+Updated:                 2021-08-30T22:25:31.572717
+Number of open ports:    3
+
+Ports:
+     22/tcp OpenSSH (7.6p1 Ubuntu-4ubuntu0.3)
+     80/tcp nginx 
+    443/tcp nginx 
+        |-- SSL Versions: -SSLv2, -SSLv3, -TLSv1, -TLSv1.1, -TLSv1.3, TLSv1.2
+        |-- Diffie-Hellman Parameters:
+                Bits:          2048
+                Generator:     2
+                
+10.129.27.22
+City:                    Berlin
+Country:                 Germany
+Organization:            InlaneFreight
+Updated:                 2021-09-01T15:39:55.446281
+Number of open ports:    8
+
+Ports:
+     25/tcp  
+        |-- SSL Versions: -SSLv2, -SSLv3, -TLSv1, -TLSv1.1, TLSv1.2, TLSv1.3
+     53/tcp  
+     53/udp  
+     80/tcp Apache httpd 
+     81/tcp Apache httpd 
+    110/tcp  
+        |-- SSL Versions: -SSLv2, -SSLv3, -TLSv1, -TLSv1.1, TLSv1.2
+    111/tcp  
+    443/tcp Apache httpd 
+        |-- SSL Versions: -SSLv2, -SSLv3, -TLSv1, -TLSv1.1, TLSv1.2, TLSv1.3
+        |-- Diffie-Hellman Parameters:
+                Bits:          2048
+                Generator:     2
+                Fingerprint:   RFC3526/Oakley Group 14
+    444/tcp  
+        
+10.129.27.33
+City:                    Berlin
+Country:                 Germany
+Organization:            InlaneFreight
+Updated:                 2021-08-30T22:25:31.572717
+Number of open ports:    3
+
+Ports:
+     22/tcp OpenSSH (7.6p1 Ubuntu-4ubuntu0.3)
+     80/tcp nginx 
+    443/tcp nginx 
+        |-- SSL Versions: -SSLv2, -SSLv3, -TLSv1, -TLSv1.1, -TLSv1.3, TLSv1.2
+        |-- Diffie-Hellman Parameters:
+                Bits:          2048
+                Generator:     2</code></pre>
+<p>We remember the IP <code>10.129.127.22</code> (<code>matomo.inlanefreight.com</code>) for later active investigations we want to perform. Now, we can display all the available DNS records where we might find more hosts.</p>
+</div>
+<div id="dns-records" class="section level3 hasAnchor" number="4.3.5">
+<h3><span class="header-section-number">4.3.5</span> DNS Records<a href="enumeration-principles.html#dns-records" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>  Domain Information</p>
+<pre class="shell-session"><code>notluken@htb[/htb]$ dig any inlanefreight.com
+
+; &lt;&lt;&gt;&gt; DiG 9.16.1-Ubuntu &lt;&lt;&gt;&gt; any inlanefreight.com
+;; global options: +cmd
+;; Got answer:
+;; -&gt;&gt;HEADER&lt;&lt;- opcode: QUERY, status: NOERROR, id: 52058
+;; flags: qr rd ra; QUERY: 1, ANSWER: 17, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 65494
+;; QUESTION SECTION:
+;inlanefreight.com.             IN      ANY
+
+;; ANSWER SECTION:
+inlanefreight.com.      300     IN      A       10.129.27.33
+inlanefreight.com.      300     IN      A       10.129.95.250
+inlanefreight.com.      3600    IN      MX      1 aspmx.l.google.com.
+inlanefreight.com.      3600    IN      MX      10 aspmx2.googlemail.com.
+inlanefreight.com.      3600    IN      MX      10 aspmx3.googlemail.com.
+inlanefreight.com.      3600    IN      MX      5 alt1.aspmx.l.google.com.
+inlanefreight.com.      3600    IN      MX      5 alt2.aspmx.l.google.com.
+inlanefreight.com.      21600   IN      NS      ns.inwx.net.
+inlanefreight.com.      21600   IN      NS      ns2.inwx.net.
+inlanefreight.com.      21600   IN      NS      ns3.inwx.eu.
+inlanefreight.com.      3600    IN      TXT     &quot;MS=ms92346782372&quot;
+inlanefreight.com.      21600   IN      TXT     &quot;atlassian-domain-verification=IJdXMt1rKCy68JFszSdCKVpwPN&quot;
+inlanefreight.com.      3600    IN      TXT     &quot;google-site-verification=O7zV5-xFh_jn7JQ31&quot;
+inlanefreight.com.      300     IN      TXT     &quot;google-site-verification=bow47-er9LdgoUeah&quot;
+inlanefreight.com.      3600    IN      TXT     &quot;google-site-verification=gZsCG-BINLopf4hr2&quot;
+inlanefreight.com.      3600    IN      TXT     &quot;logmein-verification-code=87123gff5a479e-61d4325gddkbvc1-b2bnfghfsed1-3c789427sdjirew63fc&quot;
+inlanefreight.com.      300     IN      TXT     &quot;v=spf1 include:mailgun.org include:_spf.google.com include:spf.protection.outlook.com include:_spf.atlassian.net ip4:10.129.24.8 ip4:10.129.27.2 ip4:10.72.82.106 ~all&quot;
+inlanefreight.com.      21600   IN      SOA     ns.inwx.net. hostmaster.inwx.net. 2021072600 10800 3600 604800 3600
+
+;; Query time: 332 msec
+;; SERVER: 127.0.0.53#53(127.0.0.53)
+;; WHEN: Mi Sep 01 18:27:22 CEST 2021
+;; MSG SIZE  rcvd: 940</code></pre>
+<p>Let us look at what we have learned here and come back to our principles. We see an IP record, some mail servers, some DNS servers, TXT records, and an SOA record.</p>
+<ul>
+<li><p><code>A</code> records: We recognize the IP addresses that point to a specific (sub)domain through the A record. Here we only see one that we already know.</p></li>
+<li><p><code>MX</code> records: The mail server records show us which mail server is responsible for managing the emails for the company. Since this is handled by google in our case, we should note this and skip it for now.</p></li>
+<li><p><code>NS</code> records: These kinds of records show which name servers are used to resolve the FQDN to IP addresses. Most hosting providers use their own name servers, making it easier to identify the hosting provider.</p></li>
+<li><p><code>TXT</code> records: this type of record often contains verification keys for different third-party providers and other security aspects of DNS, such as <a href="https://datatracker.ietf.org/doc/html/rfc7208">SPF</a>, <a href="https://datatracker.ietf.org/doc/html/rfc7489">DMARC</a>, and <a href="https://datatracker.ietf.org/doc/html/rfc6376">DKIM</a>, which are responsible for verifying and confirming the origin of the emails sent. Here we can already see some valuable information if we look closer at the results.</p></li>
+</ul>
+<p>  Domain Information</p>
+<pre class="shell-session"><code>...SNIP... TXT     &quot;MS=ms92346782372&quot;
+...SNIP... TXT     &quot;atlassian-domain-verification=IJdXMt1rKCy68JFszSdCKVpwPN&quot;
+...SNIP... TXT     &quot;google-site-verification=O7zV5-xFh_jn7JQ31&quot;
+...SNIP... TXT     &quot;google-site-verification=bow47-er9LdgoUeah&quot;
+...SNIP... TXT     &quot;google-site-verification=gZsCG-BINLopf4hr2&quot;
+...SNIP... TXT     &quot;logmein-verification-code=87123gff5a479e-61d4325gddkbvc1-b2bnfghfsed1-3c789427sdjirew63fc&quot;
+...SNIP... TXT     &quot;v=spf1 include:mailgun.org include:_spf.google.com include:spf.protection.outlook.com include:_spf.atlassian.net ip4:10.129.24.8 ip4:10.129.27.2 ip4:10.72.82.106 ~all&quot;</code></pre>
+<p>What we could see so far were entries on the DNS server, which at first glance did not look very interesting (except for the additional IP addresses). However, we could not see the third-party providers behind the entries shown at first glance. The core information we can see now is:</p>
+<table>
+<colgroup>
+<col width="33%" />
+<col width="33%" />
+<col width="33%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><a href="https://www.atlassian.com/">Atlassian</a></td>
+<td><a href="https://www.google.com/gmail/">Google Gmail</a></td>
+<td><a href="https://www.logmein.com/">LogMeIn</a></td>
+</tr>
+<tr class="even">
+<td><a href="https://www.mailgun.com/">Mailgun</a></td>
+<td><a href="https://outlook.live.com/owa/">Outlook</a></td>
+<td><a href="https://www.inwx.com/en">INWX</a> ID/Username</td>
+</tr>
+<tr class="odd">
+<td>10.129.24.8</td>
+<td>10.129.27.2</td>
+<td>10.72.82.106</td>
+</tr>
+</tbody>
+</table>
+<p>For example, <a href="https://www.atlassian.com/">Atlassian</a> states that the company uses this solution for software development and collaboration. If we are not familiar with this platform, we can try it for free to get acquainted with it.</p>
+<p><a href="https://www.google.com/gmail/">Google Gmail</a> indicates that Google is used for email management. Therefore, it can also suggest that we could access open GDrive folders or files with a link.</p>
+<p><a href="https://www.logmein.com/">LogMeIn</a> is a central place that regulates and manages remote access on many different levels. However, the centralization of such operations is a double-edged sword. If access as an administrator to this platform is obtained (e.g., through password reuse), one also has complete access to all systems and information.</p>
+<p><a href="https://www.mailgun.com/">Mailgun</a> offers several email APIs, SMTP relays, and webhooks with which emails can be managed. This tells us to keep our eyes open for API interfaces that we can then test for various vulnerabilities such as IDOR, SSRF, POST, PUT requests, and many other attacks.</p>
+<p><a href="https://outlook.live.com/owa/">Outlook</a> is another indicator for document management. Companies often use Office 365 with OneDrive and cloud resources such as Azure blob and file storage. Azure file storage can be very interesting because it works with the SMB protocol.</p>
+<p>The last thing we see is <a href="https://www.inwx.com/en">INWX</a>. This company seems to be a hosting provider where domains can be purchased and registered. The TXT record with the “MS” value is often used to confirm the domain. In most cases, it is similar to the username or ID used to log in to the management platform.</p>
+</div>
+</div>
+<div id="cloud-resources" class="section level2 hasAnchor" number="4.4">
+<h2><span class="header-section-number">4.4</span> Cloud Resources<a href="enumeration-principles.html#cloud-resources" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The use of cloud, such as <a href="https://aws.amazon.com/">AWS</a>, <a href="https://cloud.google.com/">GCP</a>, <a href="https://azure.microsoft.com/en-us/">Azure</a>, and others, is now one of the essential components for many companies nowadays. After all, all companies want to be able to do their work from anywhere, so they need a central point for all management. This is why services from <code>Amazon</code> (<code>AWS</code>), <code>Google</code> (<code>GCP</code>), and <code>Microsoft</code> (<code>Azure</code>) are ideal for this purpose.</p>
+<p>Even though cloud providers secure their infrastructure centrally, this does not mean that companies are free from vulnerabilities. The configurations made by the administrators may nevertheless make the company’s cloud resources vulnerable. This often starts with the <code>S3 buckets</code> (AWS), <code>blobs</code> (Azure), <code>cloud storage</code> (GCP), which can be accessed without authentication if configured incorrectly.</p>
+<div id="company-hosted-servers-1" class="section level3 hasAnchor" number="4.4.1">
+<h3><span class="header-section-number">4.4.1</span> Company Hosted Servers<a href="enumeration-principles.html#company-hosted-servers-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>  Cloud Resources</p>
+<pre class="shell-session"><code>notluken@htb[/htb]$ for i in $(cat subdomainlist);do host $i | grep &quot;has address&quot; | grep inlanefreight.com | cut -d&quot; &quot; -f1,4;done
+
+blog.inlanefreight.com 10.129.24.93
+inlanefreight.com 10.129.27.33
+matomo.inlanefreight.com 10.129.127.22
+www.inlanefreight.com 10.129.127.33
+s3-website-us-west-2.amazonaws.com 10.129.95.250</code></pre>
+<p>Often cloud storage is added to the DNS list when used for administrative purposes by other employees. This step makes it much easier for the employees to reach and manage them. Let us stay with the case that a company has contracted us, and during the IP lookup, we have already seen that one IP address belongs to the <code>s3-website-us-west-2.amazonaws.com</code> server.</p>
+<p>However, there are many different ways to find such cloud storage. One of the easiest and most used is Google search combined with Google Dorks. For example, we can use the Google Dorks <code>inurl:</code> and <code>intext:</code> to narrow our search to specific terms. In the following example, we see red censored areas containing the company name.</p>
+</div>
+<div id="google-search-for-aws" class="section level3 hasAnchor" number="4.4.2">
+<h3><span class="header-section-number">4.4.2</span> Google Search for AWS<a href="enumeration-principles.html#google-search-for-aws" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>   </p>
+<p><img src="https://academy.hackthebox.com/storage/modules/112/gsearch1.png" /></p>
+</div>
+<div id="google-search-for-azure" class="section level3 hasAnchor" number="4.4.3">
+<h3><span class="header-section-number">4.4.3</span> Google Search for Azure<a href="enumeration-principles.html#google-search-for-azure" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>   </p>
+<p><img src="https://academy.hackthebox.com/storage/modules/112/gsearch2.png" /></p>
+<p>Here we can already see that the links presented by Google contain PDFs. When we search for a company that we may already know or want to know, we will also come across other files such as text documents, presentations, codes, and many others.</p>
+<p>Such content is also often included in the source code of the web pages, from where the images, JavaScript codes, or CSS are loaded. This procedure often relieves the web server and does not store unnecessary content.</p>
+</div>
+<div id="target-website---source-code" class="section level3 hasAnchor" number="4.4.4">
+<h3><span class="header-section-number">4.4.4</span> Target Website - Source Code<a href="enumeration-principles.html#target-website---source-code" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><img src="https://academy.hackthebox.com/storage/modules/112/cloud3.png" /></p>
+<p>Third-party providers such as <a href="https://domain.glass/">domain.glass</a> can also tell us a lot about the company’s infrastructure. As a positive side effect, we can also see that Cloudflare’s security assessment status has been classified as “Safe”. This means we have already found a security measure that can be noted for the second layer (gateway).</p>
+</div>
+<div id="domain.glass-results" class="section level3 hasAnchor" number="4.4.5">
+<h3><span class="header-section-number">4.4.5</span> Domain.Glass Results<a href="enumeration-principles.html#domain.glass-results" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><img src="https://academy.hackthebox.com/storage/modules/112/cloud1.png" /></p>
+<p>Another very useful provider is <a href="https://buckets.grayhatwarfare.com/">GrayHatWarfare</a>. We can do many different searches, discover AWS, Azure, and GCP cloud storage, and even sort and filter by file format. Therefore, once we have found them through Google, we can also search for them on GrayHatWarefare and passively discover what files are stored on the given cloud storage.</p>
+</div>
+<div id="grayhatwarfare-results" class="section level3 hasAnchor" number="4.4.6">
+<h3><span class="header-section-number">4.4.6</span> GrayHatWarfare Results<a href="enumeration-principles.html#grayhatwarfare-results" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><img src="https://academy.hackthebox.com/storage/modules/112/cloud2.png" /></p>
+<p>Many companies also use abbreviations of the company name, which are then used accordingly within the IT infrastructure. Such terms are also part of an excellent approach to discovering new cloud storage from the company. We can also search for files simultaneously to see the files that can be accessed at the same time.</p>
+</div>
+<div id="private-and-public-ssh-keys-leaked" class="section level3 hasAnchor" number="4.4.7">
+<h3><span class="header-section-number">4.4.7</span> Private and Public SSH Keys Leaked<a href="enumeration-principles.html#private-and-public-ssh-keys-leaked" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><img src="https://academy.hackthebox.com/storage/modules/112/ghw1.png" /></p>
+<p>Sometimes when employees are overworked or under high pressure, mistakes can be fatal for the entire company. These errors can even lead to SSH private keys being leaked, which anyone can download and log onto one or even more machines in the company without using a password.</p>
+</div>
+<div id="ssh-private-key" class="section level3 hasAnchor" number="4.4.8">
+<h3><span class="header-section-number">4.4.8</span> SSH Private Key<a href="enumeration-principles.html#ssh-private-key" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><img src="https://academy.hackthebox.com/storage/modules/112/ghw2.png" /></p>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="network-enumeration.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/lukencito/hacking-notes/edit/main/04-footprint.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": "https://github.com/lukencito/hacking-notes/blob/main/04-footprint.Rmd",
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,2738 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>3 Network Enumeration | Hacking Notes</title>
+  <meta name="description" content="3 Network Enumeration | Hacking Notes" />
+  <meta name="generator" content="bookdown 0.41 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="3 Network Enumeration | Hacking Notes" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="3 Network Enumeration | Hacking Notes" />
+  
+  
+  
+
+<meta name="author" content="notluken" />
+
+
+<meta name="date" content="2024-10-30" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="pentest-overview.html"/>
+<link rel="next" href="enumeration-principles.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">hacking</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Whoami</a></li>
+<li class="chapter" data-level="2" data-path="pentest-overview.html"><a href="pentest-overview.html"><i class="fa fa-check"></i><b>2</b> Pentest Overview</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="pentest-overview.html"><a href="pentest-overview.html#penetration-testing-overview"><i class="fa fa-check"></i><b>2.1</b> Penetration Testing Overview</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="pentest-overview.html"><a href="pentest-overview.html#risk-management"><i class="fa fa-check"></i><b>2.1.1</b> Risk Management</a></li>
+<li class="chapter" data-level="2.1.2" data-path="pentest-overview.html"><a href="pentest-overview.html#vulnerability-assessments"><i class="fa fa-check"></i><b>2.1.2</b> Vulnerability Assessments</a></li>
+<li class="chapter" data-level="2.1.3" data-path="pentest-overview.html"><a href="pentest-overview.html#testing-methods"><i class="fa fa-check"></i><b>2.1.3</b> Testing Methods</a></li>
+<li class="chapter" data-level="2.1.4" data-path="pentest-overview.html"><a href="pentest-overview.html#types-of-penetration-testing"><i class="fa fa-check"></i><b>2.1.4</b> Types of Penetration Testing</a></li>
+<li class="chapter" data-level="2.1.5" data-path="pentest-overview.html"><a href="pentest-overview.html#types-of-testing-environments"><i class="fa fa-check"></i><b>2.1.5</b> Types of Testing Environments</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="pentest-overview.html"><a href="pentest-overview.html#laws-and-regulations"><i class="fa fa-check"></i><b>2.2</b> Laws and Regulations</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="pentest-overview.html"><a href="pentest-overview.html#usa"><i class="fa fa-check"></i><b>2.2.1</b> USA</a></li>
+<li class="chapter" data-level="2.2.2" data-path="pentest-overview.html"><a href="pentest-overview.html#europe"><i class="fa fa-check"></i><b>2.2.2</b> Europe</a></li>
+<li class="chapter" data-level="2.2.3" data-path="pentest-overview.html"><a href="pentest-overview.html#uk"><i class="fa fa-check"></i><b>2.2.3</b> UK</a></li>
+<li class="chapter" data-level="2.2.4" data-path="pentest-overview.html"><a href="pentest-overview.html#india"><i class="fa fa-check"></i><b>2.2.4</b> India</a></li>
+<li class="chapter" data-level="2.2.5" data-path="pentest-overview.html"><a href="pentest-overview.html#china"><i class="fa fa-check"></i><b>2.2.5</b> China</a></li>
+<li class="chapter" data-level="2.2.6" data-path="pentest-overview.html"><a href="pentest-overview.html#precautionary-measures-during-penetration-tests"><i class="fa fa-check"></i><b>2.2.6</b> Precautionary Measures during Penetration Tests</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="pentest-overview.html"><a href="pentest-overview.html#pre-engagement"><i class="fa fa-check"></i><b>2.3</b> Pre-Engagement</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="pentest-overview.html"><a href="pentest-overview.html#scoping-questionnaire"><i class="fa fa-check"></i><b>2.3.1</b> Scoping Questionnaire</a></li>
+<li class="chapter" data-level="2.3.2" data-path="pentest-overview.html"><a href="pentest-overview.html#pre-engagement-meeting"><i class="fa fa-check"></i><b>2.3.2</b> Pre-Engagement Meeting</a></li>
+<li class="chapter" data-level="2.3.3" data-path="pentest-overview.html"><a href="pentest-overview.html#kick-off-meeting"><i class="fa fa-check"></i><b>2.3.3</b> Kick-Off Meeting</a></li>
+<li class="chapter" data-level="2.3.4" data-path="pentest-overview.html"><a href="pentest-overview.html#contractors-agreement"><i class="fa fa-check"></i><b>2.3.4</b> Contractors Agreement</a></li>
+<li class="chapter" data-level="2.3.5" data-path="pentest-overview.html"><a href="pentest-overview.html#setting-up"><i class="fa fa-check"></i><b>2.3.5</b> Setting Up</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="pentest-overview.html"><a href="pentest-overview.html#information-gathering"><i class="fa fa-check"></i><b>2.4</b> Information Gathering</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="pentest-overview.html"><a href="pentest-overview.html#open-source-intelligence"><i class="fa fa-check"></i><b>2.4.1</b> Open-Source Intelligence</a></li>
+<li class="chapter" data-level="2.4.2" data-path="pentest-overview.html"><a href="pentest-overview.html#infrastructure-enumeration"><i class="fa fa-check"></i><b>2.4.2</b> Infrastructure Enumeration</a></li>
+<li class="chapter" data-level="2.4.3" data-path="pentest-overview.html"><a href="pentest-overview.html#service-enumeration"><i class="fa fa-check"></i><b>2.4.3</b> Service Enumeration</a></li>
+<li class="chapter" data-level="2.4.4" data-path="pentest-overview.html"><a href="pentest-overview.html#host-enumeration"><i class="fa fa-check"></i><b>2.4.4</b> Host Enumeration</a></li>
+<li class="chapter" data-level="2.4.5" data-path="pentest-overview.html"><a href="pentest-overview.html#pillaging"><i class="fa fa-check"></i><b>2.4.5</b> Pillaging</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="pentest-overview.html"><a href="pentest-overview.html#vulnerability-assessment"><i class="fa fa-check"></i><b>2.5</b> Vulnerability Assessment</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="pentest-overview.html"><a href="pentest-overview.html#vulnerability-research-and-analysis"><i class="fa fa-check"></i><b>2.5.1</b> Vulnerability Research and Analysis</a></li>
+<li class="chapter" data-level="2.5.2" data-path="pentest-overview.html"><a href="pentest-overview.html#assessment-of-possible-attack-vectors"><i class="fa fa-check"></i><b>2.5.2</b> Assessment of Possible Attack Vectors</a></li>
+<li class="chapter" data-level="2.5.3" data-path="pentest-overview.html"><a href="pentest-overview.html#the-return"><i class="fa fa-check"></i><b>2.5.3</b> The Return</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="pentest-overview.html"><a href="pentest-overview.html#explotation"><i class="fa fa-check"></i><b>2.6</b> Explotation</a>
+<ul>
+<li class="chapter" data-level="2.6.1" data-path="pentest-overview.html"><a href="pentest-overview.html#prioritization-of-possible-attacks"><i class="fa fa-check"></i><b>2.6.1</b> Prioritization of Possible Attacks</a></li>
+<li class="chapter" data-level="2.6.2" data-path="pentest-overview.html"><a href="pentest-overview.html#preparation-for-the-attack"><i class="fa fa-check"></i><b>2.6.2</b> Preparation for the Attack</a></li>
+</ul></li>
+<li class="chapter" data-level="2.7" data-path="pentest-overview.html"><a href="pentest-overview.html#post-explotation"><i class="fa fa-check"></i><b>2.7</b> Post-Explotation</a>
+<ul>
+<li class="chapter" data-level="2.7.1" data-path="pentest-overview.html"><a href="pentest-overview.html#evasive-testing"><i class="fa fa-check"></i><b>2.7.1</b> Evasive Testing</a></li>
+<li class="chapter" data-level="2.7.2" data-path="pentest-overview.html"><a href="pentest-overview.html#information-gathering-1"><i class="fa fa-check"></i><b>2.7.2</b> Information Gathering</a></li>
+<li class="chapter" data-level="2.7.3" data-path="pentest-overview.html"><a href="pentest-overview.html#pillaging-1"><i class="fa fa-check"></i><b>2.7.3</b> Pillaging</a></li>
+<li class="chapter" data-level="2.7.4" data-path="pentest-overview.html"><a href="pentest-overview.html#persistence"><i class="fa fa-check"></i><b>2.7.4</b> Persistence</a></li>
+<li class="chapter" data-level="2.7.5" data-path="pentest-overview.html"><a href="pentest-overview.html#vulnerability-assessment-1"><i class="fa fa-check"></i><b>2.7.5</b> Vulnerability Assessment</a></li>
+<li class="chapter" data-level="2.7.6" data-path="pentest-overview.html"><a href="pentest-overview.html#privilege-escalation"><i class="fa fa-check"></i><b>2.7.6</b> Privilege Escalation</a></li>
+<li class="chapter" data-level="2.7.7" data-path="pentest-overview.html"><a href="pentest-overview.html#data-exfiltration"><i class="fa fa-check"></i><b>2.7.7</b> Data Exfiltration</a></li>
+</ul></li>
+<li class="chapter" data-level="2.8" data-path="pentest-overview.html"><a href="pentest-overview.html#lateral-movement"><i class="fa fa-check"></i><b>2.8</b> Lateral Movement</a>
+<ul>
+<li class="chapter" data-level="2.8.1" data-path="pentest-overview.html"><a href="pentest-overview.html#pivoting"><i class="fa fa-check"></i><b>2.8.1</b> Pivoting</a></li>
+<li class="chapter" data-level="2.8.2" data-path="pentest-overview.html"><a href="pentest-overview.html#evasive-testing-1"><i class="fa fa-check"></i><b>2.8.2</b> Evasive Testing</a></li>
+<li class="chapter" data-level="2.8.3" data-path="pentest-overview.html"><a href="pentest-overview.html#information-gathering-2"><i class="fa fa-check"></i><b>2.8.3</b> Information Gathering</a></li>
+<li class="chapter" data-level="2.8.4" data-path="pentest-overview.html"><a href="pentest-overview.html#vulnerability-assessment-2"><i class="fa fa-check"></i><b>2.8.4</b> Vulnerability Assessment</a></li>
+<li class="chapter" data-level="2.8.5" data-path="pentest-overview.html"><a href="pentest-overview.html#privilege-exploitation"><i class="fa fa-check"></i><b>2.8.5</b> (Privilege) Exploitation</a></li>
+<li class="chapter" data-level="2.8.6" data-path="pentest-overview.html"><a href="pentest-overview.html#post-exploitation"><i class="fa fa-check"></i><b>2.8.6</b> Post-Exploitation</a></li>
+</ul></li>
+<li class="chapter" data-level="2.9" data-path="pentest-overview.html"><a href="pentest-overview.html#proof-of-concept"><i class="fa fa-check"></i><b>2.9</b> Proof-of-Concept</a></li>
+<li class="chapter" data-level="2.10" data-path="pentest-overview.html"><a href="pentest-overview.html#post-engagement"><i class="fa fa-check"></i><b>2.10</b> Post-Engagement</a>
+<ul>
+<li class="chapter" data-level="2.10.1" data-path="pentest-overview.html"><a href="pentest-overview.html#cleanup"><i class="fa fa-check"></i><b>2.10.1</b> Cleanup</a></li>
+<li class="chapter" data-level="2.10.2" data-path="pentest-overview.html"><a href="pentest-overview.html#documentation-and-reporting"><i class="fa fa-check"></i><b>2.10.2</b> Documentation and Reporting</a></li>
+<li class="chapter" data-level="2.10.3" data-path="pentest-overview.html"><a href="pentest-overview.html#report-review-meeting"><i class="fa fa-check"></i><b>2.10.3</b> Report Review Meeting</a></li>
+<li class="chapter" data-level="2.10.4" data-path="pentest-overview.html"><a href="pentest-overview.html#deliverable-acceptance"><i class="fa fa-check"></i><b>2.10.4</b> Deliverable Acceptance</a></li>
+<li class="chapter" data-level="2.10.5" data-path="pentest-overview.html"><a href="pentest-overview.html#post-remediation-testing"><i class="fa fa-check"></i><b>2.10.5</b> Post-Remediation Testing</a></li>
+<li class="chapter" data-level="2.10.6" data-path="pentest-overview.html"><a href="pentest-overview.html#role-of-the-pentester-in-remediation"><i class="fa fa-check"></i><b>2.10.6</b> Role of the Pentester in Remediation</a></li>
+<li class="chapter" data-level="2.10.7" data-path="pentest-overview.html"><a href="pentest-overview.html#data-retention"><i class="fa fa-check"></i><b>2.10.7</b> Data Retention</a></li>
+<li class="chapter" data-level="2.10.8" data-path="pentest-overview.html"><a href="pentest-overview.html#close-out"><i class="fa fa-check"></i><b>2.10.8</b> Close Out</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="network-enumeration.html"><a href="network-enumeration.html"><i class="fa fa-check"></i><b>3</b> Network Enumeration</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="network-enumeration.html"><a href="network-enumeration.html#enumeration"><i class="fa fa-check"></i><b>3.1</b> Enumeration</a></li>
+<li class="chapter" data-level="3.2" data-path="network-enumeration.html"><a href="network-enumeration.html#introduction-to-nmap"><i class="fa fa-check"></i><b>3.2</b> Introduction to Nmap</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="network-enumeration.html"><a href="network-enumeration.html#use-cases"><i class="fa fa-check"></i><b>3.2.1</b> Use Cases</a></li>
+<li class="chapter" data-level="3.2.2" data-path="network-enumeration.html"><a href="network-enumeration.html#nmap-architecture"><i class="fa fa-check"></i><b>3.2.2</b> Nmap Architecture</a></li>
+<li class="chapter" data-level="3.2.3" data-path="network-enumeration.html"><a href="network-enumeration.html#syntax"><i class="fa fa-check"></i><b>3.2.3</b> Syntax</a></li>
+<li class="chapter" data-level="3.2.4" data-path="network-enumeration.html"><a href="network-enumeration.html#scan-techniques"><i class="fa fa-check"></i><b>3.2.4</b> Scan Techniques</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="network-enumeration.html"><a href="network-enumeration.html#host-discovery"><i class="fa fa-check"></i><b>3.3</b> Host Discovery</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="network-enumeration.html"><a href="network-enumeration.html#scan-network-range"><i class="fa fa-check"></i><b>3.3.1</b> Scan Network Range</a></li>
+<li class="chapter" data-level="3.3.2" data-path="network-enumeration.html"><a href="network-enumeration.html#scan-ip-list"><i class="fa fa-check"></i><b>3.3.2</b> Scan IP List</a></li>
+<li class="chapter" data-level="3.3.3" data-path="network-enumeration.html"><a href="network-enumeration.html#scan-multiple-ips"><i class="fa fa-check"></i><b>3.3.3</b> Scan Multiple IPs</a></li>
+<li class="chapter" data-level="3.3.4" data-path="network-enumeration.html"><a href="network-enumeration.html#scan-single-ip"><i class="fa fa-check"></i><b>3.3.4</b> Scan Single IP</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="network-enumeration.html"><a href="network-enumeration.html#host-and-port-scanning"><i class="fa fa-check"></i><b>3.4</b> Host and Port Scanning</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="network-enumeration.html"><a href="network-enumeration.html#discovering-open-tcp-ports"><i class="fa fa-check"></i><b>3.4.1</b> Discovering Open TCP Ports</a></li>
+<li class="chapter" data-level="3.4.2" data-path="network-enumeration.html"><a href="network-enumeration.html#filtered-ports"><i class="fa fa-check"></i><b>3.4.2</b> Filtered Ports</a></li>
+<li class="chapter" data-level="3.4.3" data-path="network-enumeration.html"><a href="network-enumeration.html#discovering-open-udp-ports"><i class="fa fa-check"></i><b>3.4.3</b> Discovering Open UDP Ports</a></li>
+<li class="chapter" data-level="3.4.4" data-path="network-enumeration.html"><a href="network-enumeration.html#version-scan"><i class="fa fa-check"></i><b>3.4.4</b> Version Scan</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="network-enumeration.html"><a href="network-enumeration.html#saving-the-results"><i class="fa fa-check"></i><b>3.5</b> Saving the Results</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="network-enumeration.html"><a href="network-enumeration.html#different-formats"><i class="fa fa-check"></i><b>3.5.1</b> Different Formats</a></li>
+<li class="chapter" data-level="3.5.2" data-path="network-enumeration.html"><a href="network-enumeration.html#style-sheets"><i class="fa fa-check"></i><b>3.5.2</b> Style sheets</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="network-enumeration.html"><a href="network-enumeration.html#service-enumeration-1"><i class="fa fa-check"></i><b>3.6</b> Service Enumeration</a>
+<ul>
+<li class="chapter" data-level="3.6.1" data-path="network-enumeration.html"><a href="network-enumeration.html#service-version-detection"><i class="fa fa-check"></i><b>3.6.1</b> Service Version Detection</a></li>
+<li class="chapter" data-level="3.6.2" data-path="network-enumeration.html"><a href="network-enumeration.html#banner-grabbing"><i class="fa fa-check"></i><b>3.6.2</b> Banner Grabbing</a></li>
+<li class="chapter" data-level="3.6.3" data-path="network-enumeration.html"><a href="network-enumeration.html#tcpdump"><i class="fa fa-check"></i><b>3.6.3</b> Tcpdump</a></li>
+<li class="chapter" data-level="3.6.4" data-path="network-enumeration.html"><a href="network-enumeration.html#nc"><i class="fa fa-check"></i><b>3.6.4</b> Nc</a></li>
+<li class="chapter" data-level="3.6.5" data-path="network-enumeration.html"><a href="network-enumeration.html#tcpdump---intercepted-traffic"><i class="fa fa-check"></i><b>3.6.5</b> Tcpdump - Intercepted Traffic</a></li>
+</ul></li>
+<li class="chapter" data-level="3.7" data-path="network-enumeration.html"><a href="network-enumeration.html#nmap-scription-engine"><i class="fa fa-check"></i><b>3.7</b> Nmap Scription Engine</a>
+<ul>
+<li class="chapter" data-level="3.7.1" data-path="network-enumeration.html"><a href="network-enumeration.html#default-scripts"><i class="fa fa-check"></i><b>3.7.1</b> Default Scripts</a></li>
+<li class="chapter" data-level="3.7.2" data-path="network-enumeration.html"><a href="network-enumeration.html#specific-scripts-category"><i class="fa fa-check"></i><b>3.7.2</b> Specific Scripts Category</a></li>
+<li class="chapter" data-level="3.7.3" data-path="network-enumeration.html"><a href="network-enumeration.html#defined-scripts"><i class="fa fa-check"></i><b>3.7.3</b> Defined Scripts</a></li>
+<li class="chapter" data-level="3.7.4" data-path="network-enumeration.html"><a href="network-enumeration.html#nmap---specifying-scripts"><i class="fa fa-check"></i><b>3.7.4</b> Nmap - Specifying Scripts</a></li>
+<li class="chapter" data-level="3.7.5" data-path="network-enumeration.html"><a href="network-enumeration.html#nmap---aggressive-scan"><i class="fa fa-check"></i><b>3.7.5</b> Nmap - Aggressive Scan</a></li>
+<li class="chapter" data-level="3.7.6" data-path="network-enumeration.html"><a href="network-enumeration.html#vulnerability-assessment-3"><i class="fa fa-check"></i><b>3.7.6</b> Vulnerability Assessment</a></li>
+</ul></li>
+<li class="chapter" data-level="3.8" data-path="network-enumeration.html"><a href="network-enumeration.html#performance"><i class="fa fa-check"></i><b>3.8</b> Performance</a>
+<ul>
+<li class="chapter" data-level="3.8.1" data-path="network-enumeration.html"><a href="network-enumeration.html#timeouts"><i class="fa fa-check"></i><b>3.8.1</b> Timeouts</a></li>
+<li class="chapter" data-level="3.8.2" data-path="network-enumeration.html"><a href="network-enumeration.html#default-scan"><i class="fa fa-check"></i><b>3.8.2</b> Default Scan</a></li>
+<li class="chapter" data-level="3.8.3" data-path="network-enumeration.html"><a href="network-enumeration.html#optimized-rtt"><i class="fa fa-check"></i><b>3.8.3</b> Optimized RTT</a></li>
+<li class="chapter" data-level="3.8.4" data-path="network-enumeration.html"><a href="network-enumeration.html#max-retries"><i class="fa fa-check"></i><b>3.8.4</b> Max Retries</a></li>
+<li class="chapter" data-level="3.8.5" data-path="network-enumeration.html"><a href="network-enumeration.html#default-scan-1"><i class="fa fa-check"></i><b>3.8.5</b> Default Scan</a></li>
+<li class="chapter" data-level="3.8.6" data-path="network-enumeration.html"><a href="network-enumeration.html#reduced-retries"><i class="fa fa-check"></i><b>3.8.6</b> Reduced Retries</a></li>
+<li class="chapter" data-level="3.8.7" data-path="network-enumeration.html"><a href="network-enumeration.html#rates"><i class="fa fa-check"></i><b>3.8.7</b> Rates</a></li>
+<li class="chapter" data-level="3.8.8" data-path="network-enumeration.html"><a href="network-enumeration.html#default-scan-2"><i class="fa fa-check"></i><b>3.8.8</b> Default Scan</a></li>
+<li class="chapter" data-level="3.8.9" data-path="network-enumeration.html"><a href="network-enumeration.html#optimized-scan"><i class="fa fa-check"></i><b>3.8.9</b> Optimized Scan</a></li>
+<li class="chapter" data-level="3.8.10" data-path="network-enumeration.html"><a href="network-enumeration.html#default-scan---found-open-ports"><i class="fa fa-check"></i><b>3.8.10</b> Default Scan - Found Open Ports</a></li>
+<li class="chapter" data-level="3.8.11" data-path="network-enumeration.html"><a href="network-enumeration.html#optimized-scan---found-open-ports"><i class="fa fa-check"></i><b>3.8.11</b> Optimized Scan - Found Open Ports</a></li>
+<li class="chapter" data-level="3.8.12" data-path="network-enumeration.html"><a href="network-enumeration.html#timing"><i class="fa fa-check"></i><b>3.8.12</b> Timing</a></li>
+</ul></li>
+<li class="chapter" data-level="3.9" data-path="network-enumeration.html"><a href="network-enumeration.html#firewall-and-ids-ips-evasion"><i class="fa fa-check"></i><b>3.9</b> Firewall and IDS-IPS Evasion</a>
+<ul>
+<li class="chapter" data-level="3.9.1" data-path="network-enumeration.html"><a href="network-enumeration.html#firewalls"><i class="fa fa-check"></i><b>3.9.1</b> Firewalls</a></li>
+<li class="chapter" data-level="3.9.2" data-path="network-enumeration.html"><a href="network-enumeration.html#idsips"><i class="fa fa-check"></i><b>3.9.2</b> IDS/IPS</a></li>
+<li class="chapter" data-level="3.9.3" data-path="network-enumeration.html"><a href="network-enumeration.html#determine-firewalls-and-their-rules"><i class="fa fa-check"></i><b>3.9.3</b> Determine Firewalls and Their Rules</a></li>
+<li class="chapter" data-level="3.9.4" data-path="network-enumeration.html"><a href="network-enumeration.html#detect-idsips"><i class="fa fa-check"></i><b>3.9.4</b> Detect IDS/IPS</a></li>
+<li class="chapter" data-level="3.9.5" data-path="network-enumeration.html"><a href="network-enumeration.html#decoys"><i class="fa fa-check"></i><b>3.9.5</b> Decoys</a></li>
+<li class="chapter" data-level="3.9.6" data-path="network-enumeration.html"><a href="network-enumeration.html#dns-proxying"><i class="fa fa-check"></i><b>3.9.6</b> DNS Proxying</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="enumeration-principles.html"><a href="enumeration-principles.html"><i class="fa fa-check"></i><b>4</b> Enumeration Principles</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="enumeration-principles.html"><a href="enumeration-principles.html#enumeration-principles-1"><i class="fa fa-check"></i><b>4.1</b> Enumeration Principles</a></li>
+<li class="chapter" data-level="4.2" data-path="enumeration-principles.html"><a href="enumeration-principles.html#enumeration-metodology"><i class="fa fa-check"></i><b>4.2</b> Enumeration Metodology</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="enumeration-principles.html"><a href="enumeration-principles.html#layer-no.1-internet-presence"><i class="fa fa-check"></i><b>4.2.1</b> Layer No.1: Internet Presence</a></li>
+<li class="chapter" data-level="4.2.2" data-path="enumeration-principles.html"><a href="enumeration-principles.html#layer-no.2-gateway"><i class="fa fa-check"></i><b>4.2.2</b> Layer No.2: Gateway</a></li>
+<li class="chapter" data-level="4.2.3" data-path="enumeration-principles.html"><a href="enumeration-principles.html#layer-no.3-accessible-services"><i class="fa fa-check"></i><b>4.2.3</b> Layer No.3: Accessible Services</a></li>
+<li class="chapter" data-level="4.2.4" data-path="enumeration-principles.html"><a href="enumeration-principles.html#layer-no.4-processes"><i class="fa fa-check"></i><b>4.2.4</b> Layer No.4: Processes</a></li>
+<li class="chapter" data-level="4.2.5" data-path="enumeration-principles.html"><a href="enumeration-principles.html#layer-no.5-privileges"><i class="fa fa-check"></i><b>4.2.5</b> Layer No.5: Privileges</a></li>
+<li class="chapter" data-level="4.2.6" data-path="enumeration-principles.html"><a href="enumeration-principles.html#layer-no.6-os-setup"><i class="fa fa-check"></i><b>4.2.6</b> Layer No.6: OS Setup</a></li>
+<li class="chapter" data-level="4.2.7" data-path="enumeration-principles.html"><a href="enumeration-principles.html#enumeration-methodology-in-practice"><i class="fa fa-check"></i><b>4.2.7</b> Enumeration Methodology in Practice</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="enumeration-principles.html"><a href="enumeration-principles.html#domain-information"><i class="fa fa-check"></i><b>4.3</b> Domain Information</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="enumeration-principles.html"><a href="enumeration-principles.html#online-presence"><i class="fa fa-check"></i><b>4.3.1</b> Online Presence</a></li>
+<li class="chapter" data-level="4.3.2" data-path="enumeration-principles.html"><a href="enumeration-principles.html#certificate-transparency"><i class="fa fa-check"></i><b>4.3.2</b> Certificate Transparency</a></li>
+<li class="chapter" data-level="4.3.3" data-path="enumeration-principles.html"><a href="enumeration-principles.html#company-hosted-servers"><i class="fa fa-check"></i><b>4.3.3</b> Company Hosted Servers</a></li>
+<li class="chapter" data-level="4.3.4" data-path="enumeration-principles.html"><a href="enumeration-principles.html#shodan---ip-list"><i class="fa fa-check"></i><b>4.3.4</b> Shodan - IP List</a></li>
+<li class="chapter" data-level="4.3.5" data-path="enumeration-principles.html"><a href="enumeration-principles.html#dns-records"><i class="fa fa-check"></i><b>4.3.5</b> DNS Records</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="enumeration-principles.html"><a href="enumeration-principles.html#cloud-resources"><i class="fa fa-check"></i><b>4.4</b> Cloud Resources</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="enumeration-principles.html"><a href="enumeration-principles.html#company-hosted-servers-1"><i class="fa fa-check"></i><b>4.4.1</b> Company Hosted Servers</a></li>
+<li class="chapter" data-level="4.4.2" data-path="enumeration-principles.html"><a href="enumeration-principles.html#google-search-for-aws"><i class="fa fa-check"></i><b>4.4.2</b> Google Search for AWS</a></li>
+<li class="chapter" data-level="4.4.3" data-path="enumeration-principles.html"><a href="enumeration-principles.html#google-search-for-azure"><i class="fa fa-check"></i><b>4.4.3</b> Google Search for Azure</a></li>
+<li class="chapter" data-level="4.4.4" data-path="enumeration-principles.html"><a href="enumeration-principles.html#target-website---source-code"><i class="fa fa-check"></i><b>4.4.4</b> Target Website - Source Code</a></li>
+<li class="chapter" data-level="4.4.5" data-path="enumeration-principles.html"><a href="enumeration-principles.html#domain.glass-results"><i class="fa fa-check"></i><b>4.4.5</b> Domain.Glass Results</a></li>
+<li class="chapter" data-level="4.4.6" data-path="enumeration-principles.html"><a href="enumeration-principles.html#grayhatwarfare-results"><i class="fa fa-check"></i><b>4.4.6</b> GrayHatWarfare Results</a></li>
+<li class="chapter" data-level="4.4.7" data-path="enumeration-principles.html"><a href="enumeration-principles.html#private-and-public-ssh-keys-leaked"><i class="fa fa-check"></i><b>4.4.7</b> Private and Public SSH Keys Leaked</a></li>
+<li class="chapter" data-level="4.4.8" data-path="enumeration-principles.html"><a href="enumeration-principles.html#ssh-private-key"><i class="fa fa-check"></i><b>4.4.8</b> SSH Private Key</a></li>
+</ul></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Knowledge is Power</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Hacking Notes</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="network-enumeration" class="section level1 hasAnchor" number="3">
+<h1><span class="header-section-number">3</span> Network Enumeration<a href="network-enumeration.html#network-enumeration" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="enumeration" class="section level2 hasAnchor" number="3.1">
+<h2><span class="header-section-number">3.1</span> Enumeration<a href="network-enumeration.html#enumeration" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><code>Enumeration</code> is the most critical part of all. The art, the difficulty, and the goal are not to gain access to our target computer. Instead, it is identifying all of the ways we could attack a target we must find.</p>
+<p>It is not just based on the tools we use. They will only do much good if we know what to do with the information we get from them. The tools are just tools, and tools alone should never replace our knowledge and our attention to detail. Here it is much more about actively interacting with the individual services to see what information they provide us and what possibilities they offer us.</p>
+<p>It is essential to understand how these services work and what syntax they use for effective communication and interaction with the different services.</p>
+<p>This phase aims to improve our knowledge and understanding of the technologies, protocols, and how they work and learn to deal with new information and adapt to our already acquired knowledge. Enumeration is collecting as much information as possible. The more information we have, the easier it will be for us to find vectors of attack.</p>
+<p>Imagine the following situation:</p>
+<p>Our partner is not at home and has misplaced our car keys. We call our partner and ask where the keys are. If we get an answer like “in the living room,” it is entirely unclear and can take much time to find them there. However, what if our partner tells us something like “in the living room on the white shelf, next to the TV, in the third drawer”? As a result, it will be much easier to find them.</p>
+<p>It’s not hard to get access to the target system once we know how to do it. Most of the ways we can get access we can narrow down to the following two points:</p>
+<ul>
+<li><p><code>Functions and/or resources that allow us to interact with the target and/or provide additional information.</code></p></li>
+<li><p><code>Information that provides us with even more important information to access our target.</code></p></li>
+</ul>
+<p>When scanning and inspecting, we look exactly for these two possibilities. Most of the information we get comes from misconfigurations or neglect of security for the respective services. Misconfigurations are either the result of ignorance or a wrong security mindset. For example, if the administrator only relies on the firewall, Group Policy Objects (GPOs), and continuous updates, it is often not enough to secure the network.</p>
+<p><code>Enumeration is the key</code>.</p>
+<p>That’s what most people say, and they are right. However, it is too often misunderstood. Most people understand that they haven’t tried all the tools to get the information they need. Most of the time, however, it’s not the tools we haven’t tried, but rather the fact that we don’t know how to interact with the service and what’s relevant.</p>
+<p>That’s precisely the reason why so many people stay stuck in one spot and don’t get ahead. Had these people invested a couple of hours learning more about the service, how it works, and what it is meant for, they would save a few hours or even days from reaching their goal and get access to the system.</p>
+<p><code>Manual enumeration</code> is a <code>critical</code> component. Many scanning tools simplify and accelerate the process. However, these cannot always bypass the security measures of the services. The easiest way to illustrate this is to use the following example:</p>
+<p>Most scanning tools have a timeout set until they receive a response from the service. If this tool does not respond within a specific time, this service/port will be marked as closed, filtered, or unknown. In the last two cases, we will still be able to work with it. However, if a port is marked as closed and Nmap doesn’t show it to us, we will be in a bad situation. This service/port may provide us with the opportunity to find a way to access the system. Therefore, this result can take much unnecessary time until we find it.</p>
+</div>
+<div id="introduction-to-nmap" class="section level2 hasAnchor" number="3.2">
+<h2><span class="header-section-number">3.2</span> Introduction to Nmap<a href="network-enumeration.html#introduction-to-nmap" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Network Mapper (<code>Nmap</code>) is an open-source network analysis and security auditing tool written in C, C++, Python, and Lua. It is designed to scan networks and identify which hosts are available on the network using raw packets, and services and applications, including the name and version, where possible. It can also identify the operating systems and versions of these hosts. Besides other features, Nmap also offers scanning capabilities that can determine if packet filters, firewalls, or intrusion detection systems (IDS) are configured as needed.</p>
+<hr />
+<div id="use-cases" class="section level3 hasAnchor" number="3.2.1">
+<h3><span class="header-section-number">3.2.1</span> Use Cases<a href="network-enumeration.html#use-cases" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The tool is one of the most used tools by network administrators and IT security specialists. It is used to:</p>
+<ul>
+<li>Audit the security aspects of networks</li>
+<li>Simulate penetration tests</li>
+<li>Check firewall and IDS settings and configurations</li>
+<li>Types of possible connections</li>
+<li>Network mapping</li>
+<li>Response analysis</li>
+<li>Identify open ports</li>
+<li>Vulnerability assessment as well.</li>
+</ul>
+<hr />
+</div>
+<div id="nmap-architecture" class="section level3 hasAnchor" number="3.2.2">
+<h3><span class="header-section-number">3.2.2</span> Nmap Architecture<a href="network-enumeration.html#nmap-architecture" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Nmap offers many different types of scans that can be used to obtain various results about our targets. Basically, Nmap can be divided into the following scanning techniques:</p>
+<ul>
+<li>Host discovery</li>
+<li>Port scanning</li>
+<li>Service enumeration and detection</li>
+<li>OS detection</li>
+<li>Scriptable interaction with the target service (Nmap Scripting Engine)</li>
+</ul>
+<hr />
+</div>
+<div id="syntax" class="section level3 hasAnchor" number="3.2.3">
+<h3><span class="header-section-number">3.2.3</span> Syntax<a href="network-enumeration.html#syntax" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The syntax for Nmap is fairly simple and looks like this:</p>
+<pre class="shell-session"><code>notluken@htb[/htb]$ nmap &lt;scan types&gt; &lt;options&gt; &lt;target&gt;</code></pre>
+<hr />
+</div>
+<div id="scan-techniques" class="section level3 hasAnchor" number="3.2.4">
+<h3><span class="header-section-number">3.2.4</span> Scan Techniques<a href="network-enumeration.html#scan-techniques" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Nmap offers many different scanning techniques, making different types of connections and using differently structured packets to send. Here we can see all the scanning techniques Nmap offers:</p>
+<pre class="shell-session"><code>notluken@htb[/htb]$ nmap --help
+ 
+&lt;SNIP&gt;
+SCAN TECHNIQUES:
+   -sS/sT/sA/sW/sM: TCP SYN/Connect()/ACK/Window/Maimon scans
+   -sU: UDP Scan
+   -sN/sF/sX: TCP Null, FIN, and Xmas scans
+   --scanflags &lt;flags&gt;: Customize TCP scan flags
+   -sI &lt;zombie host[:probeport]&gt;: Idle scan
+   -sY/sZ: SCTP INIT/COOKIE-ECHO scans
+   -sO: IP protocol scan
+   -b &lt;FTP relay host&gt;: FTP bounce scan
+ &lt;SNIP&gt;</code></pre>
+<p>For example, the TCP-SYN scan (<code>-sS</code>) is one of the default settings unless we have defined otherwise and is also one of the most popular scan methods. This scan method makes it possible to scan several thousand ports per second. The TCP-SYN scan sends one packet with the SYN flag and, therefore, never completes the three-way handshake, which results in not establishing a full TCP connection to the scanned port.</p>
+<ul>
+<li>If our target sends a <code>SYN-ACK</code> flagged packet back to us, Nmap detects that the port is <code>open</code>.</li>
+<li>If the target responds with an <code>RST</code> flagged packet, it is an indicator that the port is <code>closed</code>.</li>
+<li>If Nmap does not receive a packet back, it will display it as <code>filtered</code>. Depending on the firewall configuration, certain packets may be dropped or ignored by the firewall.</li>
+</ul>
+<p>Let us take an example of such a scan.</p>
+<pre class="shell-session"><code>notluken@htb[/htb]$ sudo nmap -sS localhost
+ 
+Starting Nmap 7.80 ( https://nmap.org ) at 2020-06-11 22:50 UTC
+Nmap scan report for localhost (127.0.0.1)
+Host is up (0.000010s latency).
+Not shown: 996 closed ports
+PORT     STATE SERVICE
+22/tcp   open  ssh
+80/tcp   open  http
+5432/tcp open  postgresql
+5901/tcp open  vnc-1
+ 
+Nmap done: 1 IP address (1 host up) scanned in 0.18 seconds</code></pre>
+<p>In this example, we can see that we have four different TCP ports open. In the first column, we see the number of the port. Then, in the second column, we see the service’s status and then what kind of service it is.</p>
+</div>
+</div>
+<div id="host-discovery" class="section level2 hasAnchor" number="3.3">
+<h2><span class="header-section-number">3.3</span> Host Discovery<a href="network-enumeration.html#host-discovery" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<hr />
+<p>When we need to conduct an internal penetration test for the entire network of a company, for example, then we should, first of all, get an overview of which systems are online that we can work with. To actively discover such systems on the network, we can use various <code>Nmap</code> host discovery options. There are many options <code>Nmap</code> provides to determine whether our target is alive or not. The most effective host discovery method is to use <strong>ICMP echo requests</strong>, which we will look into.</p>
+<p>It is always recommended to store every single scan. This can later be used for comparison, documentation, and reporting. After all, different tools may produce different results. Therefore it can be beneficial to distinguish which tool produces which results.</p>
+<div id="scan-network-range" class="section level3 hasAnchor" number="3.3.1">
+<h3><span class="header-section-number">3.3.1</span> Scan Network Range<a href="network-enumeration.html#scan-network-range" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<pre class="shell-session"><code>notluken@htb[/htb]$ sudo nmap 10.129.2.0/24 -sn -oA tnet | grep for | cut -d&quot; &quot; -f5
+ 
+10.129.2.4
+10.129.2.10
+10.129.2.11
+10.129.2.18
+10.129.2.19
+10.129.2.20
+10.129.2.28</code></pre>
+<table>
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Scanning Options</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>10.129.2.0/24</code></td>
+<td>Target network range.</td>
+</tr>
+<tr class="even">
+<td><code>-sn</code></td>
+<td>Disables port scanning.</td>
+</tr>
+<tr class="odd">
+<td><code>-oA tnet</code></td>
+<td>Stores the results in all formats starting with the name ‘tnet’.</td>
+</tr>
+</tbody>
+</table>
+<p>This scanning method works only if the firewalls of the hosts allow it. Otherwise, we can use other scanning techniques to find out if the hosts are active or not. We will take a closer look at these techniques in “<code>Firewall and IDS Evasion</code>”.</p>
+<hr />
+</div>
+<div id="scan-ip-list" class="section level3 hasAnchor" number="3.3.2">
+<h3><span class="header-section-number">3.3.2</span> Scan IP List<a href="network-enumeration.html#scan-ip-list" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>During an internal penetration test, it is not uncommon for us to be provided with an IP list with the hosts we need to test. <code>Nmap</code> also gives us the option of working with lists and reading the hosts from this list instead of manually defining or typing them in.</p>
+<p>Such a list could look something like this:</p>
+<pre class="shell-session"><code>notluken@htb[/htb]$ cat hosts.lst
+
+10.129.2.4
+10.129.2.10
+10.129.2.11
+10.129.2.18
+10.129.2.19
+10.129.2.20
+10.129.2.28</code></pre>
+<p>If we use the same scanning technique on the predefined list, the command will look like this:</p>
+<pre class="shell-session"><code>notluken@htb[/htb]$ sudo nmap -sn -oA tnet -iL hosts.lst | grep for | cut -d&quot; &quot; -f5
+
+10.129.2.18
+10.129.2.19
+10.129.2.20</code></pre>
+<table>
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Scanning Options</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>-sn</code></td>
+<td>Disables port scanning.</td>
+</tr>
+<tr class="even">
+<td><code>-oA tnet</code></td>
+<td>Stores the results in all formats starting with the name ‘tnet’.</td>
+</tr>
+<tr class="odd">
+<td><code>-iL</code></td>
+<td>Performs defined scans against targets in provided ‘hosts.lst’ list.</td>
+</tr>
+</tbody>
+</table>
+<p>In this example, we see that only 3 of 7 hosts are active. Remember, this may mean that the other hosts ignore the default <strong>ICMP echo requests</strong> because of their firewall configurations. Since <code>Nmap</code> does not receive a response, it marks those hosts as inactive.</p>
+<hr />
+</div>
+<div id="scan-multiple-ips" class="section level3 hasAnchor" number="3.3.3">
+<h3><span class="header-section-number">3.3.3</span> Scan Multiple IPs<a href="network-enumeration.html#scan-multiple-ips" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>It can also happen that we only need to scan a small part of a network. An alternative to the method we used last time is to specify multiple IP addresses.</p>
+<pre class="shell-session"><code>notluken@htb[/htb]$ sudo nmap -sn -oA tnet 10.129.2.18 10.129.2.19 10.129.2.20| grep for | cut -d&quot; &quot; -f5
+
+10.129.2.18
+10.129.2.19
+10.129.2.20</code></pre>
+<p>If these IP addresses are next to each other, we can also define the range in the respective octet.</p>
+<pre class="shell-session"><code>notluken@htb[/htb]$ sudo nmap -sn -oA tnet 10.129.2.18-20| grep for | cut -d&quot; &quot; -f5
+
+10.129.2.18
+10.129.2.19
+10.129.2.20</code></pre>
+<hr />
+</div>
+<div id="scan-single-ip" class="section level3 hasAnchor" number="3.3.4">
+<h3><span class="header-section-number">3.3.4</span> Scan Single IP<a href="network-enumeration.html#scan-single-ip" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Before we scan a single host for open ports and its services, we first have to determine if it is alive or not. For this, we can use the same method as before.</p>
+<pre class="shell-session"><code>notluken@htb[/htb]$ sudo nmap 10.129.2.18 -sn -oA host
+
+Starting Nmap 7.80 ( https://nmap.org ) at 2020-06-14 23:59 CEST
+Nmap scan report for 10.129.2.18
+Host is up (0.087s latency).
+MAC Address: DE:AD:00:00:BE:EF
+Nmap done: 1 IP address (1 host up) scanned in 0.11 seconds</code></pre>
+<table>
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Scanning Options</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>10.129.2.18</code></td>
+<td>Performs defined scans against the target.</td>
+</tr>
+<tr class="even">
+<td><code>-sn</code></td>
+<td>Disables port scanning.</td>
+</tr>
+<tr class="odd">
+<td><code>-oA host</code></td>
+<td>Stores the results in all formats starting with the name ‘host’.</td>
+</tr>
+</tbody>
+</table>
+<p>If we disable port scan (<code>-sn</code>), Nmap automatically ping scan with <code>ICMP Echo Requests</code> (<code>-PE</code>). Once such a request is sent, we usually expect an <code>ICMP reply</code> if the pinging host is alive. The more interesting fact is that our previous scans did not do that because before Nmap could send an ICMP echo request, it would send an <code>ARP ping</code> resulting in an <code>ARP reply</code>. We can confirm this with the “<code>--packet-trace</code>” option. To ensure that ICMP echo requests are sent, we also define the option (<code>-PE</code>) for this.</p>
+<pre class="shell-session"><code>notluken@htb[/htb]$ sudo nmap 10.129.2.18 -sn -oA host -PE --packet-trace
+
+Starting Nmap 7.80 ( https://nmap.org ) at 2020-06-15 00:08 CEST
+SENT (0.0074s) ARP who-has 10.129.2.18 tell 10.10.14.2
+RCVD (0.0309s) ARP reply 10.129.2.18 is-at DE:AD:00:00:BE:EF
+Nmap scan report for 10.129.2.18
+Host is up (0.023s latency).
+MAC Address: DE:AD:00:00:BE:EF
+Nmap done: 1 IP address (1 host up) scanned in 0.05 seconds</code></pre>
+<table>
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Scanning Options</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>10.129.2.18</code></td>
+<td>Performs defined scans against the target.</td>
+</tr>
+<tr class="even">
+<td><code>-sn</code></td>
+<td>Disables port scanning.</td>
+</tr>
+<tr class="odd">
+<td><code>-oA host</code></td>
+<td>Stores the results in all formats starting with the name ‘host’.</td>
+</tr>
+<tr class="even">
+<td><code>-PE</code></td>
+<td>Performs the ping scan by using ‘ICMP Echo requests’ against the target.</td>
+</tr>
+<tr class="odd">
+<td><code>--packet-trace</code></td>
+<td>Shows all packets sent and received</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p>Another way to determine why Nmap has our target marked as “alive” is with the “<code>--reason</code>” option.</p>
+<pre class="shell-session"><code>notluken@htb[/htb]$ sudo nmap 10.129.2.18 -sn -oA host -PE --reason
+
+Starting Nmap 7.80 ( https://nmap.org ) at 2020-06-15 00:10 CEST
+SENT (0.0074s) ARP who-has 10.129.2.18 tell 10.10.14.2
+RCVD (0.0309s) ARP reply 10.129.2.18 is-at DE:AD:00:00:BE:EF
+Nmap scan report for 10.129.2.18
+Host is up, received arp-response (0.028s latency).
+MAC Address: DE:AD:00:00:BE:EF
+Nmap done: 1 IP address (1 host up) scanned in 0.03 seconds</code></pre>
+<table>
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Scanning Options</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>10.129.2.18</code></td>
+<td>Performs defined scans against the target.</td>
+</tr>
+<tr class="even">
+<td><code>-sn</code></td>
+<td>Disables port scanning.</td>
+</tr>
+<tr class="odd">
+<td><code>-oA host</code></td>
+<td>Stores the results in all formats starting with the name ‘host’.</td>
+</tr>
+<tr class="even">
+<td><code>-PE</code></td>
+<td>Performs the ping scan by using ‘ICMP Echo requests’ against the target.</td>
+</tr>
+<tr class="odd">
+<td><code>--reason</code></td>
+<td>Displays the reason for specific result.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p>We see here that <code>Nmap</code> does indeed detect whether the host is alive or not through the <code>ARP request</code> and <code>ARP reply</code> alone. To disable ARP requests and scan our target with the desired <code>ICMP echo requests</code>, we can disable ARP pings by setting the “<code>--disable-arp-ping</code>” option. Then we can scan our target again and look at the packets sent and received.</p>
+<pre class="shell-session"><code>notluken@htb[/htb]$ sudo nmap 10.129.2.18 -sn -oA host -PE --packet-trace --disable-arp-ping
+
+Starting Nmap 7.80 ( https://nmap.org ) at 2020-06-15 00:12 CEST
+SENT (0.0107s) ICMP [10.10.14.2 &gt; 10.129.2.18 Echo request (type=8/code=0) id=13607 seq=0] IP [ttl=255 id=23541 iplen=28 ]
+RCVD (0.0152s) ICMP [10.129.2.18 &gt; 10.10.14.2 Echo reply (type=0/code=0) id=13607 seq=0] IP [ttl=128 id=40622 iplen=28 ]
+Nmap scan report for 10.129.2.18
+Host is up (0.086s latency).
+MAC Address: DE:AD:00:00:BE:EF
+Nmap done: 1 IP address (1 host up) scanned in 0.11 seconds</code></pre>
+<p>We have already mentioned in the “<code>Learning Process</code>,” and at the beginning of this module, it is essential to pay attention to details. An <code>ICMP echo request</code> can help us determine if our target is alive and identify its system. More strategies about host discovery can be found at:</p>
+<p><a href="https://nmap.org/book/host-discovery-strategies.html">https://nmap.org/book/host-discovery-strategies.html</a></p>
+</div>
+</div>
+<div id="host-and-port-scanning" class="section level2 hasAnchor" number="3.4">
+<h2><span class="header-section-number">3.4</span> Host and Port Scanning<a href="network-enumeration.html#host-and-port-scanning" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<hr />
+<p>It is essential to understand how the tool we use works and how it performs and processes the different functions. We will only understand the results if we know what they mean and how they are obtained. Therefore we will take a closer look at and analyze some of the scanning methods. After we have found out that our target is alive, we want to get a more accurate picture of the system. The information we need includes:</p>
+<ul>
+<li>Open ports and its services</li>
+<li>Service versions</li>
+<li>Information that the services provided</li>
+<li>Operating system</li>
+</ul>
+<p>There are a total of 6 different states for a scanned port we can obtain:</p>
+<table>
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>State</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>open</code></td>
+<td>This indicates that the connection to the scanned port has been established. These connections can be <strong>TCP connections</strong>, <strong>UDP datagrams</strong> as well as <strong>SCTP associations</strong>.</td>
+</tr>
+<tr class="even">
+<td><code>closed</code></td>
+<td>When the port is shown as closed, the TCP protocol indicates that the packet we received back contains an <code>RST</code> flag. This scanning method can also be used to determine if our target is alive or not.</td>
+</tr>
+<tr class="odd">
+<td><code>filtered</code></td>
+<td>Nmap cannot correctly identify whether the scanned port is open or closed because either no response is returned from the target for the port or we get an error code from the target.</td>
+</tr>
+<tr class="even">
+<td><code>unfiltered</code></td>
+<td>This state of a port only occurs during the <strong>TCP-ACK</strong> scan and means that the port is accessible, but it cannot be determined whether it is open or closed.</td>
+</tr>
+<tr class="odd">
+<td><code>open\|filtered</code></td>
+<td>If we do not get a response for a specific port, <code>Nmap</code> will set it to that state. This indicates that a firewall or packet filter may protect the port.</td>
+</tr>
+<tr class="even">
+<td><code>closed\|filtered</code></td>
+<td>This state only occurs in the <strong>IP ID idle</strong> scans and indicates that it was impossible to determine if the scanned port is closed or filtered by a firewall.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<div id="discovering-open-tcp-ports" class="section level3 hasAnchor" number="3.4.1">
+<h3><span class="header-section-number">3.4.1</span> Discovering Open TCP Ports<a href="network-enumeration.html#discovering-open-tcp-ports" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>By default, <code>Nmap</code> scans the top 1000 TCP ports with the SYN scan (<code>-sS</code>). This SYN scan is set only to default when we run it as root because of the socket permissions required to create raw TCP packets. Otherwise, the TCP scan (<code>-sT</code>) is performed by default. This means that if we do not define ports and scanning methods, these parameters are set automatically. We can define the ports one by one (<code>-p 22,25,80,139,445</code>), by range (<code>-p 22-445</code>), by top ports (<code>--top-ports=10</code>) from the <code>Nmap</code> database that have been signed as most frequent, by scanning all ports (<code>-p-</code>) but also by defining a fast port scan, which contains top 100 ports (<code>-F</code>).</p>
+<div id="scanning-top-10-tcp-ports" class="section level4 hasAnchor" number="3.4.1.1">
+<h4><span class="header-section-number">3.4.1.1</span> Scanning Top 10 TCP Ports<a href="network-enumeration.html#scanning-top-10-tcp-ports" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<pre class="shell-session"><code>notluken@htb[/htb]$ sudo nmap 10.129.2.28 --top-ports=10
+  
+Starting Nmap 7.80 ( https://nmap.org ) at 2020-06-15 15:36 CEST
+Nmap scan report for 10.129.2.28
+Host is up (0.021s latency).
+  
+PORT     STATE    SERVICE
+21/tcp   closed   ftp
+22/tcp   open     ssh
+23/tcp   closed   telnet
+25/tcp   open     smtp
+80/tcp   open     http
+110/tcp  open     pop3
+139/tcp  filtered netbios-ssn
+443/tcp  closed   https
+445/tcp  filtered microsoft-ds
+3389/tcp closed   ms-wbt-server
+MAC Address: DE:AD:00:00:BE:EF (Intel Corporate)
+  
+Nmap done: 1 IP address (1 host up) scanned in 1.44 seconds</code></pre>
+<table>
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Scanning Options</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>10.129.2.28</code></td>
+<td>Scans the specified target.</td>
+</tr>
+<tr class="even">
+<td><code>--top-ports=10</code></td>
+<td>Scans the specified top ports that have been defined as most frequent.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p>We see that we only scanned the top 10 TCP ports of our target, and <code>Nmap</code> displays their state accordingly. If we trace the packets <code>Nmap</code>sends, we will see the <code>RST</code> flag on <code>TCP port 21</code> that our target sends back to us. To have a clear view of the SYN scan, we disable the ICMP echo requests (<code>-Pn</code>), DNS resolution (<code>-n</code>), and ARP ping scan (<code>--disable-arp-ping</code>).</p>
+</div>
+<div id="nmap---trace-the-packets" class="section level4 hasAnchor" number="3.4.1.2">
+<h4><span class="header-section-number">3.4.1.2</span> Nmap - Trace the Packets<a href="network-enumeration.html#nmap---trace-the-packets" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Host and Port Scanning</p>
+<pre class="shell-session"><code>notluken@htb[/htb]$ sudo nmap 10.129.2.28 -p 21 --packet-trace -Pn -n --disable-arp-ping
+
+Starting Nmap 7.80 ( https://nmap.org ) at 2020-06-15 15:39 CEST
+SENT (0.0429s) TCP 10.10.14.2:63090 &gt; 10.129.2.28:21 S ttl=56 id=57322 iplen=44  seq=1699105818 win=1024 &lt;mss 1460&gt;
+RCVD (0.0573s) TCP 10.129.2.28:21 &gt; 10.10.14.2:63090 RA ttl=64 id=0 iplen=40  seq=0 win=0
+Nmap scan report for 10.11.1.28
+Host is up (0.014s latency).
+
+PORT   STATE  SERVICE
+21/tcp closed ftp
+MAC Address: DE:AD:00:00:BE:EF (Intel Corporate)
+
+Nmap done: 1 IP address (1 host up) scanned in 0.07 seconds</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th><strong>Scanning Options</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>10.129.2.28</code></td>
+<td>Scans the specified target.</td>
+</tr>
+<tr class="even">
+<td><code>-p 21</code></td>
+<td>Scans only the specified port.</td>
+</tr>
+<tr class="odd">
+<td><code>--packet-trace</code></td>
+<td>Shows all packets sent and received.</td>
+</tr>
+<tr class="even">
+<td><code>-n</code></td>
+<td>Disables DNS resolution.</td>
+</tr>
+<tr class="odd">
+<td><code>--disable-arp-ping</code></td>
+<td>Disables ARP ping.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p>We can see from the SENT line that we (<code>10.10.14.2</code>) sent a TCP packet with the <code>SYN</code> flag (<code>S</code>) to our target (<code>10.129.2.28</code>). In the next RCVD line, we can see that the target responds with a TCP packet containing the <code>RST</code> and <code>ACK</code> flags (<code>RA</code>). <code>RST</code> and <code>ACK</code> flags are used to acknowledge receipt of the TCP packet (<code>ACK</code>) and to end the TCP session (<code>RST</code>).</p>
+</div>
+<div id="request" class="section level4 hasAnchor" number="3.4.1.3">
+<h4><span class="header-section-number">3.4.1.3</span> Request<a href="network-enumeration.html#request" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<table>
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Message</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>SENT (0.0429s)</code></td>
+<td>Indicates the SENT operation of Nmap, which sends a packet to the target.</td>
+</tr>
+<tr class="even">
+<td><code>TCP</code></td>
+<td>Shows the protocol that is being used to interact with the target port.</td>
+</tr>
+<tr class="odd">
+<td><code>10.10.14.2:63090 &gt;</code></td>
+<td>Represents our IPv4 address and the source port, which will be used by Nmap to send the packets.</td>
+</tr>
+<tr class="even">
+<td><code>10.129.2.28:21</code></td>
+<td>Shows the target IPv4 address and the target port.</td>
+</tr>
+<tr class="odd">
+<td><code>S</code></td>
+<td>SYN flag of the sent TCP packet.</td>
+</tr>
+<tr class="even">
+<td><code>ttl=56 id=57322 iplen=44 seq=1699105818 win=1024 mss 1460</code></td>
+<td>Additional TCP Header parameters.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="response" class="section level4 hasAnchor" number="3.4.1.4">
+<h4><span class="header-section-number">3.4.1.4</span> Response<a href="network-enumeration.html#response" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<table>
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Message</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>RCVD (0.0573s)</code></td>
+<td>Indicates a received packet from the target.</td>
+</tr>
+<tr class="even">
+<td><code>TCP</code></td>
+<td>Shows the protocol that is being used.</td>
+</tr>
+<tr class="odd">
+<td><code>10.129.2.28:21 &gt;</code></td>
+<td>Represents targets IPv4 address and the source port, which will be used to reply.</td>
+</tr>
+<tr class="even">
+<td><code>10.10.14.2:63090</code></td>
+<td>Shows our IPv4 address and the port that will be replied to.</td>
+</tr>
+<tr class="odd">
+<td><code>RA</code></td>
+<td>RST and ACK flags of the sent TCP packet.</td>
+</tr>
+<tr class="even">
+<td><code>ttl=64 id=0 iplen=40 seq=0 win=0</code></td>
+<td>Additional TCP Header parameters.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="connect-scan" class="section level4 hasAnchor" number="3.4.1.5">
+<h4><span class="header-section-number">3.4.1.5</span> Connect Scan<a href="network-enumeration.html#connect-scan" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>The Nmap <a href="https://nmap.org/book/scan-methods-connect-scan.html">TCP Connect Scan</a> (<code>-sT</code>) uses the TCP three-way handshake to determine if a specific port on a target host is open or closed. The scan sends an <code>SYN</code> packet to the target port and waits for a response. It is considered open if the target port responds with an <code>SYN-ACK</code> packet and closed if it responds with an <code>RST</code> packet.</p>
+<p>The <code>Connect</code> scan (also known as a full TCP connect scan) is highly accurate because it completes the three-way TCP handshake, allowing us to determine the exact state of a port (open, closed, or filtered). However, it is not the most stealthy. In fact, the Connect scan is one of the least stealthy techniques, as it fully establishes a connection, which creates logs on most systems and is easily detected by modern IDS/IPS solutions. That said, the Connect scan can still be useful in certain situations, particularly when accuracy is a priority, and the goal is to map the network without causing significant disruption to services. Since the scan fully establishes a TCP connection, it interacts cleanly with services, making it less likely to cause service errors or instability compared to more intrusive scans. While it is not the most stealthy method, it is sometimes considered a more “polite” scan because it behaves like a normal client connection, thus having minimal impact on the target services.</p>
+<p>It is also useful when the target host has a personal firewall that drops incoming packets but allows outgoing packets. In this case, a Connect scan can bypass the firewall and accurately determine the state of the target ports. However, it is important to note that the Connect scan is slower than other types of scans because it requires the scanner to wait for a response from the target after each packet it sends, which could take some time if the target is busy or unresponsive.</p>
+<p>Scans like the SYN scan (also known as a half-open scan) are generally considered more stealthy because they do not complete the full handshake, leaving the connection incomplete after sending the initial SYN packet. This minimizes the chance of triggering connection logs while still gathering port state information. Advanced IDS/IPS systems, however, have adapted to detect even these subtler techniques.</p>
+</div>
+<div id="connect-scan-on-tcp-port-443" class="section level4 hasAnchor" number="3.4.1.6">
+<h4><span class="header-section-number">3.4.1.6</span> Connect Scan on TCP Port 443<a href="network-enumeration.html#connect-scan-on-tcp-port-443" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<pre class="shell-session"><code>notluken@htb[/htb]$ sudo nmap 10.129.2.28 -p 443 --packet-trace --disable-arp-ping -Pn -n --reason -sT
+
+Starting Nmap 7.80 ( https://nmap.org ) at 2020-06-15 16:26 CET
+CONN (0.0385s) TCP localhost &gt; 10.129.2.28:443 =&gt; Operation now in progress
+CONN (0.0396s) TCP localhost &gt; 10.129.2.28:443 =&gt; Connected
+Nmap scan report for 10.129.2.28
+Host is up, received user-set (0.013s latency).
+
+PORT    STATE SERVICE REASON
+443/tcp open  https   syn-ack
+
+Nmap done: 1 IP address (1 host up) scanned in 0.04 seconds</code></pre>
+<hr />
+</div>
+</div>
+<div id="filtered-ports" class="section level3 hasAnchor" number="3.4.2">
+<h3><span class="header-section-number">3.4.2</span> Filtered Ports<a href="network-enumeration.html#filtered-ports" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>When a port is shown as filtered, it can have several reasons. In most cases, firewalls have certain rules set to handle specific connections. The packets can either be <code>dropped</code>, or <code>rejected</code>. When a packet gets dropped, <code>Nmap</code> receives no response from our target, and by default, the retry rate (<code>--max-retries</code>) is set to <code>10</code>. This means <code>Nmap</code> will resend the request to the target port to determine if the previous packet was accidentally mishandled or not.</p>
+<p>Let us look at an example where the firewall <code>drops</code> the TCP packets we send for the port scan. Therefore we scan the TCP port <strong>139</strong>, which was already shown as filtered. To be able to track how our sent packets are handled, we deactivate the ICMP echo requests (<code>-Pn</code>), DNS resolution (<code>-n</code>), and ARP ping scan (<code>--disable-arp-ping</code>) again.</p>
+<p>Host and Port Scanning</p>
+<pre class="shell-session"><code>notluken@htb[/htb]$ sudo nmap 10.129.2.28 -p 139 --packet-trace -n --disable-arp-ping -Pn
+#
+Starting Nmap 7.80 ( https://nmap.org ) at 2020-06-15 15:45 CEST
+SENT (0.0381s) TCP 10.10.14.2:60277 &gt; 10.129.2.28:139 S ttl=47 id=14523 iplen=44  seq=4175236769 win=1024 &lt;mss 1460&gt;
+SENT (1.0411s) TCP 10.10.14.2:60278 &gt; 10.129.2.28:139 S ttl=45 id=7372 iplen=44  seq=4175171232 win=1024 &lt;mss 1460&gt;
+Nmap scan report for 10.129.2.28
+Host is up.
+#
+PORT    STATE    SERVICE
+139/tcp filtered netbios-ssn
+MAC Address: DE:AD:00:00:BE:EF (Intel Corporate)
+#
+Nmap done: 1 IP address (1 host up) scanned in 2.06 seconds</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th><strong>Scanning Options</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>10.129.2.28</code></td>
+<td>Scans the specified target.</td>
+</tr>
+<tr class="even">
+<td><code>-p 139</code></td>
+<td>Scans only the specified port.</td>
+</tr>
+<tr class="odd">
+<td><code>--packet-trace</code></td>
+<td>Shows all packets sent and received.</td>
+</tr>
+<tr class="even">
+<td><code>-n</code></td>
+<td>Disables DNS resolution.</td>
+</tr>
+<tr class="odd">
+<td><code>--disable-arp-ping</code></td>
+<td>Disables ARP ping.</td>
+</tr>
+<tr class="even">
+<td><code>-Pn</code></td>
+<td>Disables ICMP Echo requests.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p>We see in the last scan that <code>Nmap</code> sent two TCP packets with the SYN flag. By the duration (<code>2.06s</code>) of the scan, we can recognize that it took much longer than the previous ones (<code>~0.05s</code>). The case is different if the firewall rejects the packets. For this, we look at TCP port <code>445</code>, which is handled accordingly by such a rule of the firewall.</p>
+<p>Host and Port Scanning</p>
+<pre class="shell-session"><code>notluken@htb[/htb]$ sudo nmap 10.129.2.28 -p 445 --packet-trace -n --disable-arp-ping -Pn
+#
+Starting Nmap 7.80 ( https://nmap.org ) at 2020-06-15 15:55 CEST
+SENT (0.0388s) TCP 10.129.2.28:52472 &gt; 10.129.2.28:445 S ttl=49 id=21763 iplen=44  seq=1418633433 win=1024 &lt;mss 1460&gt;
+RCVD (0.0487s) ICMP [10.129.2.28 &gt; 10.129.2.28 Port 445 unreachable (type=3/code=3) ] IP [ttl=64 id=20998 iplen=72 ]
+Nmap scan report for 10.129.2.28
+Host is up (0.0099s latency).
+#
+PORT    STATE    SERVICE
+445/tcp filtered microsoft-ds
+MAC Address: DE:AD:00:00:BE:EF (Intel Corporate)
+#
+Nmap done: 1 IP address (1 host up) scanned in 0.05 seconds</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th><strong>Scanning Options</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>10.129.2.28</code></td>
+<td>Scans the specified target.</td>
+</tr>
+<tr class="even">
+<td><code>-p 445</code></td>
+<td>Scans only the specified port.</td>
+</tr>
+<tr class="odd">
+<td><code>--packet-trace</code></td>
+<td>Shows all packets sent and received.</td>
+</tr>
+<tr class="even">
+<td><code>-n</code></td>
+<td>Disables DNS resolution.</td>
+</tr>
+<tr class="odd">
+<td><code>--disable-arp-ping</code></td>
+<td>Disables ARP ping.</td>
+</tr>
+<tr class="even">
+<td><code>-Pn</code></td>
+<td>Disables ICMP Echo requests.</td>
+</tr>
+</tbody>
+</table>
+<p>As a response, we receive an <code>ICMP</code> reply with <code>type 3</code> and <code>error code 3</code>, which indicates that the desired port is unreachable. Nevertheless, if we know that the host is alive, we can strongly assume that the firewall on this port is rejecting the packets, and we will have to take a closer look at this port later.</p>
+<hr />
+</div>
+<div id="discovering-open-udp-ports" class="section level3 hasAnchor" number="3.4.3">
+<h3><span class="header-section-number">3.4.3</span> Discovering Open UDP Ports<a href="network-enumeration.html#discovering-open-udp-ports" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Some system administrators sometimes forget to filter the UDP ports in addition to the TCP ones. Since <code>UDP</code> is a <code>stateless protocol</code>and does not require a three-way handshake like TCP. We do not receive any acknowledgment. Consequently, the timeout is much longer, making the whole <code>UDP scan</code> (<code>-sU</code>) much slower than the <code>TCP scan</code> (<code>-sS</code>).</p>
+<p>Let’s look at an example of what a UDP scan (<code>-sU</code>) can look like and what results it gives us.</p>
+<div id="udp-port-scan" class="section level4 hasAnchor" number="3.4.3.1">
+<h4><span class="header-section-number">3.4.3.1</span> UDP Port Scan<a href="network-enumeration.html#udp-port-scan" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Host and Port Scanning</p>
+<pre class="shell-session"><code>notluken@htb[/htb]$ sudo nmap 10.129.2.28 -F -sU
+#
+Starting Nmap 7.80 ( https://nmap.org ) at 2020-06-15 16:01 CEST
+Nmap scan report for 10.129.2.28
+Host is up (0.059s latency).
+Not shown: 95 closed ports
+PORT     STATE         SERVICE
+68/udp   open|filtered dhcpc
+137/udp  open          netbios-ns
+138/udp  open|filtered netbios-dgm
+631/udp  open|filtered ipp
+5353/udp open          zeroconf
+MAC Address: DE:AD:00:00:BE:EF (Intel Corporate)
+#
+Nmap done: 1 IP address (1 host up) scanned in 98.07 seconds</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th><strong>Scanning Options</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>10.129.2.28</code></td>
+<td>Scans the specified target.</td>
+</tr>
+<tr class="even">
+<td><code>-F</code></td>
+<td>Scans top 100 ports.</td>
+</tr>
+<tr class="odd">
+<td><code>-sU</code></td>
+<td>Performs a UDP scan.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p>Another disadvantage of this is that we often do not get a response back because <code>Nmap</code> sends empty datagrams to the scanned UDP ports, and we do not receive any response. So we cannot determine if the UDP packet has arrived at all or not. If the UDP port is <code>open</code>, we only get a response if the application is configured to do so.</p>
+<p>Host and Port Scanning</p>
+<pre class="shell-session"><code>notluken@htb[/htb]$ sudo nmap 10.129.2.28 -sU -Pn -n --disable-arp-ping --packet-trace -p 137 --reason
+#
+Starting Nmap 7.80 ( https://nmap.org ) at 2020-06-15 16:15 CEST
+SENT (0.0367s) UDP 10.10.14.2:55478 &gt; 10.129.2.28:137 ttl=57 id=9122 iplen=78
+RCVD (0.0398s) UDP 10.129.2.28:137 &gt; 10.10.14.2:55478 ttl=64 id=13222 iplen=257
+Nmap scan report for 10.129.2.28
+Host is up, received user-set (0.0031s latency).
+#
+PORT    STATE SERVICE    REASON
+137/udp open  netbios-ns udp-response ttl 64
+MAC Address: DE:AD:00:00:BE:EF (Intel Corporate)
+#
+Nmap done: 1 IP address (1 host up) scanned in 0.04 seconds</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th><strong>Scanning Options</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>10.129.2.28</code></td>
+<td>Scans the specified target.</td>
+</tr>
+<tr class="even">
+<td><code>-sU</code></td>
+<td>Performs a UDP scan.</td>
+</tr>
+<tr class="odd">
+<td><code>-Pn</code></td>
+<td>Disables ICMP Echo requests.</td>
+</tr>
+<tr class="even">
+<td><code>-n</code></td>
+<td>Disables DNS resolution.</td>
+</tr>
+<tr class="odd">
+<td><code>--disable-arp-ping</code></td>
+<td>Disables ARP ping.</td>
+</tr>
+<tr class="even">
+<td><code>--packet-trace</code></td>
+<td>Shows all packets sent and received.</td>
+</tr>
+<tr class="odd">
+<td><code>-p 137</code></td>
+<td>Scans only the specified port.</td>
+</tr>
+<tr class="even">
+<td><code>--reason</code></td>
+<td>Displays the reason a port is in a particular state.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p>If we get an ICMP response with <code>error code 3</code> (port unreachable), we know that the port is indeed <code>closed</code>.</p>
+<p>Host and Port Scanning</p>
+<pre class="shell-session"><code>notluken@htb[/htb]$ sudo nmap 10.129.2.28 -sU -Pn -n --disable-arp-ping --packet-trace -p 100 --reason
+#
+Starting Nmap 7.80 ( https://nmap.org ) at 2020-06-15 16:25 CEST
+SENT (0.0445s) UDP 10.10.14.2:63825 &gt; 10.129.2.28:100 ttl=57 id=29925 iplen=28
+RCVD (0.1498s) ICMP [10.129.2.28 &gt; 10.10.14.2 Port unreachable (type=3/code=3) ] IP [ttl=64 id=11903 iplen=56 ]
+Nmap scan report for 10.129.2.28
+Host is up, received user-set (0.11s latency).
+#
+PORT    STATE  SERVICE REASON
+100/udp closed unknown port-unreach ttl 64
+MAC Address: DE:AD:00:00:BE:EF (Intel Corporate)
+#
+Nmap done: 1 IP address (1 host up) scanned in  0.15 seconds</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th><strong>Scanning Options</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>10.129.2.28</code></td>
+<td>Scans the specified target.</td>
+</tr>
+<tr class="even">
+<td><code>-sU</code></td>
+<td>Performs a UDP scan.</td>
+</tr>
+<tr class="odd">
+<td><code>-Pn</code></td>
+<td>Disables ICMP Echo requests.</td>
+</tr>
+<tr class="even">
+<td><code>-n</code></td>
+<td>Disables DNS resolution.</td>
+</tr>
+<tr class="odd">
+<td><code>--disable-arp-ping</code></td>
+<td>Disables ARP ping.</td>
+</tr>
+<tr class="even">
+<td><code>--packet-trace</code></td>
+<td>Shows all packets sent and received.</td>
+</tr>
+<tr class="odd">
+<td><code>-p 100</code></td>
+<td>Scans only the specified port.</td>
+</tr>
+<tr class="even">
+<td><code>--reason</code></td>
+<td>Displays the reason a port is in a particular state.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p>For all other ICMP responses, the scanned ports are marked as (<code>open|filtered</code>).</p>
+<p>Host and Port Scanning</p>
+<pre class="shell-session"><code>notluken@htb[/htb]$ sudo nmap 10.129.2.28 -sU -Pn -n --disable-arp-ping --packet-trace -p 138 --reason
+#
+Starting Nmap 7.80 ( https://nmap.org ) at 2020-06-15 16:32 CEST
+SENT (0.0380s) UDP 10.10.14.2:52341 &gt; 10.129.2.28:138 ttl=50 id=65159 iplen=28
+SENT (1.0392s) UDP 10.10.14.2:52342 &gt; 10.129.2.28:138 ttl=40 id=24444 iplen=28
+Nmap scan report for 10.129.2.28
+Host is up, received user-set.
+#
+PORT    STATE         SERVICE     REASON
+138/udp open|filtered netbios-dgm no-response
+MAC Address: DE:AD:00:00:BE:EF (Intel Corporate)
+#
+Nmap done: 1 IP address (1 host up) scanned in 2.06 seconds</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th><strong>Scanning Options</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>10.129.2.28</code></td>
+<td>Scans the specified target.</td>
+</tr>
+<tr class="even">
+<td><code>-sU</code></td>
+<td>Performs a UDP scan.</td>
+</tr>
+<tr class="odd">
+<td><code>-Pn</code></td>
+<td>Disables ICMP Echo requests.</td>
+</tr>
+<tr class="even">
+<td><code>-n</code></td>
+<td>Disables DNS resolution.</td>
+</tr>
+<tr class="odd">
+<td><code>--disable-arp-ping</code></td>
+<td>Disables ARP ping.</td>
+</tr>
+<tr class="even">
+<td><code>--packet-trace</code></td>
+<td>Shows all packets sent and received.</td>
+</tr>
+<tr class="odd">
+<td><code>-p 138</code></td>
+<td>Scans only the specified port.</td>
+</tr>
+<tr class="even">
+<td><code>--reason</code></td>
+<td>Displays the reason a port is in a particular state.</td>
+</tr>
+</tbody>
+</table>
+<p>Another handy method for scanning ports is the <code>-sV</code> option which is used to get additional available information from the open ports. This method can identify versions, service names, and details about our target.</p>
+</div>
+</div>
+<div id="version-scan" class="section level3 hasAnchor" number="3.4.4">
+<h3><span class="header-section-number">3.4.4</span> Version Scan<a href="network-enumeration.html#version-scan" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Host and Port Scanning</p>
+<pre class="shell-session"><code>notluken@htb[/htb]$ sudo nmap 10.129.2.28 -Pn -n --disable-arp-ping --packet-trace -p 445 --reason  -sV
+#
+Starting Nmap 7.80 ( https://nmap.org ) at 2022-11-04 11:10 GMT
+SENT (0.3426s) TCP 10.10.14.2:44641 &gt; 10.129.2.28:445 S ttl=55 id=43401 iplen=44  seq=3589068008 win=1024 &lt;mss 1460&gt;
+RCVD (0.3556s) TCP 10.129.2.28:445 &gt; 10.10.14.2:44641 SA ttl=63 id=0 iplen=44  seq=2881527699 win=29200 &lt;mss 1337&gt;
+NSOCK INFO [0.4980s] nsock_iod_new2(): nsock_iod_new (IOD #1)
+NSOCK INFO [0.4980s] nsock_connect_tcp(): TCP connection requested to 10.129.2.28:445 (IOD #1) EID 8
+NSOCK INFO [0.5130s] nsock_trace_handler_callback(): Callback: CONNECT SUCCESS for EID 8 [10.129.2.28:445]
+Service scan sending probe NULL to 10.129.2.28:445 (tcp)
+NSOCK INFO [0.5130s] nsock_read(): Read request from IOD #1 [10.129.2.28:445] (timeout: 6000ms) EID 18
+NSOCK INFO [6.5190s] nsock_trace_handler_callback(): Callback: READ TIMEOUT for EID 18 [10.129.2.28:445]
+Service scan sending probe SMBProgNeg to 10.129.2.28:445 (tcp)
+NSOCK INFO [6.5190s] nsock_write(): Write request for 168 bytes to IOD #1 EID 27 [10.129.2.28:445]
+NSOCK INFO [6.5190s] nsock_read(): Read request from IOD #1 [10.129.2.28:445] (timeout: 5000ms) EID 34
+NSOCK INFO [6.5190s] nsock_trace_handler_callback(): Callback: WRITE SUCCESS for EID 27 [10.129.2.28:445]
+NSOCK INFO [6.5320s] nsock_trace_handler_callback(): Callback: READ SUCCESS for EID 34 [10.129.2.28:445] (135 bytes)
+Service scan match (Probe SMBProgNeg matched with SMBProgNeg line 13836): 10.129.2.28:445 is netbios-ssn.  Version: |Samba smbd|3.X - 4.X|workgroup: WORKGROUP|
+NSOCK INFO [6.5320s] nsock_iod_delete(): nsock_iod_delete (IOD #1)
+Nmap scan report for 10.129.2.28
+Host is up, received user-set (0.013s latency).
+#
+PORT    STATE SERVICE     REASON         VERSION
+445/tcp open  netbios-ssn syn-ack ttl 63 Samba smbd 3.X - 4.X (workgroup: WORKGROUP)
+Service Info: Host: Ubuntu
+#
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+# Nmap done: 1 IP address (1 host up) scanned in 6.55 seconds</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th><strong>Scanning Options</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>10.129.2.28</code></td>
+<td>Scans the specified target.</td>
+</tr>
+<tr class="even">
+<td><code>-Pn</code></td>
+<td>Disables ICMP Echo requests.</td>
+</tr>
+<tr class="odd">
+<td><code>-n</code></td>
+<td>Disables DNS resolution.</td>
+</tr>
+<tr class="even">
+<td><code>--disable-arp-ping</code></td>
+<td>Disables ARP ping.</td>
+</tr>
+<tr class="odd">
+<td><code>--packet-trace</code></td>
+<td>Shows all packets sent and received.</td>
+</tr>
+<tr class="even">
+<td><code>-p 445</code></td>
+<td>Scans only the specified port.</td>
+</tr>
+<tr class="odd">
+<td><code>--reason</code></td>
+<td>Displays the reason a port is in a particular state.</td>
+</tr>
+<tr class="even">
+<td><code>-sV</code></td>
+<td>Performs a service scan.</td>
+</tr>
+</tbody>
+</table>
+<p>More information about port scanning techniques we can find at: <a href="https://nmap.org/book/man-port-scanning-techniques.html">https://nmap.org/book/man-port-scanning-techniques.html</a></p>
+</div>
+</div>
+<div id="saving-the-results" class="section level2 hasAnchor" number="3.5">
+<h2><span class="header-section-number">3.5</span> Saving the Results<a href="network-enumeration.html#saving-the-results" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="different-formats" class="section level3 hasAnchor" number="3.5.1">
+<h3><span class="header-section-number">3.5.1</span> Different Formats<a href="network-enumeration.html#different-formats" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>While we run various scans, we should always save the results. We can use these later to examine the differences between the different scanning methods we have used. <code>Nmap</code> can save the results in 3 different formats.</p>
+<ul>
+<li>Normal output (<code>-oN</code>) with the <code>.nmap</code> file extension</li>
+<li>Grepable output (<code>-oG</code>) with the <code>.gnmap</code> file extension</li>
+<li>XML output (<code>-oX</code>) with the <code>.xml</code> file extension</li>
+</ul>
+<p>We can also specify the option (<code>-oA</code>) to save the results in all formats. The command could look like this:</p>
+<p>Saving the Results</p>
+<pre class="shell-session"><code>notluken@htb[/htb]$ sudo nmap 10.129.2.28 -p- -oA target
+#
+Starting Nmap 7.80 ( https://nmap.org ) at 2020-06-16 12:14 CEST
+Nmap scan report for 10.129.2.28
+Host is up (0.0091s latency).
+Not shown: 65525 closed ports
+PORT      STATE SERVICE
+22/tcp    open  ssh
+25/tcp    open  smtp
+80/tcp    open  http
+MAC Address: DE:AD:00:00:BE:EF (Intel Corporate)
+#
+Nmap done: 1 IP address (1 host up) scanned in 10.22 seconds</code></pre>
+<table>
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Scanning Options</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>10.129.2.28</code></td>
+<td>Scans the specified target.</td>
+</tr>
+<tr class="even">
+<td><code>-p-</code></td>
+<td>Scans all ports.</td>
+</tr>
+<tr class="odd">
+<td><code>-oA target</code></td>
+<td>Saves the results in all formats, starting the name of each file with ‘target’.</td>
+</tr>
+</tbody>
+</table>
+<p>If no full path is given, the results will be stored in the directory we are currently in. Next, we look at the different formats <code>Nmap</code> has created for us.</p>
+<p>Saving the Results</p>
+<pre class="shell-session"><code>notluken@htb[/htb]$ ls
+#
+target.gnmap target.xml  target.nmap</code></pre>
+<div id="normal-output" class="section level4 hasAnchor" number="3.5.1.1">
+<h4><span class="header-section-number">3.5.1.1</span> Normal Output<a href="network-enumeration.html#normal-output" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Saving the Results</p>
+<pre class="shell-session"><code>notluken@htb[/htb]$ cat target.nmap
+#
+Nmap 7.80 scan initiated Tue Jun 16 12:14:53 2020 as: nmap -p- -oA target 10.129.2.28
+Nmap scan report for 10.129.2.28
+Host is up (0.053s latency).
+Not shown: 4 closed ports
+PORT   STATE SERVICE
+22/tcp open  ssh
+25/tcp open  smtp
+80/tcp open  http
+MAC Address: DE:AD:00:00:BE:EF (Intel Corporate)
+#
+Nmap done at Tue Jun 16 12:15:03 2020 -- 1 IP address (1 host up) scanned in 10.22 seconds</code></pre>
+</div>
+<div id="grepable-output" class="section level4 hasAnchor" number="3.5.1.2">
+<h4><span class="header-section-number">3.5.1.2</span> Grepable Output<a href="network-enumeration.html#grepable-output" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Saving the Results</p>
+<pre class="shell-session"><code>notluken@htb[/htb]$ cat target.gnmap
+#
+Nmap 7.80 scan initiated Tue Jun 16 12:14:53 2020 as: nmap -p- -oA target 10.129.2.28
+Host: 10.129.2.28 ()    Status: Up
+Host: 10.129.2.28 ()    Ports: 22/open/tcp//ssh///, 25/open/tcp//smtp///, 80/open/tcp//http///  Ignored State: closed (4)
+Nmap done at Tue Jun 16 12:14:53 2020 -- 1 IP address (1 host up) scanned in 10.22 seconds</code></pre>
+</div>
+<div id="xml-output" class="section level4 hasAnchor" number="3.5.1.3">
+<h4><span class="header-section-number">3.5.1.3</span> XML Output<a href="network-enumeration.html#xml-output" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Saving the Results</p>
+<pre class="shell-session"><code>notluken@htb[/htb]$ cat target.xml
+#
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;!DOCTYPE nmaprun&gt;
+&lt;?xml-stylesheet href=&quot;file:///usr/local/bin/../share/nmap/nmap.xsl&quot; type=&quot;text/xsl&quot;?&gt;
+&lt;!-- Nmap 7.80 scan initiated Tue Jun 16 12:14:53 2020 as: nmap -p- -oA target 10.129.2.28 --&gt;
+&lt;nmaprun scanner=&quot;nmap&quot; args=&quot;nmap -p- -oA target 10.129.2.28&quot; start=&quot;12145301719&quot; startstr=&quot;Tue Jun 16 12:15:03 2020&quot; version=&quot;7.80&quot; xmloutputversion=&quot;1.04&quot;&gt;
+&lt;scaninfo type=&quot;syn&quot; protocol=&quot;tcp&quot; numservices=&quot;65535&quot; services=&quot;1-65535&quot;/&gt;
+&lt;verbose level=&quot;0&quot;/&gt;
+&lt;debugging level=&quot;0&quot;/&gt;
+&lt;host starttime=&quot;12145301719&quot; endtime=&quot;12150323493&quot;&gt;&lt;status state=&quot;up&quot; reason=&quot;arp-response&quot; reason_ttl=&quot;0&quot;/&gt;
+&lt;address addr=&quot;10.129.2.28&quot; addrtype=&quot;ipv4&quot;/&gt;
+&lt;address addr=&quot;DE:AD:00:00:BE:EF&quot; addrtype=&quot;mac&quot; vendor=&quot;Intel Corporate&quot;/&gt;
+&lt;hostnames&gt;
+&lt;/hostnames&gt;
+&lt;ports&gt;&lt;extraports state=&quot;closed&quot; count=&quot;4&quot;&gt;
+&lt;extrareasons reason=&quot;resets&quot; count=&quot;4&quot;/&gt;
+&lt;/extraports&gt;
+&lt;port protocol=&quot;tcp&quot; portid=&quot;22&quot;&gt;&lt;state state=&quot;open&quot; reason=&quot;syn-ack&quot; reason_ttl=&quot;64&quot;/&gt;&lt;service name=&quot;ssh&quot; method=&quot;table&quot; conf=&quot;3&quot;/&gt;&lt;/port&gt;
+&lt;port protocol=&quot;tcp&quot; portid=&quot;25&quot;&gt;&lt;state state=&quot;open&quot; reason=&quot;syn-ack&quot; reason_ttl=&quot;64&quot;/&gt;&lt;service name=&quot;smtp&quot; method=&quot;table&quot; conf=&quot;3&quot;/&gt;&lt;/port&gt;
+&lt;port protocol=&quot;tcp&quot; portid=&quot;80&quot;&gt;&lt;state state=&quot;open&quot; reason=&quot;syn-ack&quot; reason_ttl=&quot;64&quot;/&gt;&lt;service name=&quot;http&quot; method=&quot;table&quot; conf=&quot;3&quot;/&gt;&lt;/port&gt;
+&lt;/ports&gt;
+&lt;times srtt=&quot;52614&quot; rttvar=&quot;75640&quot; to=&quot;355174&quot;/&gt;
+&lt;/host&gt;
+&lt;runstats&gt;&lt;finished time=&quot;12150323493&quot; timestr=&quot;Tue Jun 16 12:14:53 2020&quot; elapsed=&quot;10.22&quot; summary=&quot;Nmap done at Tue Jun 16 12:15:03 2020; 1 IP address (1 host up) scanned in 10.22 seconds&quot; exit=&quot;success&quot;/&gt;&lt;hosts up=&quot;1&quot; down=&quot;0&quot; total=&quot;1&quot;/&gt;
+&lt;/runstats&gt;
+&lt;/nmaprun&gt;</code></pre>
+<hr />
+</div>
+</div>
+<div id="style-sheets" class="section level3 hasAnchor" number="3.5.2">
+<h3><span class="header-section-number">3.5.2</span> Style sheets<a href="network-enumeration.html#style-sheets" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>With the XML output, we can easily create HTML reports that are easy to read, even for non-technical people. This is later very useful for documentation, as it presents our results in a detailed and clear way. To convert the stored results from XML format to HTML, we can use the tool <code>xsltproc</code>.</p>
+<p>Saving the Results</p>
+<pre class="shell-session"><code>notluken@htb[/htb]$ xsltproc target.xml -o target.html</code></pre>
+<p>If we now open the HTML file in our browser, we see a clear and structured presentation of our results.</p>
+<div id="nmap-report" class="section level4 hasAnchor" number="3.5.2.1">
+<h4><span class="header-section-number">3.5.2.1</span> Nmap Report<a href="network-enumeration.html#nmap-report" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div class="float">
+<img src="https://academy.hackthebox.com/storage/modules/19/nmap-report.png" alt="image" />
+<div class="figcaption">image</div>
+</div>
+<p>More information about the output formats can be found at: <a href="https://nmap.org/book/output.html">https://nmap.org/book/output.html</a></p>
+</div>
+</div>
+</div>
+<div id="service-enumeration-1" class="section level2 hasAnchor" number="3.6">
+<h2><span class="header-section-number">3.6</span> Service Enumeration<a href="network-enumeration.html#service-enumeration-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<hr />
+<p>For us, it is essential to determine the application and its version as accurately as possible. We can use this information to scan for known vulnerabilities and analyze the source code for that version if we find it. An exact version number allows us to search for a more precise exploit that fits the service and the operating system of our target.</p>
+<hr />
+<div id="service-version-detection" class="section level3 hasAnchor" number="3.6.1">
+<h3><span class="header-section-number">3.6.1</span> Service Version Detection<a href="network-enumeration.html#service-version-detection" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>It is recommended to perform a quick port scan first, which gives us a small overview of the available ports. This causes significantly less traffic, which is advantageous for us because otherwise we can be discovered and blocked by the security mechanisms. We can deal with these first and run a port scan in the background, which shows all open ports (<code>-p-</code>). We can use the version scan to scan the specific ports for services and their versions (<code>-sV</code>).</p>
+<p>A full port scan takes quite a long time. To view the scan status, we can press the <code>[Space Bar]</code> during the scan, which will cause <code>Nmap</code>to show us the scan status.</p>
+<p>Service Enumeration</p>
+<pre class="shell-session"><code>notluken@htb[/htb]$ sudo nmap 10.129.2.28 -p- -sV
+#
+Starting Nmap 7.80 ( https://nmap.org ) at 2020-06-15 19:44 CEST
+[Space Bar]
+Stats: 0:00:03 elapsed; 0 hosts completed (1 up), 1 undergoing SYN Stealth Scan
+SYN Stealth Scan Timing: About 3.64% done; ETC: 19:45 (0:00:53 remaining)</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th><strong>Scanning Options</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>10.129.2.28</code></td>
+<td>Scans the specified target.</td>
+</tr>
+<tr class="even">
+<td><code>-p-</code></td>
+<td>Scans all ports.</td>
+</tr>
+<tr class="odd">
+<td><code>-sV</code></td>
+<td>Performs service version detection on specified ports.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p>Another option (<code>--stats-every=5s</code>) that we can use is defining how periods of time the status should be shown. Here we can specify the number of seconds (<code>s</code>) or minutes (<code>m</code>), after which we want to get the status.</p>
+<p>Service Enumeration</p>
+<pre class="shell-session"><code>notluken@htb[/htb]$ sudo nmap 10.129.2.28 -p- -sV --stats-every=5s
+#
+Starting Nmap 7.80 ( https://nmap.org ) at 2020-06-15 19:46 CEST
+Stats: 0:00:05 elapsed; 0 hosts completed (1 up), 1 undergoing SYN Stealth Scan
+SYN Stealth Scan Timing: About 13.91% done; ETC: 19:49 (0:00:31 remaining)
+Stats: 0:00:10 elapsed; 0 hosts completed (1 up), 1 undergoing SYN Stealth Scan
+SYN Stealth Scan Timing: About 39.57% done; ETC: 19:48 (0:00:15 remaining)</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th><strong>Scanning Options</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>10.129.2.28</code></td>
+<td>Scans the specified target.</td>
+</tr>
+<tr class="even">
+<td><code>-p-</code></td>
+<td>Scans all ports.</td>
+</tr>
+<tr class="odd">
+<td><code>-sV</code></td>
+<td>Performs service version detection on specified ports.</td>
+</tr>
+<tr class="even">
+<td><code>--stats-every=5s</code></td>
+<td>Shows the progress of the scan every 5 seconds.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p>We can also increase the <code>verbosity level</code> (<code>-v</code> / <code>-vv</code>), which will show us the open ports directly when <code>Nmap</code> detects them.</p>
+<p>Service Enumeration</p>
+<pre class="shell-session"><code>notluken@htb[/htb]$ sudo nmap 10.129.2.28 -p- -sV -v
+#
+Starting Nmap 7.80 ( https://nmap.org ) at 2020-06-15 20:03 CEST
+NSE: Loaded 45 scripts for scanning.
+Initiating ARP Ping Scan at 20:03
+Scanning 10.129.2.28 [1 port]
+Completed ARP Ping Scan at 20:03, 0.03s elapsed (1 total hosts)
+Initiating Parallel DNS resolution of 1 host. at 20:03
+Completed Parallel DNS resolution of 1 host. at 20:03, 0.02s elapsed
+Initiating SYN Stealth Scan at 20:03
+Scanning 10.129.2.28 [65535 ports]
+Discovered open port 995/tcp on 10.129.2.28
+Discovered open port 80/tcp on 10.129.2.28
+Discovered open port 993/tcp on 10.129.2.28
+Discovered open port 143/tcp on 10.129.2.28
+Discovered open port 25/tcp on 10.129.2.28
+Discovered open port 110/tcp on 10.129.2.28
+Discovered open port 22/tcp on 10.129.2.28
+&lt;SNIP&gt;</code></pre>
+<table>
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Scanning Options</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>10.129.2.28</code></td>
+<td>Scans the specified target.</td>
+</tr>
+<tr class="even">
+<td><code>-p-</code></td>
+<td>Scans all ports.</td>
+</tr>
+<tr class="odd">
+<td><code>-sV</code></td>
+<td>Performs service version detection on specified ports.</td>
+</tr>
+<tr class="even">
+<td><code>-v</code></td>
+<td>Increases the verbosity of the scan, which displays more detailed information.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+</div>
+<div id="banner-grabbing" class="section level3 hasAnchor" number="3.6.2">
+<h3><span class="header-section-number">3.6.2</span> Banner Grabbing<a href="network-enumeration.html#banner-grabbing" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Once the scan is complete, we will see all TCP ports with the corresponding service and their versions that are active on the system.</p>
+<p>Service Enumeration</p>
+<pre class="shell-session"><code>notluken@htb[/htb]$ sudo nmap 10.129.2.28 -p- -sV
+#
+Starting Nmap 7.80 ( https://nmap.org ) at 2020-06-15 20:00 CEST
+Nmap scan report for 10.129.2.28
+Host is up (0.013s latency).
+Not shown: 65525 closed ports
+PORT      STATE    SERVICE      VERSION
+22/tcp    open     ssh          OpenSSH 7.6p1 Ubuntu 4ubuntu0.3 (Ubuntu Linux; protocol 2.0)
+25/tcp    open     smtp         Postfix smtpd
+80/tcp    open     http         Apache httpd 2.4.29 ((Ubuntu))
+110/tcp   open     pop3         Dovecot pop3d
+139/tcp   filtered netbios-ssn
+143/tcp   open     imap         Dovecot imapd (Ubuntu)
+445/tcp   filtered microsoft-ds
+993/tcp   open     ssl/imap     Dovecot imapd (Ubuntu)
+995/tcp   open     ssl/pop3     Dovecot pop3d
+MAC Address: DE:AD:00:00:BE:EF (Intel Corporate)
+Service Info: Host:  inlane; OS: Linux; CPE: cpe:/o:linux:linux_kernel
+#
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 91.73 seconds</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th><strong>Scanning Options</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>10.129.2.28</code></td>
+<td>Scans the specified target.</td>
+</tr>
+<tr class="even">
+<td><code>-p-</code></td>
+<td>Scans all ports.</td>
+</tr>
+<tr class="odd">
+<td><code>-sV</code></td>
+<td>Performs service version detection on specified ports.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p>Primarily, <code>Nmap</code> looks at the banners of the scanned ports and prints them out. If it cannot identify versions through the banners, <code>Nmap</code>attempts to identify them through a signature-based matching system, but this significantly increases the scan’s duration. One disadvantage to <code>Nmap</code>’s presented results is that the automatic scan can miss some information because sometimes <code>Nmap</code> does not know how to handle it. Let us look at an example of this.</p>
+<p>Service Enumeration</p>
+<pre class="shell-session"><code>notluken@htb[/htb]$ sudo nmap 10.129.2.28 -p- -sV -Pn -n --disable-arp-ping --packet-trace
+#
+Starting Nmap 7.80 ( https://nmap.org ) at 2020-06-16 20:10 CEST
+&lt;SNIP&gt;
+NSOCK INFO [0.4200s] nsock_trace_handler_callback(): Callback: READ SUCCESS for EID 18 [10.129.2.28:25] (35 bytes): 220 inlane ESMTP Postfix (Ubuntu)..
+Service scan match (Probe NULL matched with NULL line 3104): 10.129.2.28:25 is smtp.  Version: |Postfix smtpd|||
+NSOCK INFO [0.4200s] nsock_iod_delete(): nsock_iod_delete (IOD #1)
+Nmap scan report for 10.129.2.28
+Host is up (0.076s latency).
+#
+PORT   STATE SERVICE VERSION
+25/tcp open  smtp    Postfix smtpd
+MAC Address: DE:AD:00:00:BE:EF (Intel Corporate)
+Service Info: Host:  inlane
+#
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 0.47 seconds</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th><strong>Scanning Options</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>10.129.2.28</code></td>
+<td>Scans the specified target.</td>
+</tr>
+<tr class="even">
+<td><code>-p-</code></td>
+<td>Scans all ports.</td>
+</tr>
+<tr class="odd">
+<td><code>-sV</code></td>
+<td>Performs service version detection on specified ports.</td>
+</tr>
+<tr class="even">
+<td><code>-Pn</code></td>
+<td>Disables ICMP Echo requests.</td>
+</tr>
+<tr class="odd">
+<td><code>-n</code></td>
+<td>Disables DNS resolution.</td>
+</tr>
+<tr class="even">
+<td><code>--disable-arp-ping</code></td>
+<td>Disables ARP ping.</td>
+</tr>
+<tr class="odd">
+<td><code>--packet-trace</code></td>
+<td>Shows all packets sent and received.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p>If we look at the results from <code>Nmap</code>, we can see the port’s status, service name, and hostname. Nevertheless, let us look at this line here:</p>
+<ul>
+<li><code>NSOCK INFO [0.4200s] nsock_trace_handler_callback(): Callback: READ SUCCESS for EID 18 [10.129.2.28:25] (35 bytes): 220 inlane ESMTP Postfix (Ubuntu)..</code></li>
+</ul>
+<p>Then we see that the SMTP server on our target gave us more information than <code>Nmap</code> showed us. Because here, we see that it is the Linux distribution <code>Ubuntu</code>. It happens because, after a successful three-way handshake, the server often sends a banner for identification. This serves to let the client know which service it is working with. At the network level, this happens with a <code>PSH</code> flag in the TCP header. However, it can happen that some services do not immediately provide such information. It is also possible to remove or manipulate the banners from the respective services. If we <code>manually</code> connect to the SMTP server using <code>nc</code>, grab the banner, and intercept the network traffic using <code>tcpdump</code>, we can see what <code>Nmap</code> did not show us.</p>
+</div>
+<div id="tcpdump" class="section level3 hasAnchor" number="3.6.3">
+<h3><span class="header-section-number">3.6.3</span> Tcpdump<a href="network-enumeration.html#tcpdump" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Service Enumeration</p>
+<pre class="shell-session"><code>notluken@htb[/htb]$ sudo tcpdump -i eth0 host 10.10.14.2 and 10.129.2.28
+#
+tcpdump: verbose output suppressed, use -v or -vv for full protocol decode
+listening on eth0, link-type EN10MB (Ethernet), capture size 262144 bytes</code></pre>
+</div>
+<div id="nc" class="section level3 hasAnchor" number="3.6.4">
+<h3><span class="header-section-number">3.6.4</span> Nc<a href="network-enumeration.html#nc" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Service Enumeration</p>
+<pre class="shell-session"><code>notluken@htb[/htb]$  nc -nv 10.129.2.28 25
+#
+Connection to 10.129.2.28 port 25 [tcp/*] succeeded!
+220 inlane ESMTP Postfix (Ubuntu)</code></pre>
+</div>
+<div id="tcpdump---intercepted-traffic" class="section level3 hasAnchor" number="3.6.5">
+<h3><span class="header-section-number">3.6.5</span> Tcpdump - Intercepted Traffic<a href="network-enumeration.html#tcpdump---intercepted-traffic" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Service Enumeration</p>
+<pre class="shell-session"><code>18:28:07.128564 IP 10.10.14.2.59618 &gt; 10.129.2.28.smtp: Flags [S], seq 1798872233, win 65535, options [mss 1460,nop,wscale 6,nop,nop,TS val 331260178 ecr 0,sackOK,eol], length 0
+18:28:07.255151 IP 10.129.2.28.smtp &gt; 10.10.14.2.59618: Flags [S.], seq 1130574379, ack 1798872234, win 65160, options [mss 1460,sackOK,TS val 1800383922 ecr 331260178,nop,wscale 7], length 0
+18:28:07.255281 IP 10.10.14.2.59618 &gt; 10.129.2.28.smtp: Flags [.], ack 1, win 2058, options [nop,nop,TS val 331260304 ecr 1800383922], length 0
+18:28:07.319306 IP 10.129.2.28.smtp &gt; 10.10.14.2.59618: Flags [P.], seq 1:36, ack 1, win 510, options [nop,nop,TS val 1800383985 ecr 331260304], length 35: SMTP: 220 inlane ESMTP Postfix (Ubuntu)
+18:28:07.319426 IP 10.10.14.2.59618 &gt; 10.129.2.28.smtp: Flags [.], ack 36, win 2058, options [nop,nop,TS val 331260368 ecr 1800383985], length 0</code></pre>
+<p>The first three lines show us the three-way handshake.</p>
+<table>
+<colgroup>
+<col width="3%" />
+<col width="12%" />
+<col width="84%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>1.</td>
+<td><code>[SYN]</code></td>
+<td><code>18:28:07.128564 IP 10.10.14.2.59618 &gt; 10.129.2.28.smtp: Flags [S], &lt;SNIP&gt;</code></td>
+</tr>
+<tr class="even">
+<td>2.</td>
+<td><code>[SYN-ACK]</code></td>
+<td><code>18:28:07.255151 IP 10.129.2.28.smtp &gt; 10.10.14.2.59618: Flags [S.], &lt;SNIP&gt;</code></td>
+</tr>
+<tr class="odd">
+<td>3.</td>
+<td><code>[ACK]</code></td>
+<td><code>18:28:07.255281 IP 10.10.14.2.59618 &gt; 10.129.2.28.smtp: Flags [.], &lt;SNIP&gt;</code></td>
+</tr>
+</tbody>
+</table>
+<p>After that, the target SMTP server sends us a TCP packet with the <code>PSH</code> and <code>ACK</code> flags, where <code>PSH</code> states that the target server is sending data to us and with <code>ACK</code> simultaneously informs us that all required data has been sent.</p>
+<table>
+<colgroup>
+<col width="3%" />
+<col width="12%" />
+<col width="84%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>4.</td>
+<td><code>[PSH-ACK]</code></td>
+<td><code>18:28:07.319306 IP 10.129.2.28.smtp &gt; 10.10.14.2.59618: Flags [P.], &lt;SNIP&gt;</code></td>
+</tr>
+</tbody>
+</table>
+<p>The last TCP packet that we sent confirms the receipt of the data with an <code>ACK</code>.</p>
+<table>
+<colgroup>
+<col width="3%" />
+<col width="8%" />
+<col width="88%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>5.</td>
+<td><code>[ACK]</code></td>
+<td><code>18:28:07.319426 IP 10.10.14.2.59618 &gt; 10.129.2.28.smtp: Flags [.], &lt;SNIP&gt;</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="nmap-scription-engine" class="section level2 hasAnchor" number="3.7">
+<h2><span class="header-section-number">3.7</span> Nmap Scription Engine<a href="network-enumeration.html#nmap-scription-engine" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<hr />
+<p>Nmap Scripting Engine (<code>NSE</code>) is another handy feature of <code>Nmap</code>. It provides us with the possibility to create scripts in Lua for interaction with certain services. There are a total of 14 categories into which these scripts can be divided:</p>
+<table>
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Category</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>auth</code></td>
+<td>Determination of authentication credentials.</td>
+</tr>
+<tr class="even">
+<td><code>broadcast</code></td>
+<td>Scripts, which are used for host discovery by broadcasting and the discovered hosts, can be automatically added to the remaining scans.</td>
+</tr>
+<tr class="odd">
+<td><code>brute</code></td>
+<td>Executes scripts that try to log in to the respective service by brute-forcing with credentials.</td>
+</tr>
+<tr class="even">
+<td><code>default</code></td>
+<td>Default scripts executed by using the <code>-sC</code> option.</td>
+</tr>
+<tr class="odd">
+<td><code>discovery</code></td>
+<td>Evaluation of accessible services.</td>
+</tr>
+<tr class="even">
+<td><code>dos</code></td>
+<td>These scripts are used to check services for denial of service vulnerabilities and are used less as it harms the services.</td>
+</tr>
+<tr class="odd">
+<td><code>exploit</code></td>
+<td>This category of scripts tries to exploit known vulnerabilities for the scanned port.</td>
+</tr>
+<tr class="even">
+<td><code>external</code></td>
+<td>Scripts that use external services for further processing.</td>
+</tr>
+<tr class="odd">
+<td><code>fuzzer</code></td>
+<td>This uses scripts to identify vulnerabilities and unexpected packet handling by sending different fields, which can take much time.</td>
+</tr>
+<tr class="even">
+<td><code>intrusive</code></td>
+<td>Intrusive scripts that could negatively affect the target system.</td>
+</tr>
+<tr class="odd">
+<td><code>malware</code></td>
+<td>Checks if some malware infects the target system.</td>
+</tr>
+<tr class="even">
+<td><code>safe</code></td>
+<td>Defensive scripts that do not perform intrusive and destructive access.</td>
+</tr>
+<tr class="odd">
+<td><code>version</code></td>
+<td>Extension for service detection.</td>
+</tr>
+<tr class="even">
+<td><code>vuln</code></td>
+<td>Identification of specific vulnerabilities.</td>
+</tr>
+</tbody>
+</table>
+<p>We have several ways to define the desired scripts in <code>Nmap</code>.</p>
+<div id="default-scripts" class="section level3 hasAnchor" number="3.7.1">
+<h3><span class="header-section-number">3.7.1</span> Default Scripts<a href="network-enumeration.html#default-scripts" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Nmap Scripting Engine</p>
+<pre class="shell-session"><code>notluken@htb[/htb]$ sudo nmap &lt;target&gt; -sC</code></pre>
+</div>
+<div id="specific-scripts-category" class="section level3 hasAnchor" number="3.7.2">
+<h3><span class="header-section-number">3.7.2</span> Specific Scripts Category<a href="network-enumeration.html#specific-scripts-category" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Nmap Scripting Engine</p>
+<pre class="shell-session"><code>notluken@htb[/htb]$ sudo nmap &lt;target&gt; --script &lt;category&gt;</code></pre>
+</div>
+<div id="defined-scripts" class="section level3 hasAnchor" number="3.7.3">
+<h3><span class="header-section-number">3.7.3</span> Defined Scripts<a href="network-enumeration.html#defined-scripts" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Nmap Scripting Engine</p>
+<pre class="shell-session"><code>notluken@htb[/htb]$ sudo nmap &lt;target&gt; --script &lt;script-name&gt;,&lt;script-name&gt;,...</code></pre>
+<p>For example, let us keep working with the target SMTP port and see the results we get with two defined scripts.</p>
+</div>
+<div id="nmap---specifying-scripts" class="section level3 hasAnchor" number="3.7.4">
+<h3><span class="header-section-number">3.7.4</span> Nmap - Specifying Scripts<a href="network-enumeration.html#nmap---specifying-scripts" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Nmap Scripting Engine</p>
+<pre class="shell-session"><code>notluken@htb[/htb]$ sudo nmap 10.129.2.28 -p 25 --script banner,smtp-commands
+#
+Starting Nmap 7.80 ( https://nmap.org ) at 2020-06-16 23:21 CEST
+Nmap scan report for 10.129.2.28
+Host is up (0.050s latency).
+#
+PORT   STATE SERVICE
+25/tcp open  smtp
+|_banner: 220 inlane ESMTP Postfix (Ubuntu)
+|_smtp-commands: inlane, PIPELINING, SIZE 10240000, VRFY, ETRN, STARTTLS, ENHANCEDSTATUSCODES, 8BITMIME, DSN, SMTPUTF8,
+MAC Address: DE:AD:00:00:BE:EF (Intel Corporate)</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th><strong>Scanning Options</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>10.129.2.28</code></td>
+<td>Scans the specified target.</td>
+</tr>
+<tr class="even">
+<td><code>-p 25</code></td>
+<td>Scans only the specified port.</td>
+</tr>
+<tr class="odd">
+<td><code>--script banner,smtp-commands</code></td>
+<td>Uses specified NSE scripts.</td>
+</tr>
+</tbody>
+</table>
+<p>We see that we can recognize the <strong>Ubuntu</strong> distribution of Linux by using the’ banner’ script. The <code>smtp-commands</code> script shows us which commands we can use by interacting with the target SMTP server. In this example, such information may help us to find out existing users on the target. <code>Nmap</code> also gives us the ability to scan our target with the aggressive option (<code>-A</code>). This scans the target with multiple options as service detection (<code>-sV</code>), OS detection (<code>-O</code>), traceroute (<code>--traceroute</code>), and with the default NSE scripts (<code>-sC</code>).</p>
+</div>
+<div id="nmap---aggressive-scan" class="section level3 hasAnchor" number="3.7.5">
+<h3><span class="header-section-number">3.7.5</span> Nmap - Aggressive Scan<a href="network-enumeration.html#nmap---aggressive-scan" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Nmap Scripting Engine</p>
+<pre class="shell-session"><code>notluken@htb[/htb]$ sudo nmap 10.129.2.28 -p 80 -A
+Starting Nmap 7.80 ( https://nmap.org ) at 2020-06-17 01:38 CEST
+Nmap scan report for 10.129.2.28
+Host is up (0.012s latency).
+#
+PORT   STATE SERVICE VERSION
+80/tcp open  http    Apache httpd 2.4.29 ((Ubuntu))
+|_http-generator: WordPress 5.3.4
+|_http-server-header: Apache/2.4.29 (Ubuntu)
+|_http-title: blog.inlanefreight.com
+MAC Address: DE:AD:00:00:BE:EF (Intel Corporate)
+Warning: OSScan results may be unreliable because we could not find at least 1 open and 1 closed port
+Aggressive OS guesses: Linux 2.6.32 (96%), Linux 3.2 - 4.9 (96%), Linux 2.6.32 - 3.10 (96%), Linux 3.4 - 3.10 (95%), Linux 3.1 (95%), Linux 3.2 (95%),
+AXIS 210A or 211 Network Camera (Linux 2.6.17) (94%), Synology DiskStation Manager 5.2-5644 (94%), Netgear RAIDiator 4.2.28 (94%),
+Linux 2.6.32 - 2.6.35 (94%)
+No exact OS matches for host (test conditions non-ideal).
+Network Distance: 1 hop
+#
+TRACEROUTE
+HOP RTT      ADDRESS
+1   11.91 ms 10.129.2.28
+#
+OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 11.36 seconds</code></pre>
+<table>
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Scanning Options</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>10.129.2.28</code></td>
+<td>Scans the specified target.</td>
+</tr>
+<tr class="even">
+<td><code>-p 80</code></td>
+<td>Scans only the specified port.</td>
+</tr>
+<tr class="odd">
+<td><code>-A</code></td>
+<td>Performs service detection, OS detection, traceroute and uses defaults scripts to scan the target.</td>
+</tr>
+</tbody>
+</table>
+<p>With the help of the used scan option (<code>-A</code>), we found out what kind of web server (<code>Apache 2.4.29</code>) is running on the system, which web application (<code>WordPress 5.3.4</code>) is used, and the title (<code>blog.inlanefreight.com</code>) of the web page. Also, <code>Nmap</code> shows that it is likely to be <code>Linux</code> (<code>96%</code>) operating system.</p>
+<hr />
+</div>
+<div id="vulnerability-assessment-3" class="section level3 hasAnchor" number="3.7.6">
+<h3><span class="header-section-number">3.7.6</span> Vulnerability Assessment<a href="network-enumeration.html#vulnerability-assessment-3" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Now let us move on to HTTP port 80 and see what information and vulnerabilities we can find using the <code>vuln</code> category from <code>NSE</code>.</p>
+<div id="nmap---vuln-category" class="section level4 hasAnchor" number="3.7.6.1">
+<h4><span class="header-section-number">3.7.6.1</span> Nmap - Vuln Category<a href="network-enumeration.html#nmap---vuln-category" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Nmap Scripting Engine</p>
+<pre class="shell-session"><code>notluken@htb[/htb]$ sudo nmap 10.129.2.28 -p 80 -sV --script vuln
+#
+Nmap scan report for 10.129.2.28
+Host is up (0.036s latency).
+#
+PORT   STATE SERVICE VERSION
+80/tcp open  http    Apache httpd 2.4.29 ((Ubuntu))
+| http-enum:
+|   /wp-login.php: Possible admin folder
+|   /readme.html: Wordpress version: 2
+|   /: WordPress version: 5.3.4
+|   /wp-includes/images/rss.png: Wordpress version 2.2 found.
+|   /wp-includes/js/jquery/suggest.js: Wordpress version 2.5 found.
+|   /wp-includes/images/blank.gif: Wordpress version 2.6 found.
+|   /wp-includes/js/comment-reply.js: Wordpress version 2.7 found.
+|   /wp-login.php: Wordpress login page.
+|   /wp-admin/upgrade.php: Wordpress login page.
+|_  /readme.html: Interesting, a readme.
+|_http-server-header: Apache/2.4.29 (Ubuntu)
+|_http-stored-xss: Couldn&#39;t find any stored XSS vulnerabilities.
+| http-wordpress-users:
+| Username found: admin
+|_Search stopped at ID #25. Increase the upper limit if necessary with &#39;http-wordpress-users.limit&#39;
+| vulners:
+|   cpe:/a:apache:http_server:2.4.29:
+|       CVE-2019-0211   7.2 https://vulners.com/cve/CVE-2019-0211
+|       CVE-2018-1312   6.8 https://vulners.com/cve/CVE-2018-1312
+|       CVE-2017-15715  6.8 https://vulners.com/cve/CVE-2017-15715
+&lt;SNIP&gt;</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th><strong>Scanning Options</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>10.129.2.28</code></td>
+<td>Scans the specified target.</td>
+</tr>
+<tr class="even">
+<td><code>-p 80</code></td>
+<td>Scans only the specified port.</td>
+</tr>
+<tr class="odd">
+<td><code>-sV</code></td>
+<td>Performs service version detection on specified ports.</td>
+</tr>
+<tr class="even">
+<td><code>--script vuln</code></td>
+<td>Uses all related scripts from specified category.</td>
+</tr>
+</tbody>
+</table>
+<p>The scripts used for the last scan interact with the webserver and its web application to find out more information about their versions and check various databases to see if there are known vulnerabilities. More information about NSE scripts and the corresponding categories we can find at: <a href="https://nmap.org/nsedoc/index.html">https://nmap.org/nsedoc/index.html</a></p>
+</div>
+</div>
+</div>
+<div id="performance" class="section level2 hasAnchor" number="3.8">
+<h2><span class="header-section-number">3.8</span> Performance<a href="network-enumeration.html#performance" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<hr />
+<p>Scanning performance plays a significant role when we need to scan an extensive network or are dealing with low network bandwidth. We can use various options to tell <code>Nmap</code> how fast (<code>-T &lt;0-5&gt;</code>), with which frequency (<code>--min-parallelism &lt;number&gt;</code>), which timeouts (<code>--max-rtt-timeout &lt;time&gt;</code>) the test packets should have, how many packets should be sent simultaneously (<code>--min-rate &lt;number&gt;</code>), and with the number of retries (<code>--max-retries &lt;number&gt;</code>) for the scanned ports the targets should be scanned.</p>
+<hr />
+<div id="timeouts" class="section level3 hasAnchor" number="3.8.1">
+<h3><span class="header-section-number">3.8.1</span> Timeouts<a href="network-enumeration.html#timeouts" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>When Nmap sends a packet, it takes some time (<code>Round-Trip-Time</code> - <code>RTT</code>) to receive a response from the scanned port. Generally, <code>Nmap</code>starts with a high timeout (<code>--min-RTT-timeout</code>) of 100ms. Let us look at an example by scanning the whole network with 256 hosts, including the top 100 ports.</p>
+</div>
+<div id="default-scan" class="section level3 hasAnchor" number="3.8.2">
+<h3><span class="header-section-number">3.8.2</span> Default Scan<a href="network-enumeration.html#default-scan" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Performance</p>
+<pre class="shell-session"><code>notluken@htb[/htb]$ sudo nmap 10.129.2.0/24 -F
+#
+&lt;SNIP&gt;
+Nmap done: 256 IP addresses (10 hosts up) scanned in 39.44 seconds</code></pre>
+</div>
+<div id="optimized-rtt" class="section level3 hasAnchor" number="3.8.3">
+<h3><span class="header-section-number">3.8.3</span> Optimized RTT<a href="network-enumeration.html#optimized-rtt" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Performance</p>
+<pre class="shell-session"><code>notluken@htb[/htb]$ sudo nmap 10.129.2.0/24 -F --initial-rtt-timeout 50ms --max-rtt-timeout 100ms
+#
+&lt;SNIP&gt;
+Nmap done: 256 IP addresses (8 hosts up) scanned in 12.29 seconds</code></pre>
+<table>
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Scanning Options</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>10.129.2.0/24</code></td>
+<td>Scans the specified target network.</td>
+</tr>
+<tr class="even">
+<td><code>-F</code></td>
+<td>Scans top 100 ports.</td>
+</tr>
+<tr class="odd">
+<td><code>--initial-rtt-timeout 50ms</code></td>
+<td>Sets the specified time value as initial RTT timeout.</td>
+</tr>
+<tr class="even">
+<td><code>--max-rtt-timeout 100ms</code></td>
+<td>Sets the specified time value as maximum RTT timeout.</td>
+</tr>
+</tbody>
+</table>
+<p>When comparing the two scans, we can see that we found two hosts less with the optimized scan, but the scan took only a quarter of the time. From this, we can conclude that setting the initial RTT timeout (<code>--initial-rtt-timeout</code>) to too short a time period may cause us to overlook hosts.</p>
+<hr />
+</div>
+<div id="max-retries" class="section level3 hasAnchor" number="3.8.4">
+<h3><span class="header-section-number">3.8.4</span> Max Retries<a href="network-enumeration.html#max-retries" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Another way to increase scan speed is by specifying the retry rate of sent packets (<code>--max-retries</code>). The default value is <code>10</code>, but we can reduce it to <code>0</code>. This means if Nmap does not receive a response for a port, it won’t send any more packets to that port and will skip it.</p>
+</div>
+<div id="default-scan-1" class="section level3 hasAnchor" number="3.8.5">
+<h3><span class="header-section-number">3.8.5</span> Default Scan<a href="network-enumeration.html#default-scan-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Performance</p>
+<pre class="shell-session"><code>notluken@htb[/htb]$ sudo nmap 10.129.2.0/24 -F | grep &quot;/tcp&quot; | wc -l
+#
+23</code></pre>
+</div>
+<div id="reduced-retries" class="section level3 hasAnchor" number="3.8.6">
+<h3><span class="header-section-number">3.8.6</span> Reduced Retries<a href="network-enumeration.html#reduced-retries" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Performance</p>
+<pre class="shell-session"><code>notluken@htb[/htb]$ sudo nmap 10.129.2.0/24 -F --max-retries 0 | grep &quot;/tcp&quot; | wc -l
+#
+21</code></pre>
+<table>
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Scanning Options</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>10.129.2.0/24</code></td>
+<td>Scans the specified target network.</td>
+</tr>
+<tr class="even">
+<td><code>-F</code></td>
+<td>Scans top 100 ports.</td>
+</tr>
+<tr class="odd">
+<td><code>--max-retries 0</code></td>
+<td>Sets the number of retries that will be performed during the scan.</td>
+</tr>
+</tbody>
+</table>
+<p>Again, we recognize that accelerating can also have a negative effect on our results, which means we can overlook important information.</p>
+<hr />
+</div>
+<div id="rates" class="section level3 hasAnchor" number="3.8.7">
+<h3><span class="header-section-number">3.8.7</span> Rates<a href="network-enumeration.html#rates" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>During a white-box penetration test, we may get whitelisted for the security systems to check the systems in the network for vulnerabilities and not only test the protection measures. If we know the network bandwidth, we can work with the rate of packets sent, which significantly speeds up our scans with <code>Nmap</code>. When setting the minimum rate (<code>--min-rate &lt;number&gt;</code>) for sending packets, we tell <code>Nmap</code> to simultaneously send the specified number of packets. It will attempt to maintain the rate accordingly.</p>
+</div>
+<div id="default-scan-2" class="section level3 hasAnchor" number="3.8.8">
+<h3><span class="header-section-number">3.8.8</span> Default Scan<a href="network-enumeration.html#default-scan-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Performance</p>
+<pre class="shell-session"><code>notluken@htb[/htb]$ sudo nmap 10.129.2.0/24 -F -oN tnet.default
+#
+&lt;SNIP&gt;
+Nmap done: 256 IP addresses (10 hosts up) scanned in 29.83 seconds</code></pre>
+</div>
+<div id="optimized-scan" class="section level3 hasAnchor" number="3.8.9">
+<h3><span class="header-section-number">3.8.9</span> Optimized Scan<a href="network-enumeration.html#optimized-scan" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Performance</p>
+<pre class="shell-session"><code>notluken@htb[/htb]$ sudo nmap 10.129.2.0/24 -F -oN tnet.minrate300 --min-rate 300
+#
+&lt;SNIP&gt;
+Nmap done: 256 IP addresses (10 hosts up) scanned in 8.67 seconds</code></pre>
+<table>
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Scanning Options</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>10.129.2.0/24</code></td>
+<td>Scans the specified target network.</td>
+</tr>
+<tr class="even">
+<td><code>-F</code></td>
+<td>Scans top 100 ports.</td>
+</tr>
+<tr class="odd">
+<td><code>-oN tnet.minrate300</code></td>
+<td>Saves the results in normal formats, starting the specified file name.</td>
+</tr>
+<tr class="even">
+<td><code>--min-rate 300</code></td>
+<td>Sets the minimum number of packets to be sent per second.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+</div>
+<div id="default-scan---found-open-ports" class="section level3 hasAnchor" number="3.8.10">
+<h3><span class="header-section-number">3.8.10</span> Default Scan - Found Open Ports<a href="network-enumeration.html#default-scan---found-open-ports" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Performance</p>
+<pre class="shell-session"><code>notluken@htb[/htb]$ cat tnet.default | grep &quot;/tcp&quot; | wc -l
+#
+23</code></pre>
+</div>
+<div id="optimized-scan---found-open-ports" class="section level3 hasAnchor" number="3.8.11">
+<h3><span class="header-section-number">3.8.11</span> Optimized Scan - Found Open Ports<a href="network-enumeration.html#optimized-scan---found-open-ports" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Performance</p>
+<pre class="shell-session"><code>notluken@htb[/htb]$ cat tnet.minrate300 | grep &quot;/tcp&quot; | wc -l
+
+23</code></pre>
+<hr />
+</div>
+<div id="timing" class="section level3 hasAnchor" number="3.8.12">
+<h3><span class="header-section-number">3.8.12</span> Timing<a href="network-enumeration.html#timing" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Because such settings cannot always be optimized manually, as in a black-box penetration test, <code>Nmap</code> offers six different timing templates (<code>-T &lt;0-5&gt;</code>) for us to use. These values (<code>0-5</code>) determine the aggressiveness of our scans. This can also have negative effects if the scan is too aggressive, and security systems may block us due to the produced network traffic. The default timing template used when we have defined nothing else is the normal (<code>-T 3</code>).</p>
+<ul>
+<li><code>-T 0</code> / <code>-T paranoid</code></li>
+<li><code>-T 1</code> / <code>-T sneaky</code></li>
+<li><code>-T 2</code> / <code>-T polite</code></li>
+<li><code>-T 3</code> / <code>-T normal</code></li>
+<li><code>-T 4</code> / <code>-T aggressive</code></li>
+<li><code>-T 5</code> / <code>-T insane</code></li>
+</ul>
+<p>These templates contain options that we can also set manually, and have seen some of them already. The developers determined the values set for these templates according to their best results, making it easier for us to adapt our scans to the corresponding network environment. The exact used options with their values we can find here: <a href="https://nmap.org/book/performance-timing-templates.html">https://nmap.org/book/performance-timing-templates.html</a></p>
+<div id="default-scan-3" class="section level4 hasAnchor" number="3.8.12.1">
+<h4><span class="header-section-number">3.8.12.1</span> Default Scan<a href="network-enumeration.html#default-scan-3" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Performance</p>
+<pre class="shell-session"><code>notluken@htb[/htb]$ sudo nmap 10.129.2.0/24 -F -oN tnet.default
+#
+&lt;SNIP&gt;
+Nmap done: 256 IP addresses (10 hosts up) scanned in 32.44 seconds</code></pre>
+</div>
+<div id="insane-scan" class="section level4 hasAnchor" number="3.8.12.2">
+<h4><span class="header-section-number">3.8.12.2</span> Insane Scan<a href="network-enumeration.html#insane-scan" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Performance</p>
+<pre class="shell-session"><code>notluken@htb[/htb]$ sudo nmap 10.129.2.0/24 -F -oN tnet.T5 -T 5
+
+&lt;SNIP&gt;
+Nmap done: 256 IP addresses (10 hosts up) scanned in 18.07 seconds</code></pre>
+<table>
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Scanning Options</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>10.129.2.0/24</code></td>
+<td>Scans the specified target network.</td>
+</tr>
+<tr class="even">
+<td><code>-F</code></td>
+<td>Scans top 100 ports.</td>
+</tr>
+<tr class="odd">
+<td><code>-oN tnet.T5</code></td>
+<td>Saves the results in normal formats, starting the specified file name.</td>
+</tr>
+<tr class="even">
+<td><code>-T 5</code></td>
+<td>Specifies the insane timing template.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+</div>
+<div id="default-scan---found-open-ports-1" class="section level4 hasAnchor" number="3.8.12.3">
+<h4><span class="header-section-number">3.8.12.3</span> Default Scan - Found Open Ports<a href="network-enumeration.html#default-scan---found-open-ports-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Performance</p>
+<pre class="shell-session"><code>notluken@htb[/htb]$ cat tnet.default | grep &quot;/tcp&quot; | wc -l
+
+23</code></pre>
+</div>
+<div id="insane-scan---found-open-ports" class="section level4 hasAnchor" number="3.8.12.4">
+<h4><span class="header-section-number">3.8.12.4</span> Insane Scan - Found Open Ports<a href="network-enumeration.html#insane-scan---found-open-ports" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<pre class="shell-session"><code>notluken@htb[/htb]$ cat tnet.T5 | grep &quot;/tcp&quot; | wc -l
+
+23</code></pre>
+</div>
+</div>
+</div>
+<div id="firewall-and-ids-ips-evasion" class="section level2 hasAnchor" number="3.9">
+<h2><span class="header-section-number">3.9</span> Firewall and IDS-IPS Evasion<a href="network-enumeration.html#firewall-and-ids-ips-evasion" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<hr />
+<p><code>Nmap</code> gives us many different ways to bypass firewalls rules and IDS/IPS. These methods include the fragmentation of packets, the use of decoys, and others that we will discuss in this section.</p>
+<hr />
+<div id="firewalls" class="section level3 hasAnchor" number="3.9.1">
+<h3><span class="header-section-number">3.9.1</span> Firewalls<a href="network-enumeration.html#firewalls" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>A firewall is a security measure against unauthorized connection attempts from external networks. Every firewall security system is based on a software component that monitors network traffic between the firewall and incoming data connections and decides how to handle the connection based on the rules that have been set. It checks whether individual network packets are being passed, ignored, or blocked. This mechanism is designed to prevent unwanted connections that could be potentially dangerous.</p>
+<hr />
+</div>
+<div id="idsips" class="section level3 hasAnchor" number="3.9.2">
+<h3><span class="header-section-number">3.9.2</span> IDS/IPS<a href="network-enumeration.html#idsips" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Like the firewall, the intrusion detection system (<code>IDS</code>) and intrusion prevention system (<code>IPS</code>) are also software-based components. <code>IDS</code>scans the network for potential attacks, analyzes them, and reports any detected attacks. <code>IPS</code> complements <code>IDS</code> by taking specific defensive measures if a potential attack should have been detected. The analysis of such attacks is based on pattern matching and signatures. If specific patterns are detected, such as a service detection scan, <code>IPS</code> may prevent the pending connection attempts.</p>
+<hr />
+</div>
+<div id="determine-firewalls-and-their-rules" class="section level3 hasAnchor" number="3.9.3">
+<h3><span class="header-section-number">3.9.3</span> Determine Firewalls and Their Rules<a href="network-enumeration.html#determine-firewalls-and-their-rules" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>We already know that when a port is shown as filtered, it can have several reasons. In most cases, firewalls have certain rules set to handle specific connections. The packets can either be <code>dropped</code>, or <code>rejected</code>. The <code>dropped</code> packets are ignored, and no response is returned from the host.</p>
+<p>This is different for <code>rejected</code> packets that are returned with an <code>RST</code> flag. These packets contain different types of ICMP error codes or contain nothing at all.</p>
+<p>Such errors can be:</p>
+<ul>
+<li>Net Unreachable</li>
+<li>Net Prohibited</li>
+<li>Host Unreachable</li>
+<li>Host Prohibited</li>
+<li>Port Unreachable</li>
+<li>Proto Unreachable</li>
+</ul>
+<p>Nmap’s TCP ACK scan (<code>-sA</code>) method is much harder to filter for firewalls and IDS/IPS systems than regular SYN (<code>-sS</code>) or Connect scans (<code>sT</code>) because they only send a TCP packet with only the <code>ACK</code> flag. When a port is closed or open, the host must respond with an <code>RST</code> flag. Unlike outgoing connections, all connection attempts (with the <code>SYN</code> flag) from external networks are usually blocked by firewalls. However, the packets with the <code>ACK</code> flag are often passed by the firewall because the firewall cannot determine whether the connection was first established from the external network or the internal network.</p>
+<p>If we look at these scans, we will see how the results differ.</p>
+<div id="syn-scan" class="section level4 hasAnchor" number="3.9.3.1">
+<h4><span class="header-section-number">3.9.3.1</span> SYN-Scan<a href="network-enumeration.html#syn-scan" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Firewall and IDS/IPS Evasion</p>
+<pre class="shell-session"><code>notluken@htb[/htb]$ sudo nmap 10.129.2.28 -p 21,22,25 -sS -Pn -n --disable-arp-ping --packet-trace
+
+Starting Nmap 7.80 ( https://nmap.org ) at 2020-06-21 14:56 CEST
+SENT (0.0278s) TCP 10.10.14.2:57347 &gt; 10.129.2.28:22 S ttl=53 id=22412 iplen=44  seq=4092255222 win=1024 &lt;mss 1460&gt;
+SENT (0.0278s) TCP 10.10.14.2:57347 &gt; 10.129.2.28:25 S ttl=50 id=62291 iplen=44  seq=4092255222 win=1024 &lt;mss 1460&gt;
+SENT (0.0278s) TCP 10.10.14.2:57347 &gt; 10.129.2.28:21 S ttl=58 id=38696 iplen=44  seq=4092255222 win=1024 &lt;mss 1460&gt;
+RCVD (0.0329s) ICMP [10.129.2.28 &gt; 10.10.14.2 Port 21 unreachable (type=3/code=3) ] IP [ttl=64 id=40884 iplen=72 ]
+RCVD (0.0341s) TCP 10.129.2.28:22 &gt; 10.10.14.2:57347 SA ttl=64 id=0 iplen=44  seq=1153454414 win=64240 &lt;mss 1460&gt;
+RCVD (1.0386s) TCP 10.129.2.28:22 &gt; 10.10.14.2:57347 SA ttl=64 id=0 iplen=44  seq=1153454414 win=64240 &lt;mss 1460&gt;
+SENT (1.1366s) TCP 10.10.14.2:57348 &gt; 10.129.2.28:25 S ttl=44 id=6796 iplen=44  seq=4092320759 win=1024 &lt;mss 1460&gt;
+Nmap scan report for 10.129.2.28
+Host is up (0.0053s latency).
+
+PORT   STATE    SERVICE
+21/tcp filtered ftp
+22/tcp open     ssh
+25/tcp filtered smtp
+MAC Address: DE:AD:00:00:BE:EF (Intel Corporate)
+
+Nmap done: 1 IP address (1 host up) scanned in 0.07 seconds</code></pre>
+</div>
+<div id="ack-scan" class="section level4 hasAnchor" number="3.9.3.2">
+<h4><span class="header-section-number">3.9.3.2</span> ACK-Scan<a href="network-enumeration.html#ack-scan" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Firewall and IDS/IPS Evasion</p>
+<pre class="shell-session"><code>notluken@htb[/htb]$ sudo nmap 10.129.2.28 -p 21,22,25 -sA -Pn -n --disable-arp-ping --packet-trace
+
+Starting Nmap 7.80 ( https://nmap.org ) at 2020-06-21 14:57 CEST
+SENT (0.0422s) TCP 10.10.14.2:49343 &gt; 10.129.2.28:21 A ttl=49 id=12381 iplen=40  seq=0 win=1024
+SENT (0.0423s) TCP 10.10.14.2:49343 &gt; 10.129.2.28:22 A ttl=41 id=5146 iplen=40  seq=0 win=1024
+SENT (0.0423s) TCP 10.10.14.2:49343 &gt; 10.129.2.28:25 A ttl=49 id=5800 iplen=40  seq=0 win=1024
+RCVD (0.1252s) ICMP [10.129.2.28 &gt; 10.10.14.2 Port 21 unreachable (type=3/code=3) ] IP [ttl=64 id=55628 iplen=68 ]
+RCVD (0.1268s) TCP 10.129.2.28:22 &gt; 10.10.14.2:49343 R ttl=64 id=0 iplen=40  seq=1660784500 win=0
+SENT (1.3837s) TCP 10.10.14.2:49344 &gt; 10.129.2.28:25 A ttl=59 id=21915 iplen=40  seq=0 win=1024
+Nmap scan report for 10.129.2.28
+Host is up (0.083s latency).
+
+PORT   STATE      SERVICE
+21/tcp filtered   ftp
+22/tcp unfiltered ssh
+25/tcp filtered   smtp
+MAC Address: DE:AD:00:00:BE:EF (Intel Corporate)
+
+Nmap done: 1 IP address (1 host up) scanned in 0.15 seconds</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th><strong>Scanning Options</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>10.129.2.28</code></td>
+<td>Scans the specified target.</td>
+</tr>
+<tr class="even">
+<td><code>-p 21,22,25</code></td>
+<td>Scans only the specified ports.</td>
+</tr>
+<tr class="odd">
+<td><code>-sS</code></td>
+<td>Performs SYN scan on specified ports.</td>
+</tr>
+<tr class="even">
+<td><code>-sA</code></td>
+<td>Performs ACK scan on specified ports.</td>
+</tr>
+<tr class="odd">
+<td><code>-Pn</code></td>
+<td>Disables ICMP Echo requests.</td>
+</tr>
+<tr class="even">
+<td><code>-n</code></td>
+<td>Disables DNS resolution.</td>
+</tr>
+<tr class="odd">
+<td><code>--disable-arp-ping</code></td>
+<td>Disables ARP ping.</td>
+</tr>
+<tr class="even">
+<td><code>--packet-trace</code></td>
+<td>Shows all packets sent and received.</td>
+</tr>
+</tbody>
+</table>
+<p>Please pay attention to the RCVD packets and its set flag we receive from our target. With the SYN scan (<code>-sS</code>) our target tries to establish the TCP connection by sending a packet back with the SYN-ACK (<code>SA</code>) flags set and with the ACK scan (<code>-sA</code>) we get the <code>RST</code>flag because TCP port 22 is open. For the TCP port 25, we do not receive any packets back, which indicates that the packets will be dropped.</p>
+<hr />
+</div>
+</div>
+<div id="detect-idsips" class="section level3 hasAnchor" number="3.9.4">
+<h3><span class="header-section-number">3.9.4</span> Detect IDS/IPS<a href="network-enumeration.html#detect-idsips" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Unlike firewalls and their rules, the detection of IDS/IPS systems is much more difficult because these are passive traffic monitoring systems. <code>IDS systems</code> examine all connections between hosts. If the IDS finds packets containing the defined contents or specifications, the administrator is notified and takes appropriate action in the worst case.</p>
+<p><code>IPS systems</code> take measures configured by the administrator independently to prevent potential attacks automatically. It is essential to know that IDS and IPS are different applications and that IPS serves as a complement to IDS.</p>
+<p>Several virtual private servers (<code>VPS</code>) with different IP addresses are recommended to determine whether such systems are on the target network during a penetration test. If the administrator detects such a potential attack on the target network, the first step is to block the IP address from which the potential attack comes. As a result, we will no longer be able to access the network using that IP address, and our Internet Service Provider (<code>ISP</code>) will be contacted and blocked from all access to the Internet.</p>
+<ul>
+<li><p><code>IDS systems</code> alone are usually there to help administrators detect potential attacks on their network. They can then decide how to handle such connections. We can trigger certain security measures from an administrator, for example, by aggressively scanning a single port and its service. Based on whether specific security measures are taken, we can detect if the network has some monitoring applications or not.</p></li>
+<li><p>One method to determine whether such <code>IPS system</code> is present in the target network is to scan from a single host (<code>VPS</code>). If at any time this host is blocked and has no access to the target network, we know that the administrator has taken some security measures. Accordingly, we can continue our penetration test with another <code>VPS</code>.</p></li>
+</ul>
+<p>Consequently, we know that we need to be quieter with our scans and, in the best case, disguise all interactions with the target network and its services.</p>
+<hr />
+</div>
+<div id="decoys" class="section level3 hasAnchor" number="3.9.5">
+<h3><span class="header-section-number">3.9.5</span> Decoys<a href="network-enumeration.html#decoys" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>There are cases in which administrators block specific subnets from different regions in principle. This prevents any access to the target network. Another example is when IPS should block us. For this reason, the Decoy scanning method (<code>-D</code>) is the right choice. With this method, Nmap generates various random IP addresses inserted into the IP header to disguise the origin of the packet sent. With this method, we can generate random (<code>RND</code>) a specific number (for example: <code>5</code>) of IP addresses separated by a colon (<code>:</code>). Our real IP address is then randomly placed between the generated IP addresses. In the next example, our real IP address is therefore placed in the second position. Another critical point is that the decoys must be alive. Otherwise, the service on the target may be unreachable due to SYN-flooding security mechanisms.</p>
+<div id="scan-by-using-decoys" class="section level4 hasAnchor" number="3.9.5.1">
+<h4><span class="header-section-number">3.9.5.1</span> Scan by Using Decoys<a href="network-enumeration.html#scan-by-using-decoys" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Firewall and IDS/IPS Evasion</p>
+<pre class="shell-session"><code>notluken@htb[/htb]$ sudo nmap 10.129.2.28 -p 80 -sS -Pn -n --disable-arp-ping --packet-trace -D RND:5
+#
+Starting Nmap 7.80 ( https://nmap.org ) at 2020-06-21 16:14 CEST
+SENT (0.0378s) TCP 102.52.161.59:59289 &gt; 10.129.2.28:80 S ttl=42 id=29822 iplen=44  seq=3687542010 win=1024 &lt;mss 1460&gt;
+SENT (0.0378s) TCP 10.10.14.2:59289 &gt; 10.129.2.28:80 S ttl=59 id=29822 iplen=44  seq=3687542010 win=1024 &lt;mss 1460&gt;
+SENT (0.0379s) TCP 210.120.38.29:59289 &gt; 10.129.2.28:80 S ttl=37 id=29822 iplen=44  seq=3687542010 win=1024 &lt;mss 1460&gt;
+SENT (0.0379s) TCP 191.6.64.171:59289 &gt; 10.129.2.28:80 S ttl=38 id=29822 iplen=44  seq=3687542010 win=1024 &lt;mss 1460&gt;
+SENT (0.0379s) TCP 184.178.194.209:59289 &gt; 10.129.2.28:80 S ttl=39 id=29822 iplen=44  seq=3687542010 win=1024 &lt;mss 1460&gt;
+SENT (0.0379s) TCP 43.21.121.33:59289 &gt; 10.129.2.28:80 S ttl=55 id=29822 iplen=44  seq=3687542010 win=1024 &lt;mss 1460&gt;
+RCVD (0.1370s) TCP 10.129.2.28:80 &gt; 10.10.14.2:59289 SA ttl=64 id=0 iplen=44  seq=4056111701 win=64240 &lt;mss 1460&gt;
+Nmap scan report for 10.129.2.28
+Host is up (0.099s latency).
+#
+PORT   STATE SERVICE
+80/tcp open  http
+MAC Address: DE:AD:00:00:BE:EF (Intel Corporate)
+#
+Nmap done: 1 IP address (1 host up) scanned in 0.15 seconds</code></pre>
+<table>
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Scanning Options</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>10.129.2.28</code></td>
+<td>Scans the specified target.</td>
+</tr>
+<tr class="even">
+<td><code>-p 80</code></td>
+<td>Scans only the specified ports.</td>
+</tr>
+<tr class="odd">
+<td><code>-sS</code></td>
+<td>Performs SYN scan on specified ports.</td>
+</tr>
+<tr class="even">
+<td><code>-Pn</code></td>
+<td>Disables ICMP Echo requests.</td>
+</tr>
+<tr class="odd">
+<td><code>-n</code></td>
+<td>Disables DNS resolution.</td>
+</tr>
+<tr class="even">
+<td><code>--disable-arp-ping</code></td>
+<td>Disables ARP ping.</td>
+</tr>
+<tr class="odd">
+<td><code>--packet-trace</code></td>
+<td>Shows all packets sent and received.</td>
+</tr>
+<tr class="even">
+<td><code>-D RND:5</code></td>
+<td>Generates five random IP addresses that indicates the source IP the connection comes from.</td>
+</tr>
+</tbody>
+</table>
+<p>The spoofed packets are often filtered out by ISPs and routers, even though they come from the same network range. Therefore, we can also specify our VPS servers’ IP addresses and use them in combination with “<code>IP ID</code>” manipulation in the IP headers to scan the target.</p>
+<p>Another scenario would be that only individual subnets would not have access to the server’s specific services. So we can also manually specify the source IP address (<code>-S</code>) to test if we get better results with this one. Decoys can be used for SYN, ACK, ICMP scans, and OS detection scans. So let us look at such an example and determine which operating system it is most likely to be.</p>
+</div>
+<div id="testing-firewall-rule" class="section level4 hasAnchor" number="3.9.5.2">
+<h4><span class="header-section-number">3.9.5.2</span> Testing Firewall Rule<a href="network-enumeration.html#testing-firewall-rule" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Firewall and IDS/IPS Evasion</p>
+<pre class="shell-session"><code>notluken@htb[/htb]$ sudo nmap 10.129.2.28 -n -Pn -p445 -O
+#
+Starting Nmap 7.80 ( https://nmap.org ) at 2020-06-22 01:23 CEST
+Nmap scan report for 10.129.2.28
+Host is up (0.032s latency).
+#
+PORT    STATE    SERVICE
+445/tcp filtered microsoft-ds
+MAC Address: DE:AD:00:00:BE:EF (Intel Corporate)
+Too many fingerprints match this host to give specific OS details
+Network Distance: 1 hop
+#
+OS detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 3.14 seconds</code></pre>
+</div>
+<div id="scan-by-using-different-source-ip" class="section level4 hasAnchor" number="3.9.5.3">
+<h4><span class="header-section-number">3.9.5.3</span> Scan by Using Different Source IP<a href="network-enumeration.html#scan-by-using-different-source-ip" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Firewall and IDS/IPS Evasion</p>
+<pre class="shell-session"><code>notluken@htb[/htb]$ sudo nmap 10.129.2.28 -n -Pn -p 445 -O -S 10.129.2.200 -e tun0
+#
+Starting Nmap 7.80 ( https://nmap.org ) at 2020-06-22 01:16 CEST
+Nmap scan report for 10.129.2.28
+Host is up (0.010s latency).
+#
+PORT    STATE SERVICE
+445/tcp open  microsoft-ds
+MAC Address: DE:AD:00:00:BE:EF (Intel Corporate)
+Warning: OSScan results may be unreliable because we could not find at least 1 open and 1 closed port
+Aggressive OS guesses: Linux 2.6.32 (96%), Linux 3.2 - 4.9 (96%), Linux 2.6.32 - 3.10 (96%), Linux 3.4 - 3.10 (95%), Linux 3.1 (95%), Linux 3.2 (95%), AXIS 210A or 211 Network Camera (Linux 2.6.17) (94%), Synology DiskStation Manager 5.2-5644 (94%), Linux 2.6.32 - 2.6.35 (94%), Linux 2.6.32 - 3.5 (94%)
+No exact OS matches for host (test conditions non-ideal).
+Network Distance: 1 hop
+#
+OS detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 4.11 seconds</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th><strong>Scanning Options</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>10.129.2.28</code></td>
+<td>Scans the specified target.</td>
+</tr>
+<tr class="even">
+<td><code>-n</code></td>
+<td>Disables DNS resolution.</td>
+</tr>
+<tr class="odd">
+<td><code>-Pn</code></td>
+<td>Disables ICMP Echo requests.</td>
+</tr>
+<tr class="even">
+<td><code>-p 445</code></td>
+<td>Scans only the specified ports.</td>
+</tr>
+<tr class="odd">
+<td><code>-O</code></td>
+<td>Performs operation system detection scan.</td>
+</tr>
+<tr class="even">
+<td><code>-S</code></td>
+<td>Scans the target by using different source IP address.</td>
+</tr>
+<tr class="odd">
+<td><code>10.129.2.200</code></td>
+<td>Specifies the source IP address.</td>
+</tr>
+<tr class="even">
+<td><code>-e tun0</code></td>
+<td>Sends all requests through the specified interface.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+</div>
+</div>
+<div id="dns-proxying" class="section level3 hasAnchor" number="3.9.6">
+<h3><span class="header-section-number">3.9.6</span> DNS Proxying<a href="network-enumeration.html#dns-proxying" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>By default, <code>Nmap</code> performs a reverse DNS resolution unless otherwise specified to find more important information about our target. These DNS queries are also passed in most cases because the given web server is supposed to be found and visited. The DNS queries are made over the <code>UDP port 53</code>. The <code>TCP port 53</code> was previously only used for the so-called “<code>Zone transfers</code>” between the DNS servers or data transfer larger than 512 bytes. More and more, this is changing due to IPv6 and DNSSEC expansions. These changes cause many DNS requests to be made via TCP port 53.</p>
+<p>However, <code>Nmap</code> still gives us a way to specify DNS servers ourselves (<code>--dns-server &lt;ns&gt;,&lt;ns&gt;</code>). This method could be fundamental to us if we are in a demilitarized zone (<code>DMZ</code>). The company’s DNS servers are usually more trusted than those from the Internet. So, for example, we could use them to interact with the hosts of the internal network. As another example, we can use <code>TCP port 53</code> as a source port (<code>--source-port</code>) for our scans. If the administrator uses the firewall to control this port and does not filter IDS/IPS properly, our TCP packets will be trusted and passed through.</p>
+<div class="sourceCode" id="cb60"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb60-1"><a href="network-enumeration.html#cb60-1" tabindex="-1"></a><span class="fu">nmap</span> <span class="at">-sSU</span> <span class="at">-p</span> 53 <span class="at">--script</span> dns-nsid</span></code></pre></div>
+<div id="syn-scan-of-a-filtered-port" class="section level4 hasAnchor" number="3.9.6.1">
+<h4><span class="header-section-number">3.9.6.1</span> SYN-Scan of a Filtered Port<a href="network-enumeration.html#syn-scan-of-a-filtered-port" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Firewall and IDS/IPS Evasion</p>
+<pre class="shell-session"><code>notluken@htb[/htb]$ sudo nmap 10.129.2.28 -p50000 -sS -Pn -n --disable-arp-ping --packet-trace
+#
+Starting Nmap 7.80 ( https://nmap.org ) at 2020-06-21 22:50 CEST
+SENT (0.0417s) TCP 10.10.14.2:33436 &gt; 10.129.2.28:50000 S ttl=41 id=21939 iplen=44  seq=736533153 win=1024 &lt;mss 1460&gt;
+SENT (1.0481s) TCP 10.10.14.2:33437 &gt; 10.129.2.28:50000 S ttl=46 id=6446 iplen=44  seq=736598688 win=1024 &lt;mss 1460&gt;
+Nmap scan report for 10.129.2.28
+Host is up.
+#
+PORT      STATE    SERVICE
+50000/tcp filtered ibm-db2
+#
+Nmap done: 1 IP address (1 host up) scanned in 2.06 seconds</code></pre>
+</div>
+<div id="syn-scan-from-dns-port" class="section level4 hasAnchor" number="3.9.6.2">
+<h4><span class="header-section-number">3.9.6.2</span> SYN-Scan From DNS Port<a href="network-enumeration.html#syn-scan-from-dns-port" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Firewall and IDS/IPS Evasion</p>
+<pre class="shell-session"><code>notluken@htb[/htb]$ sudo nmap 10.129.2.28 -p50000 -sS -Pn -n --disable-arp-ping --packet-trace --source-port 53
+#
+SENT (0.0482s) TCP 10.10.14.2:53 &gt; 10.129.2.28:50000 S ttl=58 id=27470 iplen=44  seq=4003923435 win=1024 &lt;mss 1460&gt;
+RCVD (0.0608s) TCP 10.129.2.28:50000 &gt; 10.10.14.2:53 SA ttl=64 id=0 iplen=44  seq=540635485 win=64240 &lt;mss 1460&gt;
+Nmap scan report for 10.129.2.28
+Host is up (0.013s latency).
+#
+PORT      STATE SERVICE
+50000/tcp open  ibm-db2
+MAC Address: DE:AD:00:00:BE:EF (Intel Corporate)
+#
+Nmap done: 1 IP address (1 host up) scanned in 0.08 seconds</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th><strong>Scanning Options</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>10.129.2.28</code></td>
+<td>Scans the specified target.</td>
+</tr>
+<tr class="even">
+<td><code>-p 50000</code></td>
+<td>Scans only the specified ports.</td>
+</tr>
+<tr class="odd">
+<td><code>-sS</code></td>
+<td>Performs SYN scan on specified ports.</td>
+</tr>
+<tr class="even">
+<td><code>-Pn</code></td>
+<td>Disables ICMP Echo requests.</td>
+</tr>
+<tr class="odd">
+<td><code>-n</code></td>
+<td>Disables DNS resolution.</td>
+</tr>
+<tr class="even">
+<td><code>--disable-arp-ping</code></td>
+<td>Disables ARP ping.</td>
+</tr>
+<tr class="odd">
+<td><code>--packet-trace</code></td>
+<td>Shows all packets sent and received.</td>
+</tr>
+<tr class="even">
+<td><code>--source-port 53</code></td>
+<td>Performs the scans from specified source port.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p>Now that we have found out that the firewall accepts <code>TCP port 53</code>, it is very likely that IDS/IPS filters might also be configured much weaker than others. We can test this by trying to connect to this port by using <code>Netcat</code>.</p>
+</div>
+<div id="connect-to-the-filtered-port" class="section level4 hasAnchor" number="3.9.6.3">
+<h4><span class="header-section-number">3.9.6.3</span> Connect To The Filtered Port<a href="network-enumeration.html#connect-to-the-filtered-port" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Firewall and IDS/IPS Evasion</p>
+<pre class="shell-session"><code>notluken@htb[/htb]$ ncat -nv --source-port 53 10.129.2.28 50000
+Ncat: Version 7.80 ( https://nmap.org/ncat )
+Ncat: Connected to 10.129.2.28:50000.
+220 ProFTPd</code></pre>
+
+</div>
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="pentest-overview.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="enumeration-principles.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/lukencito/hacking-notes/edit/main/03-nmap.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": "https://github.com/lukencito/hacking-notes/blob/main/03-nmap.Rmd",
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

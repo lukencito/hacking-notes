@@ -54,6 +54,70 @@
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 
 
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
 
 <style type="text/css">
   
@@ -79,36 +143,188 @@
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Whoami</a></li>
 <li class="chapter" data-level="2" data-path="pentest-overview.html"><a href="pentest-overview.html"><i class="fa fa-check"></i><b>2</b> Pentest Overview</a>
 <ul>
-<li class="chapter" data-level="2.1" data-path="pentest-overview.html"><a href="pentest-overview.html#risk-management"><i class="fa fa-check"></i><b>2.1</b> Risk Management</a></li>
-<li class="chapter" data-level="2.2" data-path="pentest-overview.html"><a href="pentest-overview.html#vulnerability-assessments"><i class="fa fa-check"></i><b>2.2</b> Vulnerability Assessments</a></li>
-<li class="chapter" data-level="2.3" data-path="pentest-overview.html"><a href="pentest-overview.html#testing-methods"><i class="fa fa-check"></i><b>2.3</b> Testing Methods</a>
+<li class="chapter" data-level="2.1" data-path="pentest-overview.html"><a href="pentest-overview.html#penetration-testing-overview"><i class="fa fa-check"></i><b>2.1</b> Penetration Testing Overview</a>
 <ul>
-<li class="chapter" data-level="2.3.1" data-path="pentest-overview.html"><a href="pentest-overview.html#external-penetration-test"><i class="fa fa-check"></i><b>2.3.1</b> External Penetration Test</a></li>
-<li class="chapter" data-level="2.3.2" data-path="pentest-overview.html"><a href="pentest-overview.html#internal-penetration-test"><i class="fa fa-check"></i><b>2.3.2</b> Internal Penetration Test</a></li>
+<li class="chapter" data-level="2.1.1" data-path="pentest-overview.html"><a href="pentest-overview.html#risk-management"><i class="fa fa-check"></i><b>2.1.1</b> Risk Management</a></li>
+<li class="chapter" data-level="2.1.2" data-path="pentest-overview.html"><a href="pentest-overview.html#vulnerability-assessments"><i class="fa fa-check"></i><b>2.1.2</b> Vulnerability Assessments</a></li>
+<li class="chapter" data-level="2.1.3" data-path="pentest-overview.html"><a href="pentest-overview.html#testing-methods"><i class="fa fa-check"></i><b>2.1.3</b> Testing Methods</a></li>
+<li class="chapter" data-level="2.1.4" data-path="pentest-overview.html"><a href="pentest-overview.html#types-of-penetration-testing"><i class="fa fa-check"></i><b>2.1.4</b> Types of Penetration Testing</a></li>
+<li class="chapter" data-level="2.1.5" data-path="pentest-overview.html"><a href="pentest-overview.html#types-of-testing-environments"><i class="fa fa-check"></i><b>2.1.5</b> Types of Testing Environments</a></li>
 </ul></li>
-<li class="chapter" data-level="2.4" data-path="pentest-overview.html"><a href="pentest-overview.html#types-of-penetration-testing"><i class="fa fa-check"></i><b>2.4</b> Types of Penetration Testing</a></li>
-<li class="chapter" data-level="2.5" data-path="pentest-overview.html"><a href="pentest-overview.html#types-of-testing-environments"><i class="fa fa-check"></i><b>2.5</b> Types of Testing Environments</a></li>
-<li class="chapter" data-level="2.6" data-path="pentest-overview.html"><a href="pentest-overview.html#laws-and-regulations"><i class="fa fa-check"></i><b>2.6</b> Laws and Regulations</a>
+<li class="chapter" data-level="2.2" data-path="pentest-overview.html"><a href="pentest-overview.html#laws-and-regulations"><i class="fa fa-check"></i><b>2.2</b> Laws and Regulations</a>
 <ul>
-<li class="chapter" data-level="2.6.1" data-path="pentest-overview.html"><a href="pentest-overview.html#usa"><i class="fa fa-check"></i><b>2.6.1</b> USA</a></li>
-<li class="chapter" data-level="2.6.2" data-path="pentest-overview.html"><a href="pentest-overview.html#europe"><i class="fa fa-check"></i><b>2.6.2</b> Europe</a></li>
-<li class="chapter" data-level="2.6.3" data-path="pentest-overview.html"><a href="pentest-overview.html#uk"><i class="fa fa-check"></i><b>2.6.3</b> UK</a></li>
-<li class="chapter" data-level="2.6.4" data-path="pentest-overview.html"><a href="pentest-overview.html#india"><i class="fa fa-check"></i><b>2.6.4</b> India</a></li>
-<li class="chapter" data-level="2.6.5" data-path="pentest-overview.html"><a href="pentest-overview.html#china"><i class="fa fa-check"></i><b>2.6.5</b> China</a></li>
-<li class="chapter" data-level="2.6.6" data-path="pentest-overview.html"><a href="pentest-overview.html#precautionary-measures-during-penetration-tests"><i class="fa fa-check"></i><b>2.6.6</b> Precautionary Measures during Penetration Tests</a></li>
+<li class="chapter" data-level="2.2.1" data-path="pentest-overview.html"><a href="pentest-overview.html#usa"><i class="fa fa-check"></i><b>2.2.1</b> USA</a></li>
+<li class="chapter" data-level="2.2.2" data-path="pentest-overview.html"><a href="pentest-overview.html#europe"><i class="fa fa-check"></i><b>2.2.2</b> Europe</a></li>
+<li class="chapter" data-level="2.2.3" data-path="pentest-overview.html"><a href="pentest-overview.html#uk"><i class="fa fa-check"></i><b>2.2.3</b> UK</a></li>
+<li class="chapter" data-level="2.2.4" data-path="pentest-overview.html"><a href="pentest-overview.html#india"><i class="fa fa-check"></i><b>2.2.4</b> India</a></li>
+<li class="chapter" data-level="2.2.5" data-path="pentest-overview.html"><a href="pentest-overview.html#china"><i class="fa fa-check"></i><b>2.2.5</b> China</a></li>
+<li class="chapter" data-level="2.2.6" data-path="pentest-overview.html"><a href="pentest-overview.html#precautionary-measures-during-penetration-tests"><i class="fa fa-check"></i><b>2.2.6</b> Precautionary Measures during Penetration Tests</a></li>
 </ul></li>
-<li class="chapter" data-level="2.7" data-path="pentest-overview.html"><a href="pentest-overview.html#pre-engagement"><i class="fa fa-check"></i><b>2.7</b> Pre-Engagement</a>
+<li class="chapter" data-level="2.3" data-path="pentest-overview.html"><a href="pentest-overview.html#pre-engagement"><i class="fa fa-check"></i><b>2.3</b> Pre-Engagement</a>
 <ul>
-<li class="chapter" data-level="2.7.1" data-path="pentest-overview.html"><a href="pentest-overview.html#scoping-questionnaire"><i class="fa fa-check"></i><b>2.7.1</b> Scoping Questionnaire</a></li>
-<li class="chapter" data-level="2.7.2" data-path="pentest-overview.html"><a href="pentest-overview.html#pre-engagement-meeting"><i class="fa fa-check"></i><b>2.7.2</b> Pre-Engagement Meeting</a></li>
-<li class="chapter" data-level="2.7.3" data-path="pentest-overview.html"><a href="pentest-overview.html#kick-off-meeting"><i class="fa fa-check"></i><b>2.7.3</b> Kick-Off Meeting</a></li>
-<li class="chapter" data-level="2.7.4" data-path="pentest-overview.html"><a href="pentest-overview.html#contractors-agreement"><i class="fa fa-check"></i><b>2.7.4</b> Contractors Agreement</a></li>
-<li class="chapter" data-level="2.7.5" data-path="pentest-overview.html"><a href="pentest-overview.html#setting-up"><i class="fa fa-check"></i><b>2.7.5</b> Setting Up</a></li>
+<li class="chapter" data-level="2.3.1" data-path="pentest-overview.html"><a href="pentest-overview.html#scoping-questionnaire"><i class="fa fa-check"></i><b>2.3.1</b> Scoping Questionnaire</a></li>
+<li class="chapter" data-level="2.3.2" data-path="pentest-overview.html"><a href="pentest-overview.html#pre-engagement-meeting"><i class="fa fa-check"></i><b>2.3.2</b> Pre-Engagement Meeting</a></li>
+<li class="chapter" data-level="2.3.3" data-path="pentest-overview.html"><a href="pentest-overview.html#kick-off-meeting"><i class="fa fa-check"></i><b>2.3.3</b> Kick-Off Meeting</a></li>
+<li class="chapter" data-level="2.3.4" data-path="pentest-overview.html"><a href="pentest-overview.html#contractors-agreement"><i class="fa fa-check"></i><b>2.3.4</b> Contractors Agreement</a></li>
+<li class="chapter" data-level="2.3.5" data-path="pentest-overview.html"><a href="pentest-overview.html#setting-up"><i class="fa fa-check"></i><b>2.3.5</b> Setting Up</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="pentest-overview.html"><a href="pentest-overview.html#information-gathering"><i class="fa fa-check"></i><b>2.4</b> Information Gathering</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="pentest-overview.html"><a href="pentest-overview.html#open-source-intelligence"><i class="fa fa-check"></i><b>2.4.1</b> Open-Source Intelligence</a></li>
+<li class="chapter" data-level="2.4.2" data-path="pentest-overview.html"><a href="pentest-overview.html#infrastructure-enumeration"><i class="fa fa-check"></i><b>2.4.2</b> Infrastructure Enumeration</a></li>
+<li class="chapter" data-level="2.4.3" data-path="pentest-overview.html"><a href="pentest-overview.html#service-enumeration"><i class="fa fa-check"></i><b>2.4.3</b> Service Enumeration</a></li>
+<li class="chapter" data-level="2.4.4" data-path="pentest-overview.html"><a href="pentest-overview.html#host-enumeration"><i class="fa fa-check"></i><b>2.4.4</b> Host Enumeration</a></li>
+<li class="chapter" data-level="2.4.5" data-path="pentest-overview.html"><a href="pentest-overview.html#pillaging"><i class="fa fa-check"></i><b>2.4.5</b> Pillaging</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="pentest-overview.html"><a href="pentest-overview.html#vulnerability-assessment"><i class="fa fa-check"></i><b>2.5</b> Vulnerability Assessment</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="pentest-overview.html"><a href="pentest-overview.html#vulnerability-research-and-analysis"><i class="fa fa-check"></i><b>2.5.1</b> Vulnerability Research and Analysis</a></li>
+<li class="chapter" data-level="2.5.2" data-path="pentest-overview.html"><a href="pentest-overview.html#assessment-of-possible-attack-vectors"><i class="fa fa-check"></i><b>2.5.2</b> Assessment of Possible Attack Vectors</a></li>
+<li class="chapter" data-level="2.5.3" data-path="pentest-overview.html"><a href="pentest-overview.html#the-return"><i class="fa fa-check"></i><b>2.5.3</b> The Return</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="pentest-overview.html"><a href="pentest-overview.html#explotation"><i class="fa fa-check"></i><b>2.6</b> Explotation</a>
+<ul>
+<li class="chapter" data-level="2.6.1" data-path="pentest-overview.html"><a href="pentest-overview.html#prioritization-of-possible-attacks"><i class="fa fa-check"></i><b>2.6.1</b> Prioritization of Possible Attacks</a></li>
+<li class="chapter" data-level="2.6.2" data-path="pentest-overview.html"><a href="pentest-overview.html#preparation-for-the-attack"><i class="fa fa-check"></i><b>2.6.2</b> Preparation for the Attack</a></li>
+</ul></li>
+<li class="chapter" data-level="2.7" data-path="pentest-overview.html"><a href="pentest-overview.html#post-explotation"><i class="fa fa-check"></i><b>2.7</b> Post-Explotation</a>
+<ul>
+<li class="chapter" data-level="2.7.1" data-path="pentest-overview.html"><a href="pentest-overview.html#evasive-testing"><i class="fa fa-check"></i><b>2.7.1</b> Evasive Testing</a></li>
+<li class="chapter" data-level="2.7.2" data-path="pentest-overview.html"><a href="pentest-overview.html#information-gathering-1"><i class="fa fa-check"></i><b>2.7.2</b> Information Gathering</a></li>
+<li class="chapter" data-level="2.7.3" data-path="pentest-overview.html"><a href="pentest-overview.html#pillaging-1"><i class="fa fa-check"></i><b>2.7.3</b> Pillaging</a></li>
+<li class="chapter" data-level="2.7.4" data-path="pentest-overview.html"><a href="pentest-overview.html#persistence"><i class="fa fa-check"></i><b>2.7.4</b> Persistence</a></li>
+<li class="chapter" data-level="2.7.5" data-path="pentest-overview.html"><a href="pentest-overview.html#vulnerability-assessment-1"><i class="fa fa-check"></i><b>2.7.5</b> Vulnerability Assessment</a></li>
+<li class="chapter" data-level="2.7.6" data-path="pentest-overview.html"><a href="pentest-overview.html#privilege-escalation"><i class="fa fa-check"></i><b>2.7.6</b> Privilege Escalation</a></li>
+<li class="chapter" data-level="2.7.7" data-path="pentest-overview.html"><a href="pentest-overview.html#data-exfiltration"><i class="fa fa-check"></i><b>2.7.7</b> Data Exfiltration</a></li>
+</ul></li>
+<li class="chapter" data-level="2.8" data-path="pentest-overview.html"><a href="pentest-overview.html#lateral-movement"><i class="fa fa-check"></i><b>2.8</b> Lateral Movement</a>
+<ul>
+<li class="chapter" data-level="2.8.1" data-path="pentest-overview.html"><a href="pentest-overview.html#pivoting"><i class="fa fa-check"></i><b>2.8.1</b> Pivoting</a></li>
+<li class="chapter" data-level="2.8.2" data-path="pentest-overview.html"><a href="pentest-overview.html#evasive-testing-1"><i class="fa fa-check"></i><b>2.8.2</b> Evasive Testing</a></li>
+<li class="chapter" data-level="2.8.3" data-path="pentest-overview.html"><a href="pentest-overview.html#information-gathering-2"><i class="fa fa-check"></i><b>2.8.3</b> Information Gathering</a></li>
+<li class="chapter" data-level="2.8.4" data-path="pentest-overview.html"><a href="pentest-overview.html#vulnerability-assessment-2"><i class="fa fa-check"></i><b>2.8.4</b> Vulnerability Assessment</a></li>
+<li class="chapter" data-level="2.8.5" data-path="pentest-overview.html"><a href="pentest-overview.html#privilege-exploitation"><i class="fa fa-check"></i><b>2.8.5</b> (Privilege) Exploitation</a></li>
+<li class="chapter" data-level="2.8.6" data-path="pentest-overview.html"><a href="pentest-overview.html#post-exploitation"><i class="fa fa-check"></i><b>2.8.6</b> Post-Exploitation</a></li>
+</ul></li>
+<li class="chapter" data-level="2.9" data-path="pentest-overview.html"><a href="pentest-overview.html#proof-of-concept"><i class="fa fa-check"></i><b>2.9</b> Proof-of-Concept</a></li>
+<li class="chapter" data-level="2.10" data-path="pentest-overview.html"><a href="pentest-overview.html#post-engagement"><i class="fa fa-check"></i><b>2.10</b> Post-Engagement</a>
+<ul>
+<li class="chapter" data-level="2.10.1" data-path="pentest-overview.html"><a href="pentest-overview.html#cleanup"><i class="fa fa-check"></i><b>2.10.1</b> Cleanup</a></li>
+<li class="chapter" data-level="2.10.2" data-path="pentest-overview.html"><a href="pentest-overview.html#documentation-and-reporting"><i class="fa fa-check"></i><b>2.10.2</b> Documentation and Reporting</a></li>
+<li class="chapter" data-level="2.10.3" data-path="pentest-overview.html"><a href="pentest-overview.html#report-review-meeting"><i class="fa fa-check"></i><b>2.10.3</b> Report Review Meeting</a></li>
+<li class="chapter" data-level="2.10.4" data-path="pentest-overview.html"><a href="pentest-overview.html#deliverable-acceptance"><i class="fa fa-check"></i><b>2.10.4</b> Deliverable Acceptance</a></li>
+<li class="chapter" data-level="2.10.5" data-path="pentest-overview.html"><a href="pentest-overview.html#post-remediation-testing"><i class="fa fa-check"></i><b>2.10.5</b> Post-Remediation Testing</a></li>
+<li class="chapter" data-level="2.10.6" data-path="pentest-overview.html"><a href="pentest-overview.html#role-of-the-pentester-in-remediation"><i class="fa fa-check"></i><b>2.10.6</b> Role of the Pentester in Remediation</a></li>
+<li class="chapter" data-level="2.10.7" data-path="pentest-overview.html"><a href="pentest-overview.html#data-retention"><i class="fa fa-check"></i><b>2.10.7</b> Data Retention</a></li>
+<li class="chapter" data-level="2.10.8" data-path="pentest-overview.html"><a href="pentest-overview.html#close-out"><i class="fa fa-check"></i><b>2.10.8</b> Close Out</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="enumeration.html"><a href="enumeration.html"><i class="fa fa-check"></i><b>3</b> Enumeration</a></li>
+<li class="chapter" data-level="3" data-path="network-enumeration.html"><a href="network-enumeration.html"><i class="fa fa-check"></i><b>3</b> Network Enumeration</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="network-enumeration.html"><a href="network-enumeration.html#enumeration"><i class="fa fa-check"></i><b>3.1</b> Enumeration</a></li>
+<li class="chapter" data-level="3.2" data-path="network-enumeration.html"><a href="network-enumeration.html#introduction-to-nmap"><i class="fa fa-check"></i><b>3.2</b> Introduction to Nmap</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="network-enumeration.html"><a href="network-enumeration.html#use-cases"><i class="fa fa-check"></i><b>3.2.1</b> Use Cases</a></li>
+<li class="chapter" data-level="3.2.2" data-path="network-enumeration.html"><a href="network-enumeration.html#nmap-architecture"><i class="fa fa-check"></i><b>3.2.2</b> Nmap Architecture</a></li>
+<li class="chapter" data-level="3.2.3" data-path="network-enumeration.html"><a href="network-enumeration.html#syntax"><i class="fa fa-check"></i><b>3.2.3</b> Syntax</a></li>
+<li class="chapter" data-level="3.2.4" data-path="network-enumeration.html"><a href="network-enumeration.html#scan-techniques"><i class="fa fa-check"></i><b>3.2.4</b> Scan Techniques</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="network-enumeration.html"><a href="network-enumeration.html#host-discovery"><i class="fa fa-check"></i><b>3.3</b> Host Discovery</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="network-enumeration.html"><a href="network-enumeration.html#scan-network-range"><i class="fa fa-check"></i><b>3.3.1</b> Scan Network Range</a></li>
+<li class="chapter" data-level="3.3.2" data-path="network-enumeration.html"><a href="network-enumeration.html#scan-ip-list"><i class="fa fa-check"></i><b>3.3.2</b> Scan IP List</a></li>
+<li class="chapter" data-level="3.3.3" data-path="network-enumeration.html"><a href="network-enumeration.html#scan-multiple-ips"><i class="fa fa-check"></i><b>3.3.3</b> Scan Multiple IPs</a></li>
+<li class="chapter" data-level="3.3.4" data-path="network-enumeration.html"><a href="network-enumeration.html#scan-single-ip"><i class="fa fa-check"></i><b>3.3.4</b> Scan Single IP</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="network-enumeration.html"><a href="network-enumeration.html#host-and-port-scanning"><i class="fa fa-check"></i><b>3.4</b> Host and Port Scanning</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="network-enumeration.html"><a href="network-enumeration.html#discovering-open-tcp-ports"><i class="fa fa-check"></i><b>3.4.1</b> Discovering Open TCP Ports</a></li>
+<li class="chapter" data-level="3.4.2" data-path="network-enumeration.html"><a href="network-enumeration.html#filtered-ports"><i class="fa fa-check"></i><b>3.4.2</b> Filtered Ports</a></li>
+<li class="chapter" data-level="3.4.3" data-path="network-enumeration.html"><a href="network-enumeration.html#discovering-open-udp-ports"><i class="fa fa-check"></i><b>3.4.3</b> Discovering Open UDP Ports</a></li>
+<li class="chapter" data-level="3.4.4" data-path="network-enumeration.html"><a href="network-enumeration.html#version-scan"><i class="fa fa-check"></i><b>3.4.4</b> Version Scan</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="network-enumeration.html"><a href="network-enumeration.html#saving-the-results"><i class="fa fa-check"></i><b>3.5</b> Saving the Results</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="network-enumeration.html"><a href="network-enumeration.html#different-formats"><i class="fa fa-check"></i><b>3.5.1</b> Different Formats</a></li>
+<li class="chapter" data-level="3.5.2" data-path="network-enumeration.html"><a href="network-enumeration.html#style-sheets"><i class="fa fa-check"></i><b>3.5.2</b> Style sheets</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="network-enumeration.html"><a href="network-enumeration.html#service-enumeration-1"><i class="fa fa-check"></i><b>3.6</b> Service Enumeration</a>
+<ul>
+<li class="chapter" data-level="3.6.1" data-path="network-enumeration.html"><a href="network-enumeration.html#service-version-detection"><i class="fa fa-check"></i><b>3.6.1</b> Service Version Detection</a></li>
+<li class="chapter" data-level="3.6.2" data-path="network-enumeration.html"><a href="network-enumeration.html#banner-grabbing"><i class="fa fa-check"></i><b>3.6.2</b> Banner Grabbing</a></li>
+<li class="chapter" data-level="3.6.3" data-path="network-enumeration.html"><a href="network-enumeration.html#tcpdump"><i class="fa fa-check"></i><b>3.6.3</b> Tcpdump</a></li>
+<li class="chapter" data-level="3.6.4" data-path="network-enumeration.html"><a href="network-enumeration.html#nc"><i class="fa fa-check"></i><b>3.6.4</b> Nc</a></li>
+<li class="chapter" data-level="3.6.5" data-path="network-enumeration.html"><a href="network-enumeration.html#tcpdump---intercepted-traffic"><i class="fa fa-check"></i><b>3.6.5</b> Tcpdump - Intercepted Traffic</a></li>
+</ul></li>
+<li class="chapter" data-level="3.7" data-path="network-enumeration.html"><a href="network-enumeration.html#nmap-scription-engine"><i class="fa fa-check"></i><b>3.7</b> Nmap Scription Engine</a>
+<ul>
+<li class="chapter" data-level="3.7.1" data-path="network-enumeration.html"><a href="network-enumeration.html#default-scripts"><i class="fa fa-check"></i><b>3.7.1</b> Default Scripts</a></li>
+<li class="chapter" data-level="3.7.2" data-path="network-enumeration.html"><a href="network-enumeration.html#specific-scripts-category"><i class="fa fa-check"></i><b>3.7.2</b> Specific Scripts Category</a></li>
+<li class="chapter" data-level="3.7.3" data-path="network-enumeration.html"><a href="network-enumeration.html#defined-scripts"><i class="fa fa-check"></i><b>3.7.3</b> Defined Scripts</a></li>
+<li class="chapter" data-level="3.7.4" data-path="network-enumeration.html"><a href="network-enumeration.html#nmap---specifying-scripts"><i class="fa fa-check"></i><b>3.7.4</b> Nmap - Specifying Scripts</a></li>
+<li class="chapter" data-level="3.7.5" data-path="network-enumeration.html"><a href="network-enumeration.html#nmap---aggressive-scan"><i class="fa fa-check"></i><b>3.7.5</b> Nmap - Aggressive Scan</a></li>
+<li class="chapter" data-level="3.7.6" data-path="network-enumeration.html"><a href="network-enumeration.html#vulnerability-assessment-3"><i class="fa fa-check"></i><b>3.7.6</b> Vulnerability Assessment</a></li>
+</ul></li>
+<li class="chapter" data-level="3.8" data-path="network-enumeration.html"><a href="network-enumeration.html#performance"><i class="fa fa-check"></i><b>3.8</b> Performance</a>
+<ul>
+<li class="chapter" data-level="3.8.1" data-path="network-enumeration.html"><a href="network-enumeration.html#timeouts"><i class="fa fa-check"></i><b>3.8.1</b> Timeouts</a></li>
+<li class="chapter" data-level="3.8.2" data-path="network-enumeration.html"><a href="network-enumeration.html#default-scan"><i class="fa fa-check"></i><b>3.8.2</b> Default Scan</a></li>
+<li class="chapter" data-level="3.8.3" data-path="network-enumeration.html"><a href="network-enumeration.html#optimized-rtt"><i class="fa fa-check"></i><b>3.8.3</b> Optimized RTT</a></li>
+<li class="chapter" data-level="3.8.4" data-path="network-enumeration.html"><a href="network-enumeration.html#max-retries"><i class="fa fa-check"></i><b>3.8.4</b> Max Retries</a></li>
+<li class="chapter" data-level="3.8.5" data-path="network-enumeration.html"><a href="network-enumeration.html#default-scan-1"><i class="fa fa-check"></i><b>3.8.5</b> Default Scan</a></li>
+<li class="chapter" data-level="3.8.6" data-path="network-enumeration.html"><a href="network-enumeration.html#reduced-retries"><i class="fa fa-check"></i><b>3.8.6</b> Reduced Retries</a></li>
+<li class="chapter" data-level="3.8.7" data-path="network-enumeration.html"><a href="network-enumeration.html#rates"><i class="fa fa-check"></i><b>3.8.7</b> Rates</a></li>
+<li class="chapter" data-level="3.8.8" data-path="network-enumeration.html"><a href="network-enumeration.html#default-scan-2"><i class="fa fa-check"></i><b>3.8.8</b> Default Scan</a></li>
+<li class="chapter" data-level="3.8.9" data-path="network-enumeration.html"><a href="network-enumeration.html#optimized-scan"><i class="fa fa-check"></i><b>3.8.9</b> Optimized Scan</a></li>
+<li class="chapter" data-level="3.8.10" data-path="network-enumeration.html"><a href="network-enumeration.html#default-scan---found-open-ports"><i class="fa fa-check"></i><b>3.8.10</b> Default Scan - Found Open Ports</a></li>
+<li class="chapter" data-level="3.8.11" data-path="network-enumeration.html"><a href="network-enumeration.html#optimized-scan---found-open-ports"><i class="fa fa-check"></i><b>3.8.11</b> Optimized Scan - Found Open Ports</a></li>
+<li class="chapter" data-level="3.8.12" data-path="network-enumeration.html"><a href="network-enumeration.html#timing"><i class="fa fa-check"></i><b>3.8.12</b> Timing</a></li>
+</ul></li>
+<li class="chapter" data-level="3.9" data-path="network-enumeration.html"><a href="network-enumeration.html#firewall-and-ids-ips-evasion"><i class="fa fa-check"></i><b>3.9</b> Firewall and IDS-IPS Evasion</a>
+<ul>
+<li class="chapter" data-level="3.9.1" data-path="network-enumeration.html"><a href="network-enumeration.html#firewalls"><i class="fa fa-check"></i><b>3.9.1</b> Firewalls</a></li>
+<li class="chapter" data-level="3.9.2" data-path="network-enumeration.html"><a href="network-enumeration.html#idsips"><i class="fa fa-check"></i><b>3.9.2</b> IDS/IPS</a></li>
+<li class="chapter" data-level="3.9.3" data-path="network-enumeration.html"><a href="network-enumeration.html#determine-firewalls-and-their-rules"><i class="fa fa-check"></i><b>3.9.3</b> Determine Firewalls and Their Rules</a></li>
+<li class="chapter" data-level="3.9.4" data-path="network-enumeration.html"><a href="network-enumeration.html#detect-idsips"><i class="fa fa-check"></i><b>3.9.4</b> Detect IDS/IPS</a></li>
+<li class="chapter" data-level="3.9.5" data-path="network-enumeration.html"><a href="network-enumeration.html#decoys"><i class="fa fa-check"></i><b>3.9.5</b> Decoys</a></li>
+<li class="chapter" data-level="3.9.6" data-path="network-enumeration.html"><a href="network-enumeration.html#dns-proxying"><i class="fa fa-check"></i><b>3.9.6</b> DNS Proxying</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="enumeration-principles.html"><a href="enumeration-principles.html"><i class="fa fa-check"></i><b>4</b> Enumeration Principles</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="enumeration-principles.html"><a href="enumeration-principles.html#enumeration-principles-1"><i class="fa fa-check"></i><b>4.1</b> Enumeration Principles</a></li>
+<li class="chapter" data-level="4.2" data-path="enumeration-principles.html"><a href="enumeration-principles.html#enumeration-metodology"><i class="fa fa-check"></i><b>4.2</b> Enumeration Metodology</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="enumeration-principles.html"><a href="enumeration-principles.html#layer-no.1-internet-presence"><i class="fa fa-check"></i><b>4.2.1</b> Layer No.1: Internet Presence</a></li>
+<li class="chapter" data-level="4.2.2" data-path="enumeration-principles.html"><a href="enumeration-principles.html#layer-no.2-gateway"><i class="fa fa-check"></i><b>4.2.2</b> Layer No.2: Gateway</a></li>
+<li class="chapter" data-level="4.2.3" data-path="enumeration-principles.html"><a href="enumeration-principles.html#layer-no.3-accessible-services"><i class="fa fa-check"></i><b>4.2.3</b> Layer No.3: Accessible Services</a></li>
+<li class="chapter" data-level="4.2.4" data-path="enumeration-principles.html"><a href="enumeration-principles.html#layer-no.4-processes"><i class="fa fa-check"></i><b>4.2.4</b> Layer No.4: Processes</a></li>
+<li class="chapter" data-level="4.2.5" data-path="enumeration-principles.html"><a href="enumeration-principles.html#layer-no.5-privileges"><i class="fa fa-check"></i><b>4.2.5</b> Layer No.5: Privileges</a></li>
+<li class="chapter" data-level="4.2.6" data-path="enumeration-principles.html"><a href="enumeration-principles.html#layer-no.6-os-setup"><i class="fa fa-check"></i><b>4.2.6</b> Layer No.6: OS Setup</a></li>
+<li class="chapter" data-level="4.2.7" data-path="enumeration-principles.html"><a href="enumeration-principles.html#enumeration-methodology-in-practice"><i class="fa fa-check"></i><b>4.2.7</b> Enumeration Methodology in Practice</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="enumeration-principles.html"><a href="enumeration-principles.html#domain-information"><i class="fa fa-check"></i><b>4.3</b> Domain Information</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="enumeration-principles.html"><a href="enumeration-principles.html#online-presence"><i class="fa fa-check"></i><b>4.3.1</b> Online Presence</a></li>
+<li class="chapter" data-level="4.3.2" data-path="enumeration-principles.html"><a href="enumeration-principles.html#certificate-transparency"><i class="fa fa-check"></i><b>4.3.2</b> Certificate Transparency</a></li>
+<li class="chapter" data-level="4.3.3" data-path="enumeration-principles.html"><a href="enumeration-principles.html#company-hosted-servers"><i class="fa fa-check"></i><b>4.3.3</b> Company Hosted Servers</a></li>
+<li class="chapter" data-level="4.3.4" data-path="enumeration-principles.html"><a href="enumeration-principles.html#shodan---ip-list"><i class="fa fa-check"></i><b>4.3.4</b> Shodan - IP List</a></li>
+<li class="chapter" data-level="4.3.5" data-path="enumeration-principles.html"><a href="enumeration-principles.html#dns-records"><i class="fa fa-check"></i><b>4.3.5</b> DNS Records</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="enumeration-principles.html"><a href="enumeration-principles.html#cloud-resources"><i class="fa fa-check"></i><b>4.4</b> Cloud Resources</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="enumeration-principles.html"><a href="enumeration-principles.html#company-hosted-servers-1"><i class="fa fa-check"></i><b>4.4.1</b> Company Hosted Servers</a></li>
+<li class="chapter" data-level="4.4.2" data-path="enumeration-principles.html"><a href="enumeration-principles.html#google-search-for-aws"><i class="fa fa-check"></i><b>4.4.2</b> Google Search for AWS</a></li>
+<li class="chapter" data-level="4.4.3" data-path="enumeration-principles.html"><a href="enumeration-principles.html#google-search-for-azure"><i class="fa fa-check"></i><b>4.4.3</b> Google Search for Azure</a></li>
+<li class="chapter" data-level="4.4.4" data-path="enumeration-principles.html"><a href="enumeration-principles.html#target-website---source-code"><i class="fa fa-check"></i><b>4.4.4</b> Target Website - Source Code</a></li>
+<li class="chapter" data-level="4.4.5" data-path="enumeration-principles.html"><a href="enumeration-principles.html#domain.glass-results"><i class="fa fa-check"></i><b>4.4.5</b> Domain.Glass Results</a></li>
+<li class="chapter" data-level="4.4.6" data-path="enumeration-principles.html"><a href="enumeration-principles.html#grayhatwarfare-results"><i class="fa fa-check"></i><b>4.4.6</b> GrayHatWarfare Results</a></li>
+<li class="chapter" data-level="4.4.7" data-path="enumeration-principles.html"><a href="enumeration-principles.html#private-and-public-ssh-keys-leaked"><i class="fa fa-check"></i><b>4.4.7</b> Private and Public SSH Keys Leaked</a></li>
+<li class="chapter" data-level="4.4.8" data-path="enumeration-principles.html"><a href="enumeration-principles.html#ssh-private-key"><i class="fa fa-check"></i><b>4.4.8</b> SSH Private Key</a></li>
+</ul></li>
+</ul></li>
 <li class="divider"></li>
-<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Knowledge is Power</a></li>
 </ul>
 
       </nav>
